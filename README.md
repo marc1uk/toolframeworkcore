@@ -1,6 +1,6 @@
 # ToolFramework
 
-ToolFrameowkr is an open source general modular C++ Framework.
+ToolFramework is an open source general modular C++ Framework.
 
 ****************************
 #Concept
