@@ -12,9 +12,13 @@ The ToolChain also holds a uesr defined DataModel which each tool has access too
 
 User Tools can be generated for use in the tool chain by incuding a Tool header.
 
-For more information consult the ToolFramework docs or the manual
+For more information consult the ToolFramework manual:
 
 https://drive.google.com/file/d/19F-nJpeq3cHJbjV4qiSk5qzpOa7p8keQ
+
+or the docs
+
+docs https://toolframework.github.io/ToolFrameworkCore/
 
 
 Copyright (c) 2016 Benjamin Richards
