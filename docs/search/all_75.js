@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['uuid',['UUID',['../structLogging__thread__args.html#a3a7c5617b7fa5214c6da407a23266d57',1,'Logging_thread_args::UUID()'],['../structthread__args.html#a707586ba05cc2c8be29cf22769b67634',1,'thread_args::UUID()']]]
+  ['utilities',['Utilities',['../classUtilities.html',1,'Utilities'],['../classUtilities.html#ab1676c9ce35cf347a73d16f1094e1271',1,'Utilities::Utilities()'],['../classUtilities.html#ab1676c9ce35cf347a73d16f1094e1271',1,'Utilities::Utilities()']]]
 ];

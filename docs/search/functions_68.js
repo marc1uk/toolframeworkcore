@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['has',['Has',['../classBoostStore.html#af762995f2dbc5404ec1de24c34aea1ff',1,'BoostStore']]]
+  ['has',['Has',['../classStore.html#a41eaa81c4612fb5bdbf850afb6428977',1,'Store::Has(std::string key)'],['../classStore.html#a41eaa81c4612fb5bdbf850afb6428977',1,'Store::Has(std::string key)']]]
 ];

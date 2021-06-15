@@ -8,7 +8,7 @@
 Inheritance diagram for Tool\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classTool}
+\includegraphics[height=11.000000cm]{classTool}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
@@ -21,20 +21,52 @@ virtual bool \hyperlink{classTool_a4b04a99172dfe09dc97927d1feaff0ce}{Initialise}
 \begin{DoxyCompactList}\small\item\em Virtual Execute function. \end{DoxyCompactList}\item 
 \hypertarget{classTool_a1f9a82fe5cc9afd63fc8eb3aaf5d80ca}{virtual bool \hyperlink{classTool_a1f9a82fe5cc9afd63fc8eb3aaf5d80ca}{Finalise} ()=0}\label{classTool_a1f9a82fe5cc9afd63fc8eb3aaf5d80ca}
 
+\begin{DoxyCompactList}\small\item\em Virtual Finalise function. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classTool_a4b04a99172dfe09dc97927d1feaff0ce}{Initialise} (std\-::string configfile, \hyperlink{classDataModel}{Data\-Model} \&data)=0
+\begin{DoxyCompactList}\small\item\em virtual Initialise function that reads in the assigned config file and optain Data\-Moodel reference \end{DoxyCompactList}\item 
+\hypertarget{classTool_a6a71469fa4efffd6fb71afbd4941e49d}{virtual bool \hyperlink{classTool_a6a71469fa4efffd6fb71afbd4941e49d}{Execute} ()=0}\label{classTool_a6a71469fa4efffd6fb71afbd4941e49d}
+
+\begin{DoxyCompactList}\small\item\em Virtual Execute function. \end{DoxyCompactList}\item 
+\hypertarget{classTool_a1f9a82fe5cc9afd63fc8eb3aaf5d80ca}{virtual bool \hyperlink{classTool_a1f9a82fe5cc9afd63fc8eb3aaf5d80ca}{Finalise} ()=0}\label{classTool_a1f9a82fe5cc9afd63fc8eb3aaf5d80ca}
+
 \begin{DoxyCompactList}\small\item\em Virtual Finalise function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classTool_a46f7e599888302feefcf25e4f6cb4f9e}{Log} (T message, int messagelevel=1, int verbosity=1)
+\hyperlink{structMsgL}{Msg\-L} \hyperlink{classTool_aece350bc23e63656276b8338419dc54e}{M\-L} (int messagelevel)
+\begin{DoxyCompactList}\small\item\em Function for setting logging level instream. \end{DoxyCompactList}\item 
+\hypertarget{classTool_ae4da557812278419f6f8b8484df08115}{void \hyperlink{classTool_ae4da557812278419f6f8b8484df08115}{M\-L\-C} ()}\label{classTool_ae4da557812278419f6f8b8484df08115}
+
+\begin{DoxyCompactList}\small\item\em Function for clearing logging level. \end{DoxyCompactList}\item 
+\hypertarget{classTool_a46f7e599888302feefcf25e4f6cb4f9e}{{\footnotesize template$<$typename T $>$ }\\void {\bfseries Log} (T message, int messagelevel=1, int verbosity=1)}\label{classTool_a46f7e599888302feefcf25e4f6cb4f9e}
+
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classTool_ac65a2dfa2e3531fe8e05fe4112846fcf}{Log} (T message, int messagelevel)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classLogging}{Logging} fuction for printouts. \end{DoxyCompactList}\item 
+\hyperlink{structMsgL}{Msg\-L} \hyperlink{classTool_aece350bc23e63656276b8338419dc54e}{M\-L} (int messagelevel)
+\begin{DoxyCompactList}\small\item\em Function for setting logging level instream. \end{DoxyCompactList}\item 
+\hypertarget{classTool_ae4da557812278419f6f8b8484df08115}{void \hyperlink{classTool_ae4da557812278419f6f8b8484df08115}{M\-L\-C} ()}\label{classTool_ae4da557812278419f6f8b8484df08115}
+
+\begin{DoxyCompactList}\small\item\em Function for clearing logging level. \end{DoxyCompactList}\item 
+\hypertarget{classTool_a46f7e599888302feefcf25e4f6cb4f9e}{{\footnotesize template$<$typename T $>$ }\\void {\bfseries Log} (T message, int messagelevel=1, int verbosity=1)}\label{classTool_a46f7e599888302feefcf25e4f6cb4f9e}
+
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classTool_ac65a2dfa2e3531fe8e05fe4112846fcf}{Log} (T message, int messagelevel)
 \begin{DoxyCompactList}\small\item\em \hyperlink{classLogging}{Logging} fuction for printouts. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{classStore}{Store} \hyperlink{classTool_a208aed50c1c50212d2927b372c38763f}{m\-\_\-variables}
 \begin{DoxyCompactList}\small\item\em virtual destructor. \end{DoxyCompactList}\item 
-\hypertarget{classTool_a98d3ffa12f1de908da9030c8718ce3f5}{\hyperlink{classDataModel}{Data\-Model} $\ast$ \hyperlink{classTool_a98d3ffa12f1de908da9030c8718ce3f5}{m\-\_\-data}}\label{classTool_a98d3ffa12f1de908da9030c8718ce3f5}
+\hypertarget{classTool_a0c166968759706b4cd07466693cf19d0}{\hyperlink{classDataModel}{Data\-Model} $\ast$ \hyperlink{classTool_a0c166968759706b4cd07466693cf19d0}{m\-\_\-data}}\label{classTool_a0c166968759706b4cd07466693cf19d0}
 
-\begin{DoxyCompactList}\small\item\em Pointer to transiant \hyperlink{classDataModel}{Data\-Model} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Pointer to transiant \hyperlink{classDataModel}{Data\-Model} class. \end{DoxyCompactList}\item 
+\hypertarget{classTool_ae769d2a46a51a2ab638b9d9fb1b78cb7}{\hyperlink{classLogging}{Logging} $\ast$ \hyperlink{classTool_ae769d2a46a51a2ab638b9d9fb1b78cb7}{m\-\_\-log}}\label{classTool_ae769d2a46a51a2ab638b9d9fb1b78cb7}
+
+\begin{DoxyCompactList}\small\item\em Pointer to logging class. \end{DoxyCompactList}\item 
+\hypertarget{classTool_a49dc4701c181ce95f8ca4699d82f34e5}{int \hyperlink{classTool_a49dc4701c181ce95f8ca4699d82f34e5}{m\-\_\-verbose}}\label{classTool_a49dc4701c181ce95f8ca4699d82f34e5}
+
+\begin{DoxyCompactList}\small\item\em verbosity variable for direct logging level \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -70,17 +102,39 @@ virtual Initialise function that reads in the assigned config file and optain Da
 \end{DoxyParams}
 
 
-Implemented in \hyperlink{classServiceAdd_a047e44c3d209591703b0bdec1b1b51cd}{Service\-Add}, \hyperlink{classMyTool_a3bf60061195a18542c4cfb2916b9dad9}{My\-Tool}, \hyperlink{classDummyTool_a0d9cd781681a06ee3cf0cd1e7bb770a8}{Dummy\-Tool}, and \hyperlink{classLogger_a1b598f35f454e24f9e9abc9f18c3e98f}{Logger}.
+Implemented in \hyperlink{classMyToolDynamicMultiThread_ac082408d85bc3e76214e55d4f62de0da}{My\-Tool\-Dynamic\-Multi\-Thread}, \hyperlink{classMyToolMultiThread_a19dc55079a7b2da02ad9addd565b8e80}{My\-Tool\-Multi\-Thread}, \hyperlink{classMyToolDynamicMultiThread_ac082408d85bc3e76214e55d4f62de0da}{My\-Tool\-Dynamic\-Multi\-Thread}, \hyperlink{classMyToolMultiThread_a19dc55079a7b2da02ad9addd565b8e80}{My\-Tool\-Multi\-Thread}, \hyperlink{classMyToolThread_adc7ab1ab74fc1564f07e52e63383d679}{My\-Tool\-Thread}, \hyperlink{classMyToolThread_adc7ab1ab74fc1564f07e52e63383d679}{My\-Tool\-Thread}, \hyperlink{classMyTool_a3bf60061195a18542c4cfb2916b9dad9}{My\-Tool}, \hyperlink{classMyTool_a3bf60061195a18542c4cfb2916b9dad9}{My\-Tool}, \hyperlink{classDummyTool_a0d9cd781681a06ee3cf0cd1e7bb770a8}{Dummy\-Tool}, and \hyperlink{classDummyTool_a0d9cd781681a06ee3cf0cd1e7bb770a8}{Dummy\-Tool}.
 
-\hypertarget{classTool_a46f7e599888302feefcf25e4f6cb4f9e}{\index{Tool@{Tool}!Log@{Log}}
+\hypertarget{classTool_a4b04a99172dfe09dc97927d1feaff0ce}{\index{Tool@{Tool}!Initialise@{Initialise}}
+\index{Initialise@{Initialise}!Tool@{Tool}}
+\subsubsection[{Initialise}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Tool\-::\-Initialise (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{configfile, }
+\item[{{\bf Data\-Model} \&}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classTool_a4b04a99172dfe09dc97927d1feaff0ce}
+
+
+virtual Initialise function that reads in the assigned config file and optain Data\-Moodel reference 
+
+
+\begin{DoxyParams}{Parameters}
+{\em configfile} & Path and name of config file to read in. \\
+\hline
+{\em data} & Reference to \hyperlink{classDataModel}{Data\-Model}. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classMyToolDynamicMultiThread_ac082408d85bc3e76214e55d4f62de0da}{My\-Tool\-Dynamic\-Multi\-Thread}, \hyperlink{classMyToolMultiThread_a19dc55079a7b2da02ad9addd565b8e80}{My\-Tool\-Multi\-Thread}, \hyperlink{classMyToolDynamicMultiThread_ac082408d85bc3e76214e55d4f62de0da}{My\-Tool\-Dynamic\-Multi\-Thread}, \hyperlink{classMyToolMultiThread_a19dc55079a7b2da02ad9addd565b8e80}{My\-Tool\-Multi\-Thread}, \hyperlink{classMyToolThread_adc7ab1ab74fc1564f07e52e63383d679}{My\-Tool\-Thread}, \hyperlink{classMyToolThread_adc7ab1ab74fc1564f07e52e63383d679}{My\-Tool\-Thread}, \hyperlink{classMyTool_a3bf60061195a18542c4cfb2916b9dad9}{My\-Tool}, \hyperlink{classMyTool_a3bf60061195a18542c4cfb2916b9dad9}{My\-Tool}, \hyperlink{classDummyTool_a0d9cd781681a06ee3cf0cd1e7bb770a8}{Dummy\-Tool}, and \hyperlink{classDummyTool_a0d9cd781681a06ee3cf0cd1e7bb770a8}{Dummy\-Tool}.
+
+\hypertarget{classTool_ac65a2dfa2e3531fe8e05fe4112846fcf}{\index{Tool@{Tool}!Log@{Log}}
 \index{Log@{Log}!Tool@{Tool}}
 \subsubsection[{Log}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void Tool\-::\-Log (
 \begin{DoxyParamCaption}
 \item[{T}]{message, }
-\item[{int}]{messagelevel = {\ttfamily 1}, }
-\item[{int}]{verbosity = {\ttfamily 1}}
+\item[{int}]{messagelevel}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}}\label{classTool_a46f7e599888302feefcf25e4f6cb4f9e}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}}\label{classTool_ac65a2dfa2e3531fe8e05fe4112846fcf}
 
 
 \hyperlink{classLogging}{Logging} fuction for printouts. 
@@ -89,9 +143,58 @@ Implemented in \hyperlink{classServiceAdd_a047e44c3d209591703b0bdec1b1b51cd}{Ser
 \begin{DoxyParams}{Parameters}
 {\em message} & Templated message string. \\
 \hline
-{\em messagelevel} & The verbosity level at which to show the message. \\
+{\em messagelevel} & The verbosity level at which to show the message. Checked against internal verbosity level \\
 \hline
-{\em verbosity} & The current verbosity level. \\
+\end{DoxyParams}
+\hypertarget{classTool_ac65a2dfa2e3531fe8e05fe4112846fcf}{\index{Tool@{Tool}!Log@{Log}}
+\index{Log@{Log}!Tool@{Tool}}
+\subsubsection[{Log}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void Tool\-::\-Log (
+\begin{DoxyParamCaption}
+\item[{T}]{message, }
+\item[{int}]{messagelevel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}}\label{classTool_ac65a2dfa2e3531fe8e05fe4112846fcf}
+
+
+\hyperlink{classLogging}{Logging} fuction for printouts. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Templated message string. \\
+\hline
+{\em messagelevel} & The verbosity level at which to show the message. Checked against internal verbosity level \\
+\hline
+\end{DoxyParams}
+\hypertarget{classTool_aece350bc23e63656276b8338419dc54e}{\index{Tool@{Tool}!M\-L@{M\-L}}
+\index{M\-L@{M\-L}!Tool@{Tool}}
+\subsubsection[{M\-L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Msg\-L} Tool\-::\-M\-L (
+\begin{DoxyParamCaption}
+\item[{int}]{messagelevel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}}\label{classTool_aece350bc23e63656276b8338419dc54e}
+
+
+Function for setting logging level instream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em messagelevel} & the verboisty level at which to show the message. Checked against internal verbosity level. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classTool_aece350bc23e63656276b8338419dc54e}{\index{Tool@{Tool}!M\-L@{M\-L}}
+\index{M\-L@{M\-L}!Tool@{Tool}}
+\subsubsection[{M\-L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Msg\-L} Tool\-::\-M\-L (
+\begin{DoxyParamCaption}
+\item[{int}]{messagelevel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}}\label{classTool_aece350bc23e63656276b8338419dc54e}
+
+
+Function for setting logging level instream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em messagelevel} & the verboisty level at which to show the message. Checked against internal verbosity level. \\
 \hline
 \end{DoxyParams}
 
@@ -106,6 +209,7 @@ virtual destructor.
 
 \hyperlink{classStore}{Store} used to store configuration varaibles 
 
-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
+include/Tool.\-h\item 
 src/\-Tool/Tool.\-h\end{DoxyCompactItemize}

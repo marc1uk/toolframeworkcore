@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['_7ebooststore',['~BoostStore',['../classBoostStore.html#ad84f44892b8f1a48f1655a399c6809fd',1,'BoostStore']]],
-  ['_7epointerwrapperbase',['~PointerWrapperBase',['../classPointerWrapperBase.html#a842fb0af38187d71678971452c1e1094',1,'PointerWrapperBase']]],
-  ['_7eservicediscovery',['~ServiceDiscovery',['../classServiceDiscovery.html#aee64ecb3b4c07b7f2a070a66ecb7dc70',1,'ServiceDiscovery']]]
+  ['_7ethread_5fargs',['~Thread_args',['../structThread__args.html#ad786e0c55b4e44bc04d9ba3b813bace1',1,'Thread_args::~Thread_args()'],['../structThread__args.html#ad786e0c55b4e44bc04d9ba3b813bace1',1,'Thread_args::~Thread_args()']]]
 ];
