@@ -218,6 +218,9 @@ int ToolChain::Execute(int repeates){
   
   if(Initialised){
 
+    bool skip=false;
+    m_data.vars.Set("Skip",skip);
+
     if(Inline){
       logmessage<<yellow<<"********************************************************"<<std::endl<<"**** Executing toolchain "<<repeates<<" times ****"<<std::endl<<"********************************************************"<<plain<<std::endl;
     m_data.Log->Log( logmessage.str(),2,m_verbose);
@@ -230,15 +233,26 @@ int ToolChain::Execute(int repeates){
       logmessage.str("");
       
       for(int i=0 ; i<m_tools.size();i++){
+
+	m_data.vars.Get("Skip",skip); 
+	if(skip){
+	  skip=false;
+	  m_data.vars.Set("Skip",skip);
+	  logmessage<<cyan<<"Skipping Remaining Tools"<<plain;
+	  m_data.Log->Log( logmessage.str(),4,m_verbose);
+	  logmessage.str("");
+	  break;
+	}
 	
 	logmessage<<cyan<<"Executing "<<m_toolnames.at(i)<<plain;
 	m_data.Log->Log( logmessage.str(),4,m_verbose);
 	logmessage.str("");	
 	
+	
 #ifndef DEBUG
 	try{
 #endif
-
+	  
 	  if(m_tools.at(i)->Execute()){
 	    logmessage<<green<<m_toolnames.at(i)<<" executed  successfully"<<plain<<std::endl;
 	    m_data.Log->Log( logmessage.str(),4,m_verbose);
@@ -260,7 +274,7 @@ int ToolChain::Execute(int repeates){
 	      exit(1);
 	    }
 	  }  
-
+	  
 #ifndef DEBUG
 	}
 	
@@ -272,14 +286,14 @@ int ToolChain::Execute(int repeates){
 	  result=2;
 	  if(m_errorlevel>0){
 	    if(m_recover){
-		m_errorlevel=0;
-		Finalise();
+	      m_errorlevel=0;
+	      Finalise();
 	    }
 	    exit(1);
 	  }
 	}
 #endif	
-
+	
       }
       logmessage<<yellow<<"**** Tool chain executed ****"<<std::endl<<"********************************************************"<<plain<<std::endl;
       m_data.Log->Log( logmessage.str(),3,m_verbose);
