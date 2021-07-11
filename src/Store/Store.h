@@ -42,7 +42,7 @@ class Store{
 
       std::stringstream stream(m_variables[name]);
       stream>>out;
-      return true;
+      return !stream.fail();
     }
     
     else return false;
