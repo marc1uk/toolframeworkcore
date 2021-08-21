@@ -100,7 +100,6 @@ bool Store::Has(std::string key){
 
 }
 
-
 std::vector<std::string> Store::Keys(){
 
   std::vector<std::string> ret;
@@ -112,5 +111,15 @@ std::vector<std::string> Store::Keys(){
   }
 
   return ret;
+  
+}
 
+const std::map<std::string,std::string>* Store::GetMap(){
+   return &m_variables;
+}
+
+bool Store::Erase(std::string key){
+    if(not Has(key)) return false;
+    m_variables.erase(key);
+    return true;
 }
