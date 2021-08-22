@@ -69,14 +69,15 @@ class ToolChain{
   void Add(std::string name,Tool *tool,std::string configfile=""); ///< Add a Tool to the ToolChain. @param name The name used in logs when reffering to the Tool. @param tool A pointer to the tool to be added to the ToolChain. @param configfile The configuration file path and name to be passed to the Tool. 
   int Initialise(); ///< Initialise all Tools in the ToolChain sequentially.
   int Execute(int repeates=1); ///< Execute all Tools in the ToolChain sequentially. @param repeates How many times to run sequential Execute loop.
-  int Finalise(); ///< Finalise all Tools in the ToolCahin sequentially. 
-
+  int Finalise(); ///< Finalise all Tools in the ToolCahin sequentially.
   void Interactive(); ///< Start interactive thread to accept commands and run ToolChain in interactive mode.
   DataModel m_data; ///< Direct access to transient data model class of the Tools in the ToolChain. This allows direct initialisation and copying of variables.
 
 private:
 
-  void Init();
+  virtual void Init();
+  void Inline();
+  bool LoadTools(std::string filename);
 
   static  void *InteractiveThread(void* arg);
   std::string ExecuteCommand(std::string connand);
@@ -95,17 +96,17 @@ private:
   int m_errorlevel;
   std::string m_log_mode;
   std::string m_log_local_path;
-  bool interactive;
-  int Inline;
+  bool m_interactive;
+  int m_inline;
   bool m_recover;
-    
+  
   //status variables
   bool exeloop;
   unsigned long execounter;
   bool Initialised;
   bool Finalised;
   bool paused;
-  std::stringstream logmessage;  
+  Logging* m_log;
 
   //socket coms and threading variables
   pthread_t thread[2];

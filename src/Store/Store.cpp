@@ -4,7 +4,7 @@
 Store::Store(){}
 
 
-void Store::Initialise(std::string filename){
+bool Store::Initialise(std::string filename){
   
   std::ifstream file(filename.c_str());
   std::string line;
@@ -18,15 +18,17 @@ void Store::Initialise(std::string filename){
 	std::string value;
 	std::stringstream stream(line);
 	if(stream>>key>>value) m_variables[key]=value;
-	
       }
       
     }
+    file.close();
   }
-  else std::cout<<"\033[38;5;196m WARNING!!!: Config file "<<filename<<" does not exist no config loaded \033[0m"<<std::endl;
+  else{
+    std::cout<<"\033[38;5;196m WARNING!!!: Config file "<<filename<<" does not exist no config loaded \033[0m"<<std::endl;
+    return false;
+  }
   
-  file.close();
-  
+  return true;
 }
 
 void Store::Print(){
