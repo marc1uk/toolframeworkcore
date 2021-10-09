@@ -93,3 +93,6 @@ DataModel/%.o: DataModel/%.cpp lib/libLogging.so lib/libStore.so
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
 	cp $(shell dirname $<)/*.h include
 	-g++ $(CXXFLAGS) -c -o $@ $< -I include -L lib -lStore -lLogging  $(DataModelInclude) $(DataModelLib)
+
+Docs:
+	doxygen Doxyfile
