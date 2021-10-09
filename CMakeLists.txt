@@ -1,13 +1,5 @@
 cmake_minimum_required (VERSION 2.6)
-project (ToolDAQFramework)
-
-set(ZMQ_INC "${PROJECT_SOURCE_DIR}/../zeromq-4.0.7/include/")
-set(ZMQ_LIB_PATH "${PROJECT_SOURCE_DIR}/../zeromq-4.0.7/lib")
-set(ZMQ_LIBS zmq)
-
-set(BOOST_INC "${PROJECT_SOURCE_DIR}/../boost_1_66_0/install/include/")
-set(BOOST_LIB_PATH "${PROJECT_SOURCE_DIR}/../boost_1_66_0/install/lib")
-set(BOOST_LIBS boost_date_time boost_serialization boost_iostreams)
+project (ToolFrameworkCore)
 
 set(DATAMODEL_INC "")
 set(DATAMODEL_LIB_PATH "")
@@ -17,8 +9,8 @@ set(MYTOOLS_INC "")
 set(MYTOOLS_LIB_PATH "")
 set(MYTOOLS_LIBS "")
 
-include_directories (${BOOST_INC} ${ZMQ_INC} ${DATAMODEL_INC} ${MYTOOLS_INC})
-link_directories("${PROJECT_SOURCE_DIR}/lib" ${BOOST_LIB_PATH} ${ZMQ_LIB_PATH} ${DATAMODEL_LIB_PATH} ${MYTOOLS_LIB_PATH})
+include_directories (${DATAMODEL_INC} ${MYTOOLS_INC})
+link_directories(${DATAMODEL_LIB_PATH} ${MYTOOLS_LIB_PATH})
 
 MACRO(HEADER_DIRECTORIES return_list)
     FILE(GLOB_RECURSE new_list ${PROJECT_SOURCE_DIR}/*.h)
@@ -45,9 +37,6 @@ add_library(Store SHARED ${STORE_SRC})
 file(GLOB_RECURSE LOGGING_SRC RELATIVE ${CMAKE_SOURCE_DIR} "src/Logging/*.cpp")
 add_library(Logging SHARED ${LOGGING_SRC})
 
-file(GLOB_RECURSE SERVICEDISCOVERY_SRC RELATIVE ${CMAKE_SOURCE_DIR} "src/ServiceDiscovery/*.cpp")
-add_library(ServiceDiscovery SHARED ${SERVICEDISCOVERY_SRC})
-
 file(GLOB_RECURSE DATAMODEL_SRC RELATIVE ${CMAKE_SOURCE_DIR} "DataModel/*.cpp")
 add_library(DataModel SHARED ${DATAMODEL_SRC})
 
@@ -58,10 +47,4 @@ file(GLOB_RECURSE TOOLCHAIN_SRC RELATIVE ${CMAKE_SOURCE_DIR} "src/ToolChain/*.cp
 add_library(ToolChain SHARED ${TOOLCHAIN_SRC})
 
 add_executable (main ${PROJECT_SOURCE_DIR}/src/main.cpp)
-target_link_libraries (main Store Logging ToolChain ServiceDiscovery MyTools DataModel ${ZMQ_LIBS} ${BOOST_LIBS} ${DATAMODEL_LIBS} ${MYTOOLS_LIBS})
-
-add_executable ( NodeDaemon src/NodeDaemon/NodeDaemon.cpp)
-target_link_libraries (NodeDaemon Store ServiceDiscovery ${ZMQ_LIBS} ${BOOST_LIBS})
-
-add_executable ( RemoteControl src/RemoteControl/RemoteControl.cpp)
-target_link_libraries (RemoteControl Store ServiceDiscovery ${ZMQ_LIBS} ${BOOST_LIBS})
+target_link_libraries (main Store Logging ToolChain MyTools DataModel pthread ${DATAMODEL_LIBS} ${MYTOOLS_LIBS})

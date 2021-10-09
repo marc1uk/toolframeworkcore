@@ -142,6 +142,30 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:af4091a68d8a27a3b806d029cc9b2135e"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classUtilities.html#af4091a68d8a27a3b806d029cc9b2135e">KillThread</a> (T *pointer)</td></tr>
 <tr class="memdesc:af4091a68d8a27a3b806d029cc9b2135e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kill a thread with args that inheirt form base <a class="el" href="structThread__args.html">Thread_args</a>. <br/></td></tr>
 <tr class="separator:af4091a68d8a27a3b806d029cc9b2135e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1676c9ce35cf347a73d16f1094e1271"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab1676c9ce35cf347a73d16f1094e1271"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUtilities.html#ab1676c9ce35cf347a73d16f1094e1271">Utilities</a> ()</td></tr>
+<tr class="memdesc:ab1676c9ce35cf347a73d16f1094e1271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple constructor. <br/></td></tr>
+<tr class="separator:ab1676c9ce35cf347a73d16f1094e1271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9c2f86e8279a0341dcf8ce85a92c86b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac9c2f86e8279a0341dcf8ce85a92c86b"></a>
+<a class="el" href="structThread__args.html">Thread_args</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>CreateThread</b> (std::string ThreadName, void(*func)(std::string))</td></tr>
+<tr class="separator:ac9c2f86e8279a0341dcf8ce85a92c86b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7598372bbee218ec15275f7a84d9ff6a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7598372bbee218ec15275f7a84d9ff6a"></a>
+<a class="el" href="structThread__args.html">Thread_args</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUtilities.html#a7598372bbee218ec15275f7a84d9ff6a">CreateThread</a> (std::string ThreadName, void(*func)(<a class="el" href="structThread__args.html">Thread_args</a> *), <a class="el" href="structThread__args.html">Thread_args</a> *args)</td></tr>
+<tr class="memdesc:a7598372bbee218ec15275f7a84d9ff6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a thread with more complicated data exchange definned by arguments. <br/></td></tr>
+<tr class="separator:a7598372bbee218ec15275f7a84d9ff6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f1c1d53b9ce59bb26c56a3bebdbb255"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f1c1d53b9ce59bb26c56a3bebdbb255"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUtilities.html#a6f1c1d53b9ce59bb26c56a3bebdbb255">KillThread</a> (<a class="el" href="structThread__args.html">Thread_args</a> *&amp;args)</td></tr>
+<tr class="memdesc:a6f1c1d53b9ce59bb26c56a3bebdbb255"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kill a thread assosiated to args. <br/></td></tr>
+<tr class="separator:a6f1c1d53b9ce59bb26c56a3bebdbb255"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c17a46ce33b0b647797f24bc859bd7a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c17a46ce33b0b647797f24bc859bd7a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUtilities.html#a8c17a46ce33b0b647797f24bc859bd7a">KillThread</a> (std::string ThreadName)</td></tr>
+<tr class="memdesc:a8c17a46ce33b0b647797f24bc859bd7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kill a thread by name. <br/></td></tr>
+<tr class="separator:a8c17a46ce33b0b647797f24bc859bd7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4091a68d8a27a3b806d029cc9b2135e"><td class="memTemplParams" colspan="2"><a class="anchor" id="af4091a68d8a27a3b806d029cc9b2135e"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:af4091a68d8a27a3b806d029cc9b2135e"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classUtilities.html#af4091a68d8a27a3b806d029cc9b2135e">KillThread</a> (T *pointer)</td></tr>
+<tr class="memdesc:af4091a68d8a27a3b806d029cc9b2135e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kill a thread with args that inheirt form base <a class="el" href="structThread__args.html">Thread_args</a>. <br/></td></tr>
+<tr class="separator:af4091a68d8a27a3b806d029cc9b2135e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class can be instansiated in a <a class="el" href="classTool.html">Tool</a> and provides some helpful threading, dynamic socket descovery and promotion functionality</p>
@@ -151,6 +175,7 @@ template&lt;typename T &gt; </td></tr>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>DataModel/<a class="el" href="DataModel_2Utilities_8h_source.html">Utilities.h</a></li>
 <li>include/<a class="el" href="include_2Utilities_8h_source.html">Utilities.h</a></li>
+<li>install/include/<a class="el" href="install_2include_2Utilities_8h_source.html">Utilities.h</a></li>
 <li>DataModel/Utilities.cpp</li>
 </ul>
 </div><!-- contents -->

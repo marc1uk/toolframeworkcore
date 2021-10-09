@@ -45,7 +45,7 @@ ToolChain::ToolChain(int verbose, int errorlevel, std::string logmode, std::stri
   m_log_local_path=log_local_path;
 
   Init();
-  
+
 }
 
 void ToolChain::Init(){
@@ -58,7 +58,7 @@ void ToolChain::Init(){
   m_data.Log= new Logging(*out,m_log_mode, m_log_local_path);
   m_log=m_data.Log;  
 
-  if(m_log_mode!="Off") std::cout.rdbuf(&(m_data.Log->buffer));
+  if(m_log_mode!="Off") std::cout.rdbuf(m_data.Log->buffer);
 
   execounter=0;
   Initialised=false;

@@ -73,14 +73,21 @@ struct MsgL{
  */
 
 
-class Logging: public std::ostream {
 
-  class MyStreamBuf: public std::stringbuf
+
+
+class Logging: virtual public std::ostream {
+
+ public:
+
+  class MyStreamBuf: virtual public std::stringbuf
     {
 
       std::ostream&   output;
       
     public:
+
+    MyStreamBuf():output(*tmp){;};
       MyStreamBuf(std::ostream& str ,std::string mode, std::string localpath="");
       
       virtual int sync ( );
@@ -90,11 +97,11 @@ class Logging: public std::ostream {
       int m_messagelevel;
       int m_verbose;
       
-      ~MyStreamBuf();
+     virtual ~MyStreamBuf();
 
-    private:
+    protected:
 
-      
+      std::ostream* tmp;
 
       std::string m_mode;
 
@@ -104,9 +111,8 @@ class Logging: public std::ostream {
    
     }; 
 
- public:
   
-  MyStreamBuf buffer; ///< Stream buffer used to replace std::cout for redirection to coustom output.
+  MyStreamBuf* buffer; ///< Stream buffer used to replace std::cout for redirection to coustom output.
   
   /**
      Constructor for Logging class
@@ -120,9 +126,15 @@ class Logging: public std::ostream {
      @param logservice Remote service to connect to to send logs
      @param logport remothe port to send logging information to
   */
- Logging(std::ostream& str, std::string mode, std::string localpath=""):std::ostream(&buffer), buffer(str, mode, localpath){};
 
-  
+  // Logging(std::ostream& str, std::string mode, std::string localpath=""):std::ostream(&buffer), buffer(str, mode, localpath){};
+
+ Logging(std::ostream& str, std::string mode, std::string localpath=""):std::ostream(buffer), buffer(new MyStreamBuf(str, mode, localpath)){};
+
+  Logging(){;};
+
+  virtual ~Logging();
+
   /**
        Function to create a log messages. 
  
@@ -131,15 +143,16 @@ class Logging: public std::ostream {
        @param verbose verbosity level of the current Tool.    
        
   */
+
   template <typename T>  void Log(T message, int messagelevel=1, int verbose=1){
     if(messagelevel<=verbose){    
       std::stringstream tmp;
       tmp<<message;
-      buffer.m_messagelevel=messagelevel;
-      buffer.m_verbose=verbose;
+      buffer->m_messagelevel=messagelevel;
+      buffer->m_verbose=verbose;
       std::cout<<tmp.str()<<plain<<std::endl;
-      buffer.m_messagelevel=1;
-      buffer.m_verbose=1;
+      buffer->m_messagelevel=1;
+      buffer->m_verbose=1;
     } 
   }
   
@@ -151,15 +164,15 @@ class Logging: public std::ostream {
      @return value is bool success of opening new logfile.
      
   */
-  bool ChangeOutFile(std::string localpath){return buffer.ChangeOutFile(localpath);} 
+ bool ChangeOutFile(std::string localpath){return buffer->ChangeOutFile(localpath);} 
   
   
 
 
   Logging& operator<<(MsgL a){
 
-    buffer.m_messagelevel=a.messagelevel;
-    buffer.m_verbose=a.verbose;
+    buffer->m_messagelevel=a.messagelevel;
+    buffer->m_verbose=a.verbose;
 
     return *this;
   }

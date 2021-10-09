@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['booststore',['BoostStore',['../classBoostStore.html',1,'']]]
+  ['binarystream',['BinaryStream',['../classBinaryStream.html',1,'']]],
+  ['bstore',['BStore',['../classBStore.html',1,'']]]
 ];

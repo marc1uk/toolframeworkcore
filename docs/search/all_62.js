@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['buffer',['buffer',['../classLogging.html#a9622376d4c126c163334149cabc98bcc',1,'Logging']]]
+  ['binarystream',['BinaryStream',['../classBinaryStream.html',1,'']]],
+  ['bstore',['BStore',['../classBStore.html',1,'']]],
+  ['buffer',['buffer',['../classLogging.html#a0fe24ccb3e56851bb763031243819107',1,'Logging']]]
 ];

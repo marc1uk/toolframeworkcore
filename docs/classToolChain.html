@@ -85,6 +85,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classToolChain-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ToolChain Class Reference</div>  </div>
@@ -98,8 +101,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a133e224899a743ee4a679396f8569bf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a133e224899a743ee4a679396f8569bf9">ToolChain</a> (std::string configfile, int argc=0, char *argv[]=0)</td></tr>
 <tr class="memdesc:a133e224899a743ee4a679396f8569bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that obtains all of the configuration varaibles from an input file.  <a href="#a133e224899a743ee4a679396f8569bf9">More...</a><br/></td></tr>
 <tr class="separator:a133e224899a743ee4a679396f8569bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa55cb52b21892009313568f60d5dcdb6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#aa55cb52b21892009313568f60d5dcdb6">ToolChain</a> (int verbose=1, int errorlevel=0, std::string logmode=&quot;Interactive&quot;, std::string log_local_path=&quot;./log&quot;)</td></tr>
-<tr class="separator:aa55cb52b21892009313568f60d5dcdb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04186696e28e3193b2fc756a89d14882"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a04186696e28e3193b2fc756a89d14882">ToolChain</a> (int verbose=1, int errorlevel=0, std::string logmode=&quot;Off&quot;, std::string log_local_path=&quot;./log&quot;)</td></tr>
+<tr class="separator:a04186696e28e3193b2fc756a89d14882"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4da0c02154a0597704e58836d6607e61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a4da0c02154a0597704e58836d6607e61">Add</a> (std::string name, <a class="el" href="classTool.html">Tool</a> *tool, std::string configfile=&quot;&quot;)</td></tr>
 <tr class="memdesc:a4da0c02154a0597704e58836d6607e61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a <a class="el" href="classTool.html">Tool</a> to the <a class="el" href="classToolChain.html">ToolChain</a>.  <a href="#a4da0c02154a0597704e58836d6607e61">More...</a><br/></td></tr>
 <tr class="separator:a4da0c02154a0597704e58836d6607e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,8 +124,31 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a133e224899a743ee4a679396f8569bf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a133e224899a743ee4a679396f8569bf9">ToolChain</a> (std::string configfile, int argc=0, char *argv[]=0)</td></tr>
 <tr class="memdesc:a133e224899a743ee4a679396f8569bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that obtains all of the configuration varaibles from an input file.  <a href="#a133e224899a743ee4a679396f8569bf9">More...</a><br/></td></tr>
 <tr class="separator:a133e224899a743ee4a679396f8569bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa55cb52b21892009313568f60d5dcdb6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#aa55cb52b21892009313568f60d5dcdb6">ToolChain</a> (int verbose=1, int errorlevel=0, std::string logmode=&quot;Interactive&quot;, std::string log_local_path=&quot;./log&quot;)</td></tr>
-<tr class="separator:aa55cb52b21892009313568f60d5dcdb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04186696e28e3193b2fc756a89d14882"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a04186696e28e3193b2fc756a89d14882">ToolChain</a> (int verbose=1, int errorlevel=0, std::string logmode=&quot;Off&quot;, std::string log_local_path=&quot;./log&quot;)</td></tr>
+<tr class="separator:a04186696e28e3193b2fc756a89d14882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4da0c02154a0597704e58836d6607e61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a4da0c02154a0597704e58836d6607e61">Add</a> (std::string name, <a class="el" href="classTool.html">Tool</a> *tool, std::string configfile=&quot;&quot;)</td></tr>
+<tr class="memdesc:a4da0c02154a0597704e58836d6607e61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a <a class="el" href="classTool.html">Tool</a> to the <a class="el" href="classToolChain.html">ToolChain</a>.  <a href="#a4da0c02154a0597704e58836d6607e61">More...</a><br/></td></tr>
+<tr class="separator:a4da0c02154a0597704e58836d6607e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a341f343926341b82a29c586a7b9683af"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a341f343926341b82a29c586a7b9683af"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a341f343926341b82a29c586a7b9683af">Initialise</a> ()</td></tr>
+<tr class="memdesc:a341f343926341b82a29c586a7b9683af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise all Tools in the <a class="el" href="classToolChain.html">ToolChain</a> sequentially. <br/></td></tr>
+<tr class="separator:a341f343926341b82a29c586a7b9683af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a303e299293fd4d3a5e91865e04898e52"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a303e299293fd4d3a5e91865e04898e52">Execute</a> (int repeates=1)</td></tr>
+<tr class="memdesc:a303e299293fd4d3a5e91865e04898e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute all Tools in the <a class="el" href="classToolChain.html">ToolChain</a> sequentially.  <a href="#a303e299293fd4d3a5e91865e04898e52">More...</a><br/></td></tr>
+<tr class="separator:a303e299293fd4d3a5e91865e04898e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3828756135773fb9ca4b361a47296dd9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3828756135773fb9ca4b361a47296dd9"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a3828756135773fb9ca4b361a47296dd9">Finalise</a> ()</td></tr>
+<tr class="memdesc:a3828756135773fb9ca4b361a47296dd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalise all Tools in the ToolCahin sequentially. <br/></td></tr>
+<tr class="separator:a3828756135773fb9ca4b361a47296dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bb47b83b6b85c3b0fab75af0cda19bf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9bb47b83b6b85c3b0fab75af0cda19bf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a9bb47b83b6b85c3b0fab75af0cda19bf">Interactive</a> ()</td></tr>
+<tr class="memdesc:a9bb47b83b6b85c3b0fab75af0cda19bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start interactive thread to accept commands and run <a class="el" href="classToolChain.html">ToolChain</a> in interactive mode. <br/></td></tr>
+<tr class="separator:a9bb47b83b6b85c3b0fab75af0cda19bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a133e224899a743ee4a679396f8569bf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a133e224899a743ee4a679396f8569bf9">ToolChain</a> (std::string configfile, int argc=0, char *argv[]=0)</td></tr>
+<tr class="memdesc:a133e224899a743ee4a679396f8569bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that obtains all of the configuration varaibles from an input file.  <a href="#a133e224899a743ee4a679396f8569bf9">More...</a><br/></td></tr>
+<tr class="separator:a133e224899a743ee4a679396f8569bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04186696e28e3193b2fc756a89d14882"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a04186696e28e3193b2fc756a89d14882">ToolChain</a> (int verbose=1, int errorlevel=0, std::string logmode=&quot;Off&quot;, std::string log_local_path=&quot;./log&quot;)</td></tr>
+<tr class="separator:a04186696e28e3193b2fc756a89d14882"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4da0c02154a0597704e58836d6607e61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a4da0c02154a0597704e58836d6607e61">Add</a> (std::string name, <a class="el" href="classTool.html">Tool</a> *tool, std::string configfile=&quot;&quot;)</td></tr>
 <tr class="memdesc:a4da0c02154a0597704e58836d6607e61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a <a class="el" href="classTool.html">Tool</a> to the <a class="el" href="classToolChain.html">ToolChain</a>.  <a href="#a4da0c02154a0597704e58836d6607e61">More...</a><br/></td></tr>
 <tr class="separator:a4da0c02154a0597704e58836d6607e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,6 +174,120 @@ Public Attributes</h2></td></tr>
 <a class="el" href="classDataModel.html">DataModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a92c81316d0c0b16ee9e4a084dd976f83">m_data</a></td></tr>
 <tr class="memdesc:a92c81316d0c0b16ee9e4a084dd976f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direct access to transient data model class of the Tools in the <a class="el" href="classToolChain.html">ToolChain</a>. This allows direct initialisation and copying of variables. <br/></td></tr>
 <tr class="separator:a92c81316d0c0b16ee9e4a084dd976f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ab705c173cb72d1d35865f7435bcb9f0b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab705c173cb72d1d35865f7435bcb9f0b"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Init</b> ()</td></tr>
+<tr class="separator:ab705c173cb72d1d35865f7435bcb9f0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1cc0e9d9f6b2d23adb9eab2d7a58119"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1cc0e9d9f6b2d23adb9eab2d7a58119"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Inline</b> ()</td></tr>
+<tr class="separator:ac1cc0e9d9f6b2d23adb9eab2d7a58119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1b120b81163d9e00ee778fbc40ddb23"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1b120b81163d9e00ee778fbc40ddb23"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>LoadTools</b> (std::string filename)</td></tr>
+<tr class="separator:ac1b120b81163d9e00ee778fbc40ddb23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce65465365bf2b6da10b5d28028afcb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ce65465365bf2b6da10b5d28028afcb"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>ExecuteCommand</b> (std::string connand)</td></tr>
+<tr class="separator:a6ce65465365bf2b6da10b5d28028afcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca479d6490c01c91d395c9cda5934d78"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca479d6490c01c91d395c9cda5934d78"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Init</b> ()</td></tr>
+<tr class="separator:aca479d6490c01c91d395c9cda5934d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1cc0e9d9f6b2d23adb9eab2d7a58119"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1cc0e9d9f6b2d23adb9eab2d7a58119"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Inline</b> ()</td></tr>
+<tr class="separator:ac1cc0e9d9f6b2d23adb9eab2d7a58119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1b120b81163d9e00ee778fbc40ddb23"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1b120b81163d9e00ee778fbc40ddb23"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>LoadTools</b> (std::string filename)</td></tr>
+<tr class="separator:ac1b120b81163d9e00ee778fbc40ddb23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce65465365bf2b6da10b5d28028afcb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ce65465365bf2b6da10b5d28028afcb"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>ExecuteCommand</b> (std::string connand)</td></tr>
+<tr class="separator:a6ce65465365bf2b6da10b5d28028afcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca479d6490c01c91d395c9cda5934d78"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca479d6490c01c91d395c9cda5934d78"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Init</b> ()</td></tr>
+<tr class="separator:aca479d6490c01c91d395c9cda5934d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1cc0e9d9f6b2d23adb9eab2d7a58119"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1cc0e9d9f6b2d23adb9eab2d7a58119"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Inline</b> ()</td></tr>
+<tr class="separator:ac1cc0e9d9f6b2d23adb9eab2d7a58119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1b120b81163d9e00ee778fbc40ddb23"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1b120b81163d9e00ee778fbc40ddb23"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>LoadTools</b> (std::string filename)</td></tr>
+<tr class="separator:ac1b120b81163d9e00ee778fbc40ddb23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce65465365bf2b6da10b5d28028afcb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ce65465365bf2b6da10b5d28028afcb"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>ExecuteCommand</b> (std::string connand)</td></tr>
+<tr class="separator:a6ce65465365bf2b6da10b5d28028afcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
+Static Protected Member Functions</h2></td></tr>
+<tr class="memitem:a7f6fcdce202336463b71aa5167758bd2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f6fcdce202336463b71aa5167758bd2"></a>
+static void *&#160;</td><td class="memItemRight" valign="bottom"><b>InteractiveThread</b> (void *arg)</td></tr>
+<tr class="separator:a7f6fcdce202336463b71aa5167758bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d65ca640f36c6ebb445c54d87e6df55"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d65ca640f36c6ebb445c54d87e6df55"></a>
+static void *&#160;</td><td class="memItemRight" valign="bottom"><b>InteractiveThread</b> (void *arg)</td></tr>
+<tr class="separator:a3d65ca640f36c6ebb445c54d87e6df55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d65ca640f36c6ebb445c54d87e6df55"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d65ca640f36c6ebb445c54d87e6df55"></a>
+static void *&#160;</td><td class="memItemRight" valign="bottom"><b>InteractiveThread</b> (void *arg)</td></tr>
+<tr class="separator:a3d65ca640f36c6ebb445c54d87e6df55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a78a1e722f03588a9783b8ca5f178e81b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a78a1e722f03588a9783b8ca5f178e81b"></a>
+std::vector&lt; <a class="el" href="classTool.html">Tool</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_tools</b></td></tr>
+<tr class="separator:a78a1e722f03588a9783b8ca5f178e81b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8479eba49e3fcb38c6679a5dbd5581e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8479eba49e3fcb38c6679a5dbd5581e2"></a>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_toolnames</b></td></tr>
+<tr class="separator:a8479eba49e3fcb38c6679a5dbd5581e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2cdf72577745496f463ca154bb9950a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2cdf72577745496f463ca154bb9950a"></a>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_configfiles</b></td></tr>
+<tr class="separator:aa2cdf72577745496f463ca154bb9950a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1dc1ae556666fe54faafef2f0c338cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1dc1ae556666fe54faafef2f0c338cf"></a>
+std::streambuf *&#160;</td><td class="memItemRight" valign="bottom"><b>bcout</b></td></tr>
+<tr class="separator:ad1dc1ae556666fe54faafef2f0c338cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf52c79675be51308ee5743d5e5a94cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf52c79675be51308ee5743d5e5a94cf"></a>
+std::ostream *&#160;</td><td class="memItemRight" valign="bottom"><b>out</b></td></tr>
+<tr class="separator:acf52c79675be51308ee5743d5e5a94cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e157c7148cbdb9eccd43fce185297f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e157c7148cbdb9eccd43fce185297f5"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_verbose</b></td></tr>
+<tr class="separator:a3e157c7148cbdb9eccd43fce185297f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26843fabb52f0fba5f91be3da7564e4e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a26843fabb52f0fba5f91be3da7564e4e"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_errorlevel</b></td></tr>
+<tr class="separator:a26843fabb52f0fba5f91be3da7564e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa36a20b14abe2e1f491396f396bf41c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa36a20b14abe2e1f491396f396bf41c3"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_log_mode</b></td></tr>
+<tr class="separator:aa36a20b14abe2e1f491396f396bf41c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a030b1214102cfb02242e2247248f6087"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a030b1214102cfb02242e2247248f6087"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_log_local_path</b></td></tr>
+<tr class="separator:a030b1214102cfb02242e2247248f6087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ed4e371b26c220f0018ad54dc2260fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ed4e371b26c220f0018ad54dc2260fd"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_interactive</b></td></tr>
+<tr class="separator:a1ed4e371b26c220f0018ad54dc2260fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fc8417d6708585de3d4b96a49709a3c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9fc8417d6708585de3d4b96a49709a3c"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_inline</b></td></tr>
+<tr class="separator:a9fc8417d6708585de3d4b96a49709a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace512f7eff07742d545cd9c15cf2b3c0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace512f7eff07742d545cd9c15cf2b3c0"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_recover</b></td></tr>
+<tr class="separator:ace512f7eff07742d545cd9c15cf2b3c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a408cf3ba3c040374fa00ac4b789712cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a408cf3ba3c040374fa00ac4b789712cd"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>exeloop</b></td></tr>
+<tr class="separator:a408cf3ba3c040374fa00ac4b789712cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97ae31bc6524d2dcec465eadbde52bb1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a97ae31bc6524d2dcec465eadbde52bb1"></a>
+unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>execounter</b></td></tr>
+<tr class="separator:a97ae31bc6524d2dcec465eadbde52bb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a183dede9901ee79ed7c52b41f7d4b3b4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a183dede9901ee79ed7c52b41f7d4b3b4"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>Initialised</b></td></tr>
+<tr class="separator:a183dede9901ee79ed7c52b41f7d4b3b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac52f9abf9a9df10846ad77ecd48b3065"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac52f9abf9a9df10846ad77ecd48b3065"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>Finalised</b></td></tr>
+<tr class="separator:ac52f9abf9a9df10846ad77ecd48b3065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a047c9aa0130323fd4fa7a0065e18e1f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a047c9aa0130323fd4fa7a0065e18e1f2"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>paused</b></td></tr>
+<tr class="separator:a047c9aa0130323fd4fa7a0065e18e1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6b3ce2003563d033eeb2f3700d150fa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae6b3ce2003563d033eeb2f3700d150fa"></a>
+<a class="el" href="classLogging.html">Logging</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_log</b></td></tr>
+<tr class="separator:ae6b3ce2003563d033eeb2f3700d150fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af64ffec771bdd358c30daec4148cd9b5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af64ffec771bdd358c30daec4148cd9b5"></a>
+pthread_t&#160;</td><td class="memItemRight" valign="bottom"><b>thread</b> [1]</td></tr>
+<tr class="separator:af64ffec771bdd358c30daec4148cd9b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a621ee785109fba1cb9def121a2ada524"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a621ee785109fba1cb9def121a2ada524"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>msgflag</b></td></tr>
+<tr class="separator:a621ee785109fba1cb9def121a2ada524"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class holds a dynamic list of Tools which can be Initialised, Executed and Finalised to perform program operation. Large number of options in terms of run modes and setting can be assigned.</p>
@@ -195,7 +335,7 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa55cb52b21892009313568f60d5dcdb6"></a>
+<a class="anchor" id="a04186696e28e3193b2fc756a89d14882"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -215,7 +355,7 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>logmode</em> = <code>&quot;Interactive&quot;</code>, </td>
+          <td class="paramname"><em>logmode</em> = <code>&quot;Off&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -289,7 +429,7 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa55cb52b21892009313568f60d5dcdb6"></a>
+<a class="anchor" id="a04186696e28e3193b2fc756a89d14882"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -309,7 +449,101 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>logmode</em> = <code>&quot;Interactive&quot;</code>, </td>
+          <td class="paramname"><em>logmode</em> = <code>&quot;Off&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>log_local_path</em> = <code>&quot;./log&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constructor with explicit configuration variables passed as arguments. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">verbose</td><td>The verbosity level of the <a class="el" href="classToolChain.html">ToolChain</a>. The higher the number the more explicit the print outs. 0 = silent apart from errors. </td></tr>
+    <tr><td class="paramname">errorlevel</td><td>The behavior that occurs when the <a class="el" href="classToolChain.html">ToolChain</a> encounters an error. 0 = do not exit for both handeled and unhandeled errors, 1 = exit on unhandeled errors only, 2 = exit on handeled and unhandeled errors. </td></tr>
+    <tr><td class="paramname">service</td><td>The name of the <a class="el" href="classToolChain.html">ToolChain</a> service to boradcast for service discovery </td></tr>
+    <tr><td class="paramname">logmode</td><td>Where log printouts should be forwarded too. "Interactive" = cout, "Remote" = send to a remote logging system, "local" = ouput logs to a file. </td></tr>
+    <tr><td class="paramname">log_local_path</td><td>The file path and name of where to store logs if in Local logging mode. </td></tr>
+    <tr><td class="paramname">log_service</td><td>Service name of remote logging system if in Remote logging mode. </td></tr>
+    <tr><td class="paramname">log_port</td><td>The Port number of the remote logging service </td></tr>
+    <tr><td class="paramname">pub_sec</td><td>The number of seconds between publishing multicast serivce beacons </td></tr>
+    <tr><td class="paramname">kick_sec</td><td>The number of seconds to wait before removing a servic from the remote services list if no beacon received. </td></tr>
+    <tr><td class="paramname">IO_Threads</td><td>The number of ZMQ IO threads to use (~1 per Gbps of traffic). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a133e224899a743ee4a679396f8569bf9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ToolChain::ToolChain </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>configfile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>argv</em>[] = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor that obtains all of the configuration varaibles from an input file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">configfile</td><td>The path and name of the config file to read configuration values from. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a04186696e28e3193b2fc756a89d14882"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ToolChain::ToolChain </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>errorlevel</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>logmode</em> = <code>&quot;Off&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -428,6 +662,72 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a4da0c02154a0597704e58836d6607e61"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ToolChain::Add </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classTool.html">Tool</a> *&#160;</td>
+          <td class="paramname"><em>tool</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>configfile</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a <a class="el" href="classTool.html">Tool</a> to the <a class="el" href="classToolChain.html">ToolChain</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name used in logs when reffering to the <a class="el" href="classTool.html">Tool</a>. </td></tr>
+    <tr><td class="paramname">tool</td><td>A pointer to the tool to be added to the <a class="el" href="classToolChain.html">ToolChain</a>. </td></tr>
+    <tr><td class="paramname">configfile</td><td>The configuration file path and name to be passed to the <a class="el" href="classTool.html">Tool</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a303e299293fd4d3a5e91865e04898e52"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ToolChain::Execute </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>repeates</em> = <code>1</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Execute all Tools in the <a class="el" href="classToolChain.html">ToolChain</a> sequentially. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">repeates</td><td>How many times to run sequential Execute loop. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a303e299293fd4d3a5e91865e04898e52"></a>
 <div class="memitem">
 <div class="memproto">
@@ -478,6 +778,7 @@ Public Attributes</h2></td></tr>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/<a class="el" href="include_2ToolChain_8h_source.html">ToolChain.h</a></li>
+<li>install/include/<a class="el" href="install_2include_2ToolChain_8h_source.html">ToolChain.h</a></li>
 <li>src/ToolChain/<a class="el" href="src_2ToolChain_2ToolChain_8h_source.html">ToolChain.h</a></li>
 <li>src/ToolChain/ToolChain.cpp</li>
 </ul>

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>ToolFramework: ToolDAQ Framework</title>
+<title>ToolFramework: ToolFramework</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,18 +75,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ToolDAQ Framework </div>  </div>
+<div class="title">ToolFramework </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>ToolDAQ is an open source general modular DAQ FrameWork, with built in service discovery.</p>
+<div class="textblock"><p>ToolFramework is an open source general modular C++ Framework.</p>
+<p><em>PLEASE NOTE: This is the core framework only!!! do not clone this repo for building an application. To create your own ToolFramework appliciaion please clone/fork the ToolFrameworkApplication repository <a href="https://github.com/ToolFramework/ToolFrameworkApplication">https://github.com/ToolFramework/ToolFrameworkApplication</a> which has a script to pull this repository down as a dependancy.</em></p>
 <hr/>
 <p> #Concept </p>
 <hr/>
 <p>The main executable creates a <a class="el" href="classToolChain.html">ToolChain</a> which is an object that holds Tools. Tools are added to the <a class="el" href="classToolChain.html">ToolChain</a> and then the <a class="el" href="classToolChain.html">ToolChain</a> can be told to Initialise Execute and Finalise each tool in the chain.</p>
 <p>The <a class="el" href="classToolChain.html">ToolChain</a> also holds a uesr defined <a class="el" href="classDataModel.html">DataModel</a> which each tool has access too and can read ,update and modify. This is the method by which data is passed between Tools.</p>
-<p>User Tools can be generated for use in the tool chain by incuding a <a class="el" href="classTool.html">Tool</a> header. This can be done manually or by use of the newTool.sh script.</p>
-<p>For more information consult the ToolDAQ doc.pdf</p>
-<p><a href="https://github.com/ToolDAQ/ToolDAQFramework/blob/master/ToolDAQ%20doc.pdf">https://github.com/ToolDAQ/ToolDAQFramework/blob/master/ToolDAQ%20doc.pdf</a></p>
+<p>User Tools can be generated for use in the tool chain by incuding a <a class="el" href="classTool.html">Tool</a> header.</p>
+<p>For more information consult the ToolFramework manual:</p>
+<p><a href="https://drive.google.com/file/d/19F-nJpeq3cHJbjV4qiSk5qzpOa7p8keQ">https://drive.google.com/file/d/19F-nJpeq3cHJbjV4qiSk5qzpOa7p8keQ</a></p>
+<p>or the docs</p>
+<p>docs <a href="https://toolframework.github.io/ToolFrameworkCore/">https://toolframework.github.io/ToolFrameworkCore/</a></p>
 <p>Copyright (c) 2016 Benjamin Richards </p>
 </div></div><!-- contents -->
 <!-- start footer part -->

@@ -88,3 +88,9 @@ bool Logging::MyStreamBuf::ChangeOutFile(std::string localpath){
   
 }
 
+Logging::~Logging(){
+
+  delete buffer;
+  buffer=0;
+
+}

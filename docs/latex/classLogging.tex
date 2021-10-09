@@ -11,8 +11,28 @@ Inheritance diagram for Logging\-:\begin{figure}[H]
 \includegraphics[height=2.000000cm]{classLogging}
 \end{center}
 \end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classLogging_1_1MyStreamBuf}{My\-Stream\-Buf}
+\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\hyperlink{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}{Logging} (std\-::ostream \&str, std\-::string mode, std\-::string localpath=\char`\"{}\char`\"{})
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classLogging_af7839ee68729b066da269cc012b1fcc9}{Log} (T message, int messagelevel=1, int verbose=1)
+\item 
+bool \hyperlink{classLogging_a7a0c89c152ad81fb41a849ed9d81e429}{Change\-Out\-File} (std\-::string localpath)
+\item 
+\hypertarget{classLogging_aed3d056a85b2bee70f31752595397a60}{\hyperlink{classLogging}{Logging} \& {\bfseries operator$<$$<$} (\hyperlink{structMsgL}{Msg\-L} a)}\label{classLogging_aed3d056a85b2bee70f31752595397a60}
+
+\item 
+\hypertarget{classLogging_adcbbc7dc2221a2f5fb88dc68089fb91c}{\hyperlink{classLogging}{Logging} \& {\bfseries operator$<$$<$} (std\-::ostream \&($\ast$foo)(std\-::ostream \&))}\label{classLogging_adcbbc7dc2221a2f5fb88dc68089fb91c}
+
+\item 
+\hypertarget{classLogging_a4e1557aba6b12232714eead91264587e}{{\footnotesize template$<$typename T $>$ }\\\hyperlink{classLogging}{Logging} \& {\bfseries operator$<$$<$} (T \&a)}\label{classLogging_a4e1557aba6b12232714eead91264587e}
+
 \item 
 \hyperlink{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}{Logging} (std\-::ostream \&str, std\-::string mode, std\-::string localpath=\char`\"{}\char`\"{})
 \item 
@@ -47,7 +67,7 @@ bool \hyperlink{classLogging_a7a0c89c152ad81fb41a849ed9d81e429}{Change\-Out\-Fil
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classLogging_a9622376d4c126c163334149cabc98bcc}{My\-Stream\-Buf \hyperlink{classLogging_a9622376d4c126c163334149cabc98bcc}{buffer}}\label{classLogging_a9622376d4c126c163334149cabc98bcc}
+\hypertarget{classLogging_a0fe24ccb3e56851bb763031243819107}{\hyperlink{classLogging_1_1MyStreamBuf}{My\-Stream\-Buf} $\ast$ \hyperlink{classLogging_a0fe24ccb3e56851bb763031243819107}{buffer}}\label{classLogging_a0fe24ccb3e56851bb763031243819107}
 
 \begin{DoxyCompactList}\small\item\em Stream buffer used to replace std\-::cout for redirection to coustom output. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -64,6 +84,36 @@ B.\-Richards
 Contact\-: \href{mailto:b.richards@qmul.ac.uk}{\tt b.\-richards@qmul.\-ac.\-uk} 
 
 \subsection{Constructor \& Destructor Documentation}
+\hypertarget{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}{\index{Logging@{Logging}!Logging@{Logging}}
+\index{Logging@{Logging}!Logging@{Logging}}
+\subsubsection[{Logging}]{\setlength{\rightskip}{0pt plus 5cm}Logging\-::\-Logging (
+\begin{DoxyParamCaption}
+\item[{std\-::ostream \&}]{str, }
+\item[{std\-::string}]{mode, }
+\item[{std\-::string}]{localpath = {\ttfamily \char`\"{}\char`\"{}}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}
+Constructor for \hyperlink{classLogging}{Logging} class
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & \\
+\hline
+{\em context} & Pointer to Z\-M\-W context used for creating sockets \\
+\hline
+{\em U\-U\-I\-D} & \hyperlink{classToolChain}{Tool\-Chain} U\-U\-I\-D for unique labelling of log messages \\
+\hline
+{\em service} & \\
+\hline
+{\em mode} & \\
+\hline
+{\em localpath} & Local path for log output file \\
+\hline
+{\em logservice} & Remote service to connect to to send logs \\
+\hline
+{\em logport} & remothe port to send logging information to \\
+\hline
+\end{DoxyParams}
 \hypertarget{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}{\index{Logging@{Logging}!Logging@{Logging}}
 \index{Logging@{Logging}!Logging@{Logging}}
 \subsubsection[{Logging}]{\setlength{\rightskip}{0pt plus 5cm}Logging\-::\-Logging (
@@ -161,6 +211,43 @@ Functionn to change the logs out file if set to a local path.
 \begin{DoxyReturn}{Returns}
 value is bool success of opening new logfile. 
 \end{DoxyReturn}
+\hypertarget{classLogging_a7a0c89c152ad81fb41a849ed9d81e429}{\index{Logging@{Logging}!Change\-Out\-File@{Change\-Out\-File}}
+\index{Change\-Out\-File@{Change\-Out\-File}!Logging@{Logging}}
+\subsubsection[{Change\-Out\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool Logging\-::\-Change\-Out\-File (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{localpath}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classLogging_a7a0c89c152ad81fb41a849ed9d81e429}
+Functionn to change the logs out file if set to a local path.
+
+
+\begin{DoxyParams}{Parameters}
+{\em localpath} & path to new log file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value is bool success of opening new logfile. 
+\end{DoxyReturn}
+\hypertarget{classLogging_af7839ee68729b066da269cc012b1fcc9}{\index{Logging@{Logging}!Log@{Log}}
+\index{Log@{Log}!Logging@{Logging}}
+\subsubsection[{Log}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void Logging\-::\-Log (
+\begin{DoxyParamCaption}
+\item[{T}]{message, }
+\item[{int}]{messagelevel = {\ttfamily 1}, }
+\item[{int}]{verbose = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classLogging_af7839ee68729b066da269cc012b1fcc9}
+Function to create a log messages.
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & templated log message text. \\
+\hline
+{\em messagelevel} & message verbosity level of the message being sent (e.\-g. if 'messagelevel$>$= verbose' Then message is sent). \\
+\hline
+{\em verbose} & verbosity level of the current \hyperlink{classTool}{Tool}. \\
+\hline
+\end{DoxyParams}
 \hypertarget{classLogging_af7839ee68729b066da269cc012b1fcc9}{\index{Logging@{Logging}!Log@{Log}}
 \index{Log@{Log}!Logging@{Logging}}
 \subsubsection[{Log}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void Logging\-::\-Log (
@@ -206,4 +293,6 @@ Function to create a log messages.
 The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
 include/Logging.\-h\item 
-src/\-Logging/Logging.\-h\end{DoxyCompactItemize}
+install/include/Logging.\-h\item 
+src/\-Logging/Logging.\-h\item 
+src/\-Logging/Logging.\-cpp\end{DoxyCompactItemize}
