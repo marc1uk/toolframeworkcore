@@ -31,9 +31,7 @@ include/Tool.h: src/Tool/Tool.h
 
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
 	cp src/Tool/Tool.h include/
-	cp UserTools/*.h include/	
-	cp UserTools/*/*.h include/	
-	cp DataModel/*.h include/		
+
 
 lib/libToolChain.so: src/ToolChain/* lib/libStore.so include/Tool.h lib/libLogging.so |  lib/libDataModel.so lib/libMyTools.so 
 
@@ -54,31 +52,33 @@ clean:
 lib/libDataModel.so: DataModel/* lib/libLogging.so lib/libStore.so  $(patsubst DataModel/%.cpp, DataModel/%.o, $(wildcard DataModel/*.cpp))
 
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	cp DataModel/*.h include/
 	g++ $(CXXFLAGS) -shared DataModel/*.o -I include -L lib -lStore -lLogging -o lib/libDataModel.so $(DataModelInclude) $(DataModelLib)
 
 
 lib/libMyTools.so: UserTools/*/* UserTools/* lib/libStore.so include/Tool.h lib/libLogging.so UserTools/Factory/Factory.o | lib/libDataModel.so 
 
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	cp UserTools/*.h include/
-	cp UserTools/*/*.h include/
-	g++ $(CXXFLAGS) -shared UserTools/*/*.o -I include -L lib -lStore -lDataModel -lLogging -o lib/libMyTools.so $(MyToolsInclude) $(DataModelInclude) $(MyToolsLib)
+	g++ $(CXXFLAGS) -shared UserTools/*/*.o -I include -L lib -lStore -lDataModel -lLogging -o lib/libMyTools.so $(MyToolsInclude) $(DataModelInclude) $(MyToolsLib) $(DataModelLib)
+
 
 lib/libLogging.so: src/Logging/*  lib/libStore.so 
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
 	cp src/Logging/Logging.h include/
 	g++ $(CXXFLAGS) -shared -I include src/Logging/Logging.cpp -o lib/libLogging.so -L lib/ -lStore
 
+
 UserTools/Factory/Factory.o: UserTools/Factory/Factory.cpp lib/libStore.so include/Tool.h lib/libLogging.so lib/libDataModel.so $(patsubst UserTools/%.cpp, UserTools/%.o, $(wildcard UserTools/*/*.cpp)) | include/Tool.h
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	 cp UserTools/Factory/Factory.h include
+	cp UserTools/Factory/Factory.h include
+	cp UserTools/Unity.h include
 	-g++ $(CXXFLAGS) -c -o $@ $< -I include -L lib -lStore -lDataModel -lLogging $(MyToolsInclude) $(MyToolsLib) $(DataModelInclude) $(DataModelib)
+
 
 UserTools/%.o: UserTools/%.cpp lib/libStore.so include/Tool.h lib/libLogging.so lib/libDataModel.so | include/Tool.h
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
 	cp $(shell dirname $<)/*.h include
 	-g++ $(CXXFLAGS) -c -o $@ $< -I include -L lib -lStore -lDataModel -lLogging $(MyToolsInclude) $(MyToolsLib) $(DataModelInclude) $(DataModelib)
+
 
 target: remove $(patsubst %.cpp, %.o, $(wildcard UserTools/$(TOOL)/*.cpp))
 
@@ -86,6 +86,7 @@ remove:
 	@echo -e "removing"
 	-rm UserTools/$(TOOL)/*.o
 	-rm include/$(TOOL).h
+
 
 DataModel/%.o: DataModel/%.cpp lib/libLogging.so lib/libStore.so  
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
