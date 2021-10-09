@@ -58,7 +58,7 @@ lib/libDataModel.so: DataModel/* lib/libLogging.so lib/libStore.so  $(patsubst D
 	g++ $(CXXFLAGS) -shared DataModel/*.o -I include -L lib -lStore -lLogging -o lib/libDataModel.so $(DataModelInclude) $(DataModelLib)
 
 
-lib/libMyTools.so: UserTools/*/* UserTools/* lib/libStore.so include/Tool.h lib/libLogging.so $(patsubst UserTools/%.cpp, UserTools/%.o, $(wildcard UserTools/*/*.cpp))| lib/libDataModel.so 
+lib/libMyTools.so: UserTools/*/* UserTools/* lib/libStore.so include/Tool.h lib/libLogging.so UserTools/Factory/Factory.o | lib/libDataModel.so 
 
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
 	cp UserTools/*.h include/
@@ -69,6 +69,11 @@ lib/libLogging.so: src/Logging/*  lib/libStore.so
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
 	cp src/Logging/Logging.h include/
 	g++ $(CXXFLAGS) -shared -I include src/Logging/Logging.cpp -o lib/libLogging.so -L lib/ -lStore
+
+UserTools/Factory/Factory.o: UserTools/Factory/Factory.cpp lib/libStore.so include/Tool.h lib/libLogging.so lib/libDataModel.so $(patsubst UserTools/%.cpp, UserTools/%.o, $(wildcard UserTools/*/*.cpp)) | include/Tool.h
+	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
+	 cp UserTools/Factory/Factory.h include
+	-g++ $(CXXFLAGS) -c -o $@ $< -I include -L lib -lStore -lDataModel -lLogging $(MyToolsInclude) $(MyToolsLib) $(DataModelInclude) $(DataModelib)
 
 UserTools/%.o: UserTools/%.cpp lib/libStore.so include/Tool.h lib/libLogging.so lib/libDataModel.so | include/Tool.h
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
