@@ -11,13 +11,14 @@ DataModelLib =
 MyToolsInclude =
 MyToolsLib =
 
+
 debug: all
 
 all: lib/libMyTools.so lib/libToolChain.so lib/libStore.so include/Tool.h lib/libDataModel.so lib/libLogging.so main
 
 main: src/main.cpp lib/libStore.so lib/libLogging.so lib/libToolChain.so | lib/libMyTools.so  lib/libDataModel.so 
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	g++ $(CXXFLAGS) src/main.cpp -o main -I include -L lib -lStore -lMyTools -lToolChain -lDataModel -lLogging  -lpthread $(DataModelInclude) $(MyToolsInclude) $(ZMQLib) 
+	g++ $(CXXFLAGS) src/main.cpp -o main -I include -L lib -lStore -lMyTools -lToolChain -lDataModel -lLogging  -lpthread $(DataModelInclude) $(MyToolsInclude) $(MyToolsLib) $(DataModelLib) 
 
 
 lib/libStore.so: src/Store/*
@@ -37,7 +38,7 @@ lib/libToolChain.so: src/ToolChain/* lib/libStore.so include/Tool.h lib/libLoggi
 
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
 	cp src/ToolChain/ToolChain.h include/
-	g++ $(CXXFLAGS) -shared src/ToolChain/ToolChain.cpp -I include -lpthread -L lib -lStore -lDataModel -lMyTools -lLogging -o lib/libToolChain.so $(DataModelInclude) $(MyToolsInclude)
+	g++ $(CXXFLAGS) -shared src/ToolChain/ToolChain.cpp -I include -lpthread -L lib -lStore -lDataModel -lMyTools -lLogging -o lib/libToolChain.so $(DataModelInclude) $(MyToolsInclude) $(MyToolsLib) $(DataModelLib)
 
 
 clean: 
