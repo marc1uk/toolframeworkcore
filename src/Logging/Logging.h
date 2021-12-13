@@ -181,6 +181,7 @@ class Logging: virtual public std::ostream {
     
     std::cout<<plain<<std::endl;
     
+    return *this;
   }
 
   template<typename T>  Logging& operator<<(T &a){
