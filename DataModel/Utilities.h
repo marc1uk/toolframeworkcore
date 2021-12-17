@@ -58,7 +58,6 @@ class Utilities{
  public:
   
   Utilities(); ///< Simple constructor
-  Thread_args* CreateThread(std::string ThreadName,  void (*func)(std::string));  //func = &my_int_func; ///< Create a simple thread that has string exchange with main thread
   Thread_args* CreateThread(std::string ThreadName,  void (*func)(Thread_args*), Thread_args* args); ///< Create a thread with more complicated data exchange definned by arguments
   bool KillThread(Thread_args* &args); ///< Kill a thread assosiated to args
   bool KillThread(std::string ThreadName); ///< Kill a thread by name
