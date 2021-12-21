@@ -1,4 +1,4 @@
-Dependancies=Dependancies
+Dependencies=Dependencies
 
 CXXFLAGS=  -fPIC -O3 -Wpedantic 
 
@@ -23,22 +23,22 @@ main: src/main.cpp lib/libStore.so lib/libLogging.so lib/libToolChain.so | lib/l
 	g++ $(CXXFLAGS) src/main.cpp -o main -I include -L lib -lStore -lMyTools -lToolChain -lDataModel -lLogging  -lpthread $(DataModelInclude) $(MyToolsInclude) $(MyToolsLib) $(DataModelib) 
 
 
-lib/libStore.so: $(Dependancies)/ToolFrameworkCore/src/Store/*
-	cd $(Dependancies)/ToolFrameworkCore && $(MAKE) lib/libStore.so
+lib/libStore.so: $(Dependencies)/ToolFrameworkCore/src/Store/*
+	cd $(Dependencies)/ToolFrameworkCore && $(MAKE) lib/libStore.so
 	@echo -e "\e[38;5;118m\n*************** Copying " $@ "****************\e[0m"
-	cp $(Dependancies)/ToolFrameworkCore/src/Store/*.h include/
-	cp $(Dependancies)/ToolFrameworkCore/lib/libStore.so lib/
+	cp $(Dependencies)/ToolFrameworkCore/src/Store/*.h include/
+	cp $(Dependencies)/ToolFrameworkCore/lib/libStore.so lib/
 
 
-include/Tool.h:  $(Dependancies)/ToolFrameworkCore/src/Tool/Tool.h
+include/Tool.h:  $(Dependencies)/ToolFrameworkCore/src/Tool/Tool.h
 	@echo -e "\e[38;5;118m\n*************** Copying " $@ "****************\e[0m"
-	cp $(Dependancies)/ToolFrameworkCore/src/Tool/Tool.h include/
+	cp $(Dependencies)/ToolFrameworkCore/src/Tool/Tool.h include/
 
 
-lib/libToolChain.so: $(Dependancies)/ToolFrameworkCore/src/ToolChain/*  lib/libLogging.so lib/libStore.so | lib/libMyTools.so lib/libDataModel.so
+lib/libToolChain.so: $(Dependencies)/ToolFrameworkCore/src/ToolChain/*  lib/libLogging.so lib/libStore.so | lib/libMyTools.so lib/libDataModel.so
 	@echo -e "\e[38;5;226m\n*************** Making " $@ "****************\e[0m"
-	cp $(Dependancies)/ToolFrameworkCore/src/ToolChain/*.h include/
-	g++ $(CXXFLAGS) -shared $(Dependancies)/ToolFrameworkCore/src/ToolChain/ToolChain.cpp -I include -lpthread -L lib -lStore -lDataModel -lLogging -lMyTools -o lib/libToolChain.so $(DataModelInclude) $(DataModelib) $(MyToolsInclude) $(MyToolsLib)
+	cp $(Dependencies)/ToolFrameworkCore/src/ToolChain/*.h include/
+	g++ $(CXXFLAGS) -shared $(Dependencies)/ToolFrameworkCore/src/ToolChain/ToolChain.cpp -I include -lpthread -L lib -lStore -lDataModel -lLogging -lMyTools -o lib/libToolChain.so $(DataModelInclude) $(DataModelib) $(MyToolsInclude) $(MyToolsLib)
 
 
 clean: 
@@ -63,11 +63,11 @@ lib/libMyTools.so: UserTools/*/* UserTools/* lib/libStore.so include/Tool.h lib/
 	g++ $(CXXFLAGS) -shared UserTools/*/*.o -I include -L lib -lStore -lDataModel -lLogging -o lib/libMyTools.so $(MyToolsInclude) $(DataModelInclude) $(MyToolsLib) $(DataModelLib)
 
 
-lib/libLogging.so:  $(Dependancies)/ToolFrameworkCore/src/Logging/* | lib/libStore.so
-	cd $(Dependancies)/ToolFrameworkCore && $(MAKE) lib/libLogging.so
+lib/libLogging.so:  $(Dependencies)/ToolFrameworkCore/src/Logging/* | lib/libStore.so
+	cd $(Dependencies)/ToolFrameworkCore && $(MAKE) lib/libLogging.so
 	@echo -e "\e[38;5;118m\n*************** Copying " $@ "****************\e[0m"
-	cp $(Dependancies)/ToolFrameworkCore/src/Logging/Logging.h include/
-	cp $(Dependancies)/ToolFrameworkCore/lib/libLogging.so lib/
+	cp $(Dependencies)/ToolFrameworkCore/src/Logging/Logging.h include/
+	cp $(Dependencies)/ToolFrameworkCore/lib/libLogging.so lib/
 
 UserTools/Factory/Factory.o: UserTools/Factory/Factory.cpp lib/libStore.so include/Tool.h lib/libLogging.so lib/libDataModel.so $(patsubst UserTools/%.cpp, UserTools/%.o, $(wildcard UserTools/*/*.cpp)) | include/Tool.h
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
@@ -77,7 +77,7 @@ UserTools/Factory/Factory.o: UserTools/Factory/Factory.cpp lib/libStore.so inclu
 
 update:
 	@echo -e "\e[38;5;51m\n*************** Updating ****************\e[0m"
-	cd $(Dependancies)/ToolFrameworkCore; git pull
+	cd $(Dependencies)/ToolFrameworkCore; git pull
 	git pull
 
 UserTools/%.o: UserTools/%.cpp lib/libStore.so include/Tool.h lib/libLogging.so lib/libDataModel.so | include/Tool.h

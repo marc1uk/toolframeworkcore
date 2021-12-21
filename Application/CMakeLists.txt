@@ -32,10 +32,10 @@ include_directories(${header_list})
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 
-file(GLOB_RECURSE STORE_SRC RELATIVE ${CMAKE_SOURCE_DIR} "Dependancies/ToolFrameworkCore/src/Store/*.cpp")
+file(GLOB_RECURSE STORE_SRC RELATIVE ${CMAKE_SOURCE_DIR} "Dependencies/ToolFrameworkCore/src/Store/*.cpp")
 add_library(Store SHARED ${STORE_SRC})
 
-file(GLOB_RECURSE LOGGING_SRC RELATIVE ${CMAKE_SOURCE_DIR} "Dependancies/ToolFrameworkCore/src/Logging/*.cpp")
+file(GLOB_RECURSE LOGGING_SRC RELATIVE ${CMAKE_SOURCE_DIR} "Dependencies/ToolFrameworkCore/src/Logging/*.cpp")
 add_library(Logging SHARED ${LOGGING_SRC})
 
 file(GLOB_RECURSE DATAMODEL_SRC RELATIVE ${CMAKE_SOURCE_DIR} "DataModel/*.cpp")
@@ -44,7 +44,7 @@ add_library(DataModel SHARED ${DATAMODEL_SRC})
 file(GLOB_RECURSE MYTOOLS_SRC RELATIVE ${CMAKE_SOURCE_DIR} "UserTools/*.cpp")
 add_library(MyTools SHARED ${MYTOOLS_SRC})
 
-file(GLOB_RECURSE TOOLCHAIN_SRC RELATIVE ${CMAKE_SOURCE_DIR} "Dependancies/ToolFrameworkCore/src/ToolChain/*.cpp")
+file(GLOB_RECURSE TOOLCHAIN_SRC RELATIVE ${CMAKE_SOURCE_DIR} "Dependencies/ToolFrameworkCore/src/ToolChain/*.cpp")
 add_library(ToolChain SHARED ${TOOLCHAIN_SRC})
 
 add_executable (main ${PROJECT_SOURCE_DIR}/src/main.cpp)
