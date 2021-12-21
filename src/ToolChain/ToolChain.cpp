@@ -102,7 +102,7 @@ int ToolChain::Initialise(){
     for(int i=0 ; i<m_tools.size();i++){  
 
       *m_log<<MsgL(2,m_verbose)<<cyan<<"Initialising "<<m_toolnames.at(i)<<std::endl;
-      
+      *m_log<<MsgL(0,0);
 
 #ifndef DEBUG      
       try{ 
@@ -171,7 +171,7 @@ int ToolChain::Execute(int repeates){
 	}
 
 	*m_log<<MsgL(4,m_verbose)<<cyan<<"Executing "<<m_toolnames.at(i)<<std::endl;
-	
+	*m_log<<MsgL(0,0);
 	
 #ifndef DEBUG
 	try{
@@ -238,6 +238,7 @@ int ToolChain::Finalise(){
     for(int i=0 ; i<m_tools.size();i++){
 
       *m_log<<MsgL(2,m_verbose)<<cyan<<"Finalising "<<m_toolnames.at(i)<<std::endl;
+      *m_log<<MsgL(0,0);
 
 #ifndef DEBUG
       try{

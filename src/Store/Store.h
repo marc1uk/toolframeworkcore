@@ -31,7 +31,7 @@ class Store{
   bool Has(std::string key); ///<Returns bool based on if store contains entry given by sting @param string key to comapre.
 
   /**
-     Templated getter function for tore content. Assignment is templated and via reference.
+     Templated getter function for sore content. Assignment is templated and via reference.
      @param name The ASCII key that the variable in the Store is stored with.
      @param out The variable to fill with the value.
      @return Return value is true if varaible exists in the Store and correctly assigned to out and false if not.
@@ -48,6 +48,22 @@ class Store{
     else return false;
 
   }
+
+
+  /**
+     Templated getter function for sore content. 
+     @param name The ASCII key that the variable in the Store is stored with.
+     @return Return value is default copiler costructed value if not true (note: no checking exists)
+  */
+  template<typename T> T Get(std::string name){
+    
+    T tmp;
+    if(!Get(name,tmp)) std::cout<<"\033[38;5;196mERROR: Store doesnt hold value \""<<name<<"\" default returned\033[0m"<<std::endl;
+ 
+    return tmp;
+
+  }
+
 
   /**
      Templated setter function to assign vairables in the Store.
