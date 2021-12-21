@@ -71,7 +71,7 @@ class Utilities{
       
     
     
- private:
+ protected:
   
   static void* Thread(void *arg); ///< Thread with args
   std::map<std::string, Thread_args*> Threads; ///< Map of threads managed by the utilities class.
