@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>ToolFramework: ToolFramework</title>
+<title>ToolFramework: README</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,20 +75,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ToolFramework </div>  </div>
+<div class="title">README </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>ToolFramework is an open source general modular C++ Framework.</p>
-<p><em>PLEASE NOTE: This is the core framework only!!! do not clone this repo for building an application. To create your own ToolFramework appliciaion please clone/fork the ToolFrameworkApplication repository <a href="https://github.com/ToolFramework/ToolFrameworkApplication">https://github.com/ToolFramework/ToolFrameworkApplication</a> which has a script to pull this repository down as a dependancy.</em></p>
+<div class="textblock"><div class="image">
+<img src="https://user-images.githubusercontent.com/14093889/147487041-eff81a5d-45e4-4f3c-9cde-8066b9726659.png"  alt="ToolFramework"/>
+</div>
+<p>ToolFramework is an open source general modular C++ Framework.</p>
+<h1>*PLEASE NOTE: This is the core framework only!!! do not clone this repo for building your own application.</h1>
+<p>To create your own ToolFramework appliciaion please clone/fork the ToolApplication repository <a href="https://github.com/ToolFramework/ToolApplication">https://github.com/ToolFramework/ToolApplication</a> which has a script "*GetToolFramework.sh*" to pull this repository down as a dependancy and set up everything for you.</p>
 <hr/>
-<p> #Concept </p>
+ <h1>Concept</h1>
 <hr/>
 <p>The main executable creates a <a class="el" href="classToolChain.html">ToolChain</a> which is an object that holds Tools. Tools are added to the <a class="el" href="classToolChain.html">ToolChain</a> and then the <a class="el" href="classToolChain.html">ToolChain</a> can be told to Initialise Execute and Finalise each tool in the chain.</p>
 <p>The <a class="el" href="classToolChain.html">ToolChain</a> also holds a uesr defined <a class="el" href="classDataModel.html">DataModel</a> which each tool has access too and can read ,update and modify. This is the method by which data is passed between Tools.</p>
 <p>User Tools can be generated for use in the tool chain by incuding a <a class="el" href="classTool.html">Tool</a> header.</p>
 <p>For more information consult the ToolFramework manual:</p>
 <p><a href="https://drive.google.com/file/d/19F-nJpeq3cHJbjV4qiSk5qzpOa7p8keQ">https://drive.google.com/file/d/19F-nJpeq3cHJbjV4qiSk5qzpOa7p8keQ</a></p>
-<p>or the docs</p>
+<p>or the Doxygen docs</p>
 <p>docs <a href="https://toolframework.github.io/ToolFrameworkCore/">https://toolframework.github.io/ToolFrameworkCore/</a></p>
 <p>Copyright (c) 2016 Benjamin Richards </p>
 </div></div><!-- contents -->

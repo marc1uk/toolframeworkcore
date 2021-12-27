@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['log',['Log',['../classDataModel.html#a3cb335c70a8fe3f4852dbd96844f9417',1,'DataModel']]]
+  ['log',['Log',['../classDataModel.html#aa777da4c632e4659ee5b1447ad513458',1,'DataModel']]]
 ];
