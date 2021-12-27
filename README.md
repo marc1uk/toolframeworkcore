@@ -25,4 +25,4 @@ or the Doxygen docs
 docs https://toolframework.github.io/ToolFrameworkCore/
 
 
-Copyright (c) 2016 Benjamin Richards
+Copyright (c) 2016 Benjamin Richards (benjamin.richards@warwick.ac.uk)

@@ -19,7 +19,6 @@
  *
  * $Author: B.Richards $ 
  * $Date: 2019/05/26 18:34:00 $
- * Contact: b.richards@qmul.ac.uk
  *
  */
 

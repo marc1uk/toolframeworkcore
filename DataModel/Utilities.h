@@ -17,7 +17,6 @@ Effectivly this acts as a place to put variable that are specfic to that thread 
  *
  * $Author: B.Richards $
  * $Date: 2019/05/26 18:34:00 $
- * Contact: b.richards@qmul.ac.uk
  *
  */
 
@@ -49,7 +48,6 @@ struct Thread_args{
  *
  * $Author: B.Richards $
  * $Date: 2019/05/26 18:34:00 $
- * Contact: b.richards@qmul.ac.uk
  *
  */
 

@@ -41,7 +41,6 @@
  *
  * $Author: B.Richards $
  * $Date: 2020/12/30 12:50:00 $
- * Contact: b.richards@qmul.ac.uk
  */
 
 struct MsgL{
@@ -69,7 +68,6 @@ struct MsgL{
  *
  * $Author: B.Richards $
  * $Date: 2019/05/27 18:34:00 $
- * Contact: b.richards@qmul.ac.uk
  */
 
 
