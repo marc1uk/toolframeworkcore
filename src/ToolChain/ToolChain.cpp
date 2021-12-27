@@ -71,10 +71,10 @@ void ToolChain::Init(){
 
 
 
-void ToolChain::Add(std::string name,Tool *tool,std::string configfile){
+bool ToolChain::Add(std::string name,Tool *tool,std::string configfile){
+  
   if(tool!=0){
-
-
+    
     *m_log<<MsgL(1,m_verbose)<<cyan<<"Adding Tool='"<<name<<"' to ToolChain"<<std::endl;
     
     m_tools.push_back(tool);
@@ -82,9 +82,12 @@ void ToolChain::Add(std::string name,Tool *tool,std::string configfile){
     m_configfiles.push_back(configfile);
 
     *m_log<<MsgL(1,m_verbose)<<green<<"Tool='"<<name<<"' added successfully\n"<<std::endl;
-    
+    return true;   
   }
-  else *m_log<<MsgL(0,m_verbose)<<red<<"WARNING!!! Tool='"<<name<<"' Does Not Exist in factory!!! \n"<<std::endl;  
+  else{
+    *m_log<<MsgL(0,m_verbose)<<red<<"ERROR!!! Tool='"<<name<<"' Does Not Exist in factory!!! \n"<<std::endl;  
+    return false;
+  }
   
 }
 
@@ -300,9 +303,10 @@ bool ToolChain::LoadTools(std::string filename){
 	  std::string conf;
 	  std::stringstream stream(line);
 	  
-          if(stream>>name>>tool>>conf) Add(name,Factory(tool),conf);
-	 
-        }
+          if(stream>>name>>tool>>conf){
+	    if(!Add(name,Factory(tool),conf)) return false;
+	  } 
+	} 
       }
       file.close();        
       return true;
