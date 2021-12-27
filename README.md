@@ -3,11 +3,11 @@
 ToolFramework is an open source general modular C++ Framework.
 
 
-*PLEASE NOTE: This is the core framework only!!! do not clone this repo for building an application.
-To create your own ToolFramework appliciaion please clone/fork the ToolFrameworkApplication repository https://github.com/ToolFramework/ToolFrameworkApplication which has a script to pull this repository down as a dependancy.*
+# *PLEASE NOTE: This is the core framework only!!! do not clone this repo for building your own application.
+To create your own ToolFramework appliciaion please clone/fork the ToolApplication repository https://github.com/ToolFramework/ToolApplication which has a script "GetToolFramework.sh" to pull this repository down as a dependancy and set up everything for you.
 
 ****************************
-#Concept
+# Concept
 ****************************
 
 The main executable creates a ToolChain which is an object that holds Tools. Tools are added to the ToolChain and then the ToolChain can be told to Initialise Execute and Finalise each tool in the chain.
@@ -20,7 +20,7 @@ For more information consult the ToolFramework manual:
 
 https://drive.google.com/file/d/19F-nJpeq3cHJbjV4qiSk5qzpOa7p8keQ
 
-or the docs
+or the Doxygen docs
 
 docs https://toolframework.github.io/ToolFrameworkCore/
 
