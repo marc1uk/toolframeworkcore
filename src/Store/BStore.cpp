@@ -132,7 +132,8 @@ bool BStore::Initnew(std::string filename, enum_type type, bool header, bool typ
   }
 
   m_update=false;
-  
+
+  return true; // no idea jsut added this please check  
 }
 
 /*
@@ -377,10 +378,15 @@ bool BStore::Close(){
     return true;
   }
 
+  return true; //need to check jsut added this to check compilations
+
 }
 //importing
   
-bool BStore::Print(){ Print(false);}
+bool BStore::Print(){ 
+  Print(false);
+  return true;
+}
 
 void BStore::Print(bool values){
   

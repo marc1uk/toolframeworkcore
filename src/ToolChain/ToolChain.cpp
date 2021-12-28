@@ -6,25 +6,29 @@ ToolChain::ToolChain(std::string configfile,  int argc, char* argv[]){
     std::cout<<"\033[38;5;196m ERROR!!!: No valid config file quitting \033[0m"<<std::endl;
     exit(1);
   }
-
+  
   if(!m_data.vars.Get("verbose",m_verbose)) m_verbose=9;
   if(!m_data.vars.Get("error_level",m_errorlevel)) m_errorlevel=2;
   if(!m_data.vars.Get("attempt_recover",m_recover)) m_recover=false;
   if(!m_data.vars.Get("log_mode",m_log_mode)) m_log_mode="Interactive";
   if(!m_data.vars.Get("log_local_path",m_log_local_path)) m_log_local_path="./log";
- 
-  if(!m_data.vars.Get("Inline",m_inline)) m_inline=0;
+  
+  if(!m_data.vars.Get("Inline",m_inline)) m_inline=1;
   if(!m_data.vars.Get("Interactive",m_interactive)) m_interactive=false;  
-
+  
   m_data.vars.Set("argc",argc);
-
-  for(int i=0; i<argc ; i++){
+  
+  for(int i=2; i<argc; i++){
     std::stringstream tmp;
     tmp<<"$"<<i;
     m_data.vars.Set(tmp.str(),argv[i]);
   }
-
-  Init();
+  
+#ifdef DEBUG  
+  m_data.vars.Print(); 
+#endif   
+  
+   Init();
 
   std::string toolsfile="";
   m_data.vars.Get("Tools_File",toolsfile);
@@ -49,17 +53,20 @@ ToolChain::ToolChain(int verbose, int errorlevel, std::string logmode, std::stri
 }
 
 void ToolChain::Init(){
+ 
+  m_log=0;
+  m_data.Log=0;
 
   if(m_log_mode!="Off"){
-  bcout=std::cout.rdbuf();
-  out=new  std::ostream(bcout);
+    bcout=std::cout.rdbuf();
+    out=new  std::ostream(bcout);
   }
   
   m_data.Log= new Logging(*out,m_log_mode, m_log_local_path);
   m_log=m_data.Log;  
-
+  
   if(m_log_mode!="Off") std::cout.rdbuf(m_data.Log->buffer);
-
+  
   execounter=0;
   Initialised=false;
   Finalised=true;
@@ -318,7 +325,7 @@ bool ToolChain::LoadTools(std::string filename){
     }
   }
   else{
-    *m_log<<MsgL(0,m_verbose)<<red<<"********************************************************"<<std::endl<<"**** Warning!!! Tools file path is blank. No Tools Loaded ****"<<std::endl<<"********************************************************\n"<<std::endl;
+    *m_log<<MsgL(0,m_verbose)<<red<<"********************************************************\n"<<"**** Warning!!! Tools file path is blank. No Tools Loaded ****\n"<<"********************************************************\n"<<std::endl;
     
     return false;
   }

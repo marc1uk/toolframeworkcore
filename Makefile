@@ -1,7 +1,7 @@
 CXXFLAGS=  -fPIC -O3 -Wpedantic 
 
 ifeq ($(MAKECMDGOALS),debug)
-CXXFLAGS+= -O1 -g -lSegFault -rdynamic -DDEBUG
+CXXFLAGS+= -O0 -g -lSegFault -rdynamic -DDEBUG
 endif
 
 
