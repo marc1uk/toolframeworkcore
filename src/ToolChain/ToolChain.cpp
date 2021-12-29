@@ -67,8 +67,8 @@ void ToolChain::Init(){
     out=new  std::ostream(bcout);
   }
  
-  m_data->Log= new Logging(*out,m_log_mode, m_log_local_path);
-  m_log=m_data->Log;  
+  m_log= new Logging(*out,m_log_mode, m_log_local_path);
+  if(!m_data->Log) m_data->Log=m_log;  
   
   if(m_log_mode!="Off") std::cout.rdbuf(m_data->Log->buffer);
   
