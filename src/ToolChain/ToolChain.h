@@ -62,33 +62,33 @@ class ToolChain{
      @param kick_sec The number of seconds to wait before removing a servic from the remote services list if no beacon received.
      @param IO_Threads The number of ZMQ IO threads to use (~1 per Gbps of traffic).
    */
-  ToolChain(int verbose=1, int errorlevel=0, std::string logmode="Off", std::string log_local_path="./log"); 
+  ToolChain(int verbose=1, int errorlevel=0, std::string logmode="Off", std::string log_local_path="./log", DataModel* in_data_model=0); 
   //verbosity: true= print out status messages , false= print only error messages;
   //errorlevels: 0= do not exit; error 1= exit if unhandeled error ; exit 2= exit on handeled and unhandeled errors; 
   virtual ~ToolChain(); 
-  bool Add(std::string name,Tool *tool,std::string configfile=""); ///< Add a Tool to the ToolChain. @param name The name used in logs when reffering to the Tool. @param tool A pointer to the tool to be added to the ToolChain. @param configfile The configuration file path and name to be passed to the Tool. 
+  bool Add(std::string name, Tool *tool,std::string configfile=""); ///< Add a Tool to the ToolChain. @param name The name used in logs when reffering to the Tool. @param tool A pointer to the tool to be added to the ToolChain. @param configfile The configuration file path and name to be passed to the Tool. 
   int Initialise(); ///< Initialise all Tools in the ToolChain sequentially.
   int Execute(int repeates=1); ///< Execute all Tools in the ToolChain sequentially. @param repeates How many times to run sequential Execute loop.
   int Finalise(); ///< Finalise all Tools in the ToolCahin sequentially.
   void Interactive(); ///< Start interactive thread to accept commands and run ToolChain in interactive mode.
-  DataModel m_data; ///< Direct access to transient data model class of the Tools in the ToolChain. This allows direct initialisation and copying of variables.
+  bool LoadTools(std::string filename);
+  DataModel* m_data; ///< Direct access to transient data model class of the Tools in the ToolChain. This allows direct initialisation and copying of variables.
 
   protected:
 
   virtual void Init();
   void Inline();
-  bool LoadTools(std::string filename);
 
   static  void *InteractiveThread(void* arg);
   std::string ExecuteCommand(std::string connand);
-
 
   //Tools configs and data
   std::vector<Tool*> m_tools;
   std::vector<std::string> m_toolnames;
   std::vector<std::string> m_configfiles;
+
   //DataModel m_data;
-  std::streambuf  *bcout;
+  std::streambuf *bcout;
   std::ostream *out;
   
   //conf variables

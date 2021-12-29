@@ -1,37 +1,39 @@
 #include "ToolChain.h"
 
 ToolChain::ToolChain(std::string configfile,  int argc, char* argv[]){
+
+  m_data=new DataModel();
   
-  if(!m_data.vars.Initialise(configfile)){
+  if(!m_data->vars.Initialise(configfile)){
     std::cout<<"\033[38;5;196m ERROR!!!: No valid config file quitting \033[0m"<<std::endl;
     exit(1);
   }
   
-  if(!m_data.vars.Get("verbose",m_verbose)) m_verbose=9;
-  if(!m_data.vars.Get("error_level",m_errorlevel)) m_errorlevel=2;
-  if(!m_data.vars.Get("attempt_recover",m_recover)) m_recover=false;
-  if(!m_data.vars.Get("log_mode",m_log_mode)) m_log_mode="Interactive";
-  if(!m_data.vars.Get("log_local_path",m_log_local_path)) m_log_local_path="./log";
+  if(!m_data->vars.Get("verbose",m_verbose)) m_verbose=9;
+  if(!m_data->vars.Get("error_level",m_errorlevel)) m_errorlevel=2;
+  if(!m_data->vars.Get("attempt_recover",m_recover)) m_recover=false;
+  if(!m_data->vars.Get("log_mode",m_log_mode)) m_log_mode="Interactive";
+  if(!m_data->vars.Get("log_local_path",m_log_local_path)) m_log_local_path="./log";
   
-  if(!m_data.vars.Get("Inline",m_inline)) m_inline=1;
-  if(!m_data.vars.Get("Interactive",m_interactive)) m_interactive=false;  
+  if(!m_data->vars.Get("Inline",m_inline)) m_inline=1;
+  if(!m_data->vars.Get("Interactive",m_interactive)) m_interactive=false;  
   
-  m_data.vars.Set("argc",argc);
-  
+  m_data->vars.Set("argc",argc);
+   
   for(int i=2; i<argc; i++){
     std::stringstream tmp;
     tmp<<"$"<<i;
-    m_data.vars.Set(tmp.str(),argv[i]);
+    m_data->vars.Set(tmp.str(),argv[i]);
   }
-  
+ 
 #ifdef DEBUG  
-  m_data.vars.Print(); 
+  m_data->vars.Print(); 
 #endif   
   
    Init();
 
   std::string toolsfile="";
-  m_data.vars.Get("Tools_File",toolsfile);
+  m_data->vars.Get("Tools_File",toolsfile);
 
   if(!LoadTools(toolsfile)) exit(1);
 
@@ -41,12 +43,15 @@ ToolChain::ToolChain(std::string configfile,  int argc, char* argv[]){
   
 }
 
-ToolChain::ToolChain(int verbose, int errorlevel, std::string logmode, std::string log_local_path){
+ToolChain::ToolChain(int verbose, int errorlevel, std::string logmode, std::string log_local_path, DataModel* in_data_model){
   
   m_verbose=verbose;
   m_errorlevel=errorlevel;
   m_log_mode = logmode;
   m_log_local_path=log_local_path;
+
+  if(in_data_model==0) m_data=new DataModel;
+  else m_data=in_data_model;
 
   Init();
 
@@ -55,17 +60,17 @@ ToolChain::ToolChain(int verbose, int errorlevel, std::string logmode, std::stri
 void ToolChain::Init(){
  
   m_log=0;
-  m_data.Log=0;
+  m_data->Log=0;
 
   if(m_log_mode!="Off"){
     bcout=std::cout.rdbuf();
     out=new  std::ostream(bcout);
   }
+ 
+  m_data->Log= new Logging(*out,m_log_mode, m_log_local_path);
+  m_log=m_data->Log;  
   
-  m_data.Log= new Logging(*out,m_log_mode, m_log_local_path);
-  m_log=m_data.Log;  
-  
-  if(m_log_mode!="Off") std::cout.rdbuf(m_data.Log->buffer);
+  if(m_log_mode!="Off") std::cout.rdbuf(m_data->Log->buffer);
   
   execounter=0;
   Initialised=false;
@@ -118,7 +123,7 @@ int ToolChain::Initialise(){
       try{ 
 #endif   
 
-	if(m_tools.at(i)->Initialise(m_configfiles.at(i), m_data))  *m_log<<MsgL(2,m_verbose)<<green<<m_toolnames.at(i)<<" initialised successfully\n"<<std::endl;
+	if(m_tools.at(i)->Initialise(m_configfiles.at(i), *m_data))  *m_log<<MsgL(2,m_verbose)<<green<<m_toolnames.at(i)<<" initialised successfully\n"<<std::endl;
 	else{
 	  *m_log<<MsgL(0,m_verbose)<<red<<"WARNING !!!!! "<<m_toolnames.at(i)<<" Failed to initialise (exit error code)\n"<<std::endl;
 	  result=1;
@@ -162,7 +167,7 @@ int ToolChain::Execute(int repeates){
   if(Initialised){
 
     bool skip=false;
-    m_data.vars.Set("Skip",skip);
+    m_data->vars.Set("Skip",skip);
 
     if(m_inline)  *m_log<<MsgL(2,m_verbose)<<yellow<<"********************************************************\n"<<"**** Executing toolchain "<<repeates<<" times ****\n"<<"********************************************************\n"<<std::endl;
 
@@ -172,10 +177,10 @@ int ToolChain::Execute(int repeates){
       
       for(int i=0 ; i<m_tools.size();i++){
 
-	m_data.vars.Get("Skip",skip); 
+	m_data->vars.Get("Skip",skip); 
 	if(skip){
 	  skip=false;
-	  m_data.vars.Set("Skip",skip);
+	  m_data->vars.Set("Skip",skip);
 	  *m_log<<MsgL(4,m_verbose)<<cyan<<"Skipping Remaining Tools"<<std::endl;
 	  break;
 	}
@@ -336,11 +341,11 @@ void ToolChain::Inline(){
 
   if(m_inline==-1){
     bool StopLoop=false;
-    m_data.vars.Set("StopLoop",StopLoop);
+    m_data->vars.Set("StopLoop",StopLoop);
     Initialise();
     while(!StopLoop){
       Execute();
-      m_data.vars.Get("StopLoop",StopLoop);
+      m_data->vars.Get("StopLoop",StopLoop);
     }
     Finalise();
     
@@ -467,7 +472,7 @@ std::string ToolChain::ExecuteCommand(std::string command){
 	else tmp<<"ToolChain running (loop counter="<<execounter<<")";
       }
       
-      if(*(m_data.vars["Status"])!="") tmp<<" : "<<*(m_data.vars["Status"]);
+      if(*(m_data->vars["Status"])!="") tmp<<" : "<<*(m_data->vars["Status"]);
       returnmsg<<tmp.str();
     }
     else if(command=="?")returnmsg<<" Available commands: Initialise, Execute, Finalise, Start, Stop, Restart, Pause, Unpause, Quit, Status, ?";
@@ -511,8 +516,8 @@ ToolChain::~ToolChain(){
   m_tools.clear();
   
 
-  delete m_data.Log;  
-  m_data.Log=0;
+  delete m_data->Log;  
+  m_data->Log=0;
 
   if(m_log_mode!="Off"){
     std::cout.rdbuf(bcout);
