@@ -516,8 +516,8 @@ ToolChain::~ToolChain(){
   m_tools.clear();
   
 
-  delete m_data->Log;  
-  m_data->Log=0;
+  delete m_log;  
+  m_log=0;
 
   if(m_log_mode!="Off"){
     std::cout.rdbuf(bcout);
@@ -525,7 +525,8 @@ ToolChain::~ToolChain(){
     out=0;
   }  
   
-  
+  delete m_data;
+  m_data=0;
   
 }
 
