@@ -90,7 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="SerialisableObject_8h_source.html">SerialisableObject.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="include_2SerialisableObject_8h_source.html">SerialisableObject.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for SerialisableObject:</div>
 <div class="dyncontent">
@@ -98,12 +98,27 @@ Inheritance diagram for SerialisableObject:</div>
   <img src="classSerialisableObject.png" usemap="#SerialisableObject_map" alt=""/>
   <map id="SerialisableObject_map" name="SerialisableObject_map">
 <area href="classBinaryStream.html" alt="BinaryStream" shape="rect" coords="0,56,115,80"/>
-<area href="classBStore.html" alt="BStore" shape="rect" coords="125,56,240,80"/>
+<area href="classBinaryStream.html" alt="BinaryStream" shape="rect" coords="125,56,240,80"/>
+<area href="classBStore.html" alt="BStore" shape="rect" coords="250,56,365,80"/>
+<area href="classBStore.html" alt="BStore" shape="rect" coords="375,56,490,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a3783b1798068a4bdc58fe6cdf7f7929b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3783b1798068a4bdc58fe6cdf7f7929b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SerialiseWrapper</b> (<a class="el" href="classBinaryStream.html">BinaryStream</a> &amp;bs)</td></tr>
+<tr class="separator:a3783b1798068a4bdc58fe6cdf7f7929b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8916a102bc94764f023b1713fb040db"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8916a102bc94764f023b1713fb040db"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Serialise</b> (<a class="el" href="classBinaryStream.html">BinaryStream</a> &amp;bs)=0</td></tr>
+<tr class="separator:ab8916a102bc94764f023b1713fb040db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a345b21d2a7c869dedd96ad691fc602bd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a345b21d2a7c869dedd96ad691fc602bd"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetVersion</b> ()=0</td></tr>
+<tr class="separator:a345b21d2a7c869dedd96ad691fc602bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9055c98969917d4c652eefdc924b6b75"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9055c98969917d4c652eefdc924b6b75"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSerialisableObject.html#a9055c98969917d4c652eefdc924b6b75">Print</a> ()=0</td></tr>
+<tr class="memdesc:a9055c98969917d4c652eefdc924b6b75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple virtual Pritn function to ensure inhereted classes have one. <br/></td></tr>
+<tr class="separator:a9055c98969917d4c652eefdc924b6b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3783b1798068a4bdc58fe6cdf7f7929b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3783b1798068a4bdc58fe6cdf7f7929b"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>SerialiseWrapper</b> (<a class="el" href="classBinaryStream.html">BinaryStream</a> &amp;bs)</td></tr>
 <tr class="separator:a3783b1798068a4bdc58fe6cdf7f7929b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,7 +138,8 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="section rcs"><dt>Author:</dt><dd>B.Richards </dd></dl>
 <dl class="section rcs"><dt>Date:</dt><dd>2019/05/28 10:44:00 </dd></dl>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/Store/<a class="el" href="SerialisableObject_8h_source.html">SerialisableObject.h</a></li>
+<li>include/<a class="el" href="include_2SerialisableObject_8h_source.html">SerialisableObject.h</a></li>
+<li>src/Store/<a class="el" href="src_2Store_2SerialisableObject_8h_source.html">SerialisableObject.h</a></li>
 <li>src/Store/BinaryStream.cpp</li>
 </ul>
 </div><!-- contents -->

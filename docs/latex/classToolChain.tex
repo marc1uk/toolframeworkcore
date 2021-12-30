@@ -10,7 +10,7 @@
 \item 
 \hyperlink{classToolChain_a133e224899a743ee4a679396f8569bf9}{Tool\-Chain} (std\-::string configfile, int argc=0, char $\ast$argv\mbox{[}$\,$\mbox{]}=0)
 \begin{DoxyCompactList}\small\item\em Constructor that obtains all of the configuration varaibles from an input file. \end{DoxyCompactList}\item 
-\hyperlink{classToolChain_a04186696e28e3193b2fc756a89d14882}{Tool\-Chain} (int verbose=1, int errorlevel=0, std\-::string logmode=\char`\"{}Off\char`\"{}, std\-::string log\-\_\-local\-\_\-path=\char`\"{}./log\char`\"{})
+\hyperlink{classToolChain_aba22fc00bab0c21c7162ef9a22f69940}{Tool\-Chain} (int verbose=1, int errorlevel=0, std\-::string logmode=\char`\"{}Off\char`\"{}, std\-::string log\-\_\-local\-\_\-path=\char`\"{}./log\char`\"{}, Data\-Model $\ast$in\-\_\-data\-\_\-model=0)
 \item 
 bool \hyperlink{classToolChain_ae6859092e14be1f9538c50d7c838fe8e}{Add} (std\-::string name, \hyperlink{classTool}{Tool} $\ast$tool, std\-::string configfile=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em Add a \hyperlink{classTool}{Tool} to the \hyperlink{classToolChain}{Tool\-Chain}. \end{DoxyCompactList}\item 
@@ -24,11 +24,14 @@ int \hyperlink{classToolChain_a303e299293fd4d3a5e91865e04898e52}{Execute} (int r
 \begin{DoxyCompactList}\small\item\em Finalise all Tools in the Tool\-Cahin sequentially. \end{DoxyCompactList}\item 
 \hypertarget{classToolChain_a9bb47b83b6b85c3b0fab75af0cda19bf}{void \hyperlink{classToolChain_a9bb47b83b6b85c3b0fab75af0cda19bf}{Interactive} ()}\label{classToolChain_a9bb47b83b6b85c3b0fab75af0cda19bf}
 
-\begin{DoxyCompactList}\small\item\em Start interactive thread to accept commands and run \hyperlink{classToolChain}{Tool\-Chain} in interactive mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Start interactive thread to accept commands and run \hyperlink{classToolChain}{Tool\-Chain} in interactive mode. \end{DoxyCompactList}\item 
+\hypertarget{classToolChain_ac1b120b81163d9e00ee778fbc40ddb23}{bool {\bfseries Load\-Tools} (std\-::string filename)}\label{classToolChain_ac1b120b81163d9e00ee778fbc40ddb23}
+
+\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classToolChain_a92c81316d0c0b16ee9e4a084dd976f83}{\hyperlink{classDataModel}{Data\-Model} \hyperlink{classToolChain_a92c81316d0c0b16ee9e4a084dd976f83}{m\-\_\-data}}\label{classToolChain_a92c81316d0c0b16ee9e4a084dd976f83}
+\hypertarget{classToolChain_a29d8574ddfd60c6fee03891c1eb6848c}{\hyperlink{classDataModel}{Data\-Model} $\ast$ \hyperlink{classToolChain_a29d8574ddfd60c6fee03891c1eb6848c}{m\-\_\-data}}\label{classToolChain_a29d8574ddfd60c6fee03891c1eb6848c}
 
 \begin{DoxyCompactList}\small\item\em Direct access to transient data model class of the Tools in the \hyperlink{classToolChain}{Tool\-Chain}. This allows direct initialisation and copying of variables. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Member Functions}
@@ -38,9 +41,6 @@ int \hyperlink{classToolChain_a303e299293fd4d3a5e91865e04898e52}{Execute} (int r
 
 \item 
 \hypertarget{classToolChain_ac1cc0e9d9f6b2d23adb9eab2d7a58119}{void {\bfseries Inline} ()}\label{classToolChain_ac1cc0e9d9f6b2d23adb9eab2d7a58119}
-
-\item 
-\hypertarget{classToolChain_ac1b120b81163d9e00ee778fbc40ddb23}{bool {\bfseries Load\-Tools} (std\-::string filename)}\label{classToolChain_ac1b120b81163d9e00ee778fbc40ddb23}
 
 \item 
 \hypertarget{classToolChain_a6ce65465365bf2b6da10b5d28028afcb}{std\-::string {\bfseries Execute\-Command} (std\-::string connand)}\label{classToolChain_a6ce65465365bf2b6da10b5d28028afcb}
@@ -147,16 +147,17 @@ Constructor that obtains all of the configuration varaibles from an input file.
 {\em configfile} & The path and name of the config file to read configuration values from. \\
 \hline
 \end{DoxyParams}
-\hypertarget{classToolChain_a04186696e28e3193b2fc756a89d14882}{\index{Tool\-Chain@{Tool\-Chain}!Tool\-Chain@{Tool\-Chain}}
+\hypertarget{classToolChain_aba22fc00bab0c21c7162ef9a22f69940}{\index{Tool\-Chain@{Tool\-Chain}!Tool\-Chain@{Tool\-Chain}}
 \index{Tool\-Chain@{Tool\-Chain}!ToolChain@{Tool\-Chain}}
 \subsubsection[{Tool\-Chain}]{\setlength{\rightskip}{0pt plus 5cm}Tool\-Chain\-::\-Tool\-Chain (
 \begin{DoxyParamCaption}
 \item[{int}]{verbose = {\ttfamily 1}, }
 \item[{int}]{errorlevel = {\ttfamily 0}, }
 \item[{std\-::string}]{logmode = {\ttfamily \char`\"{}Off\char`\"{}}, }
-\item[{std\-::string}]{log\-\_\-local\-\_\-path = {\ttfamily \char`\"{}./log\char`\"{}}}
+\item[{std\-::string}]{log\-\_\-local\-\_\-path = {\ttfamily \char`\"{}./log\char`\"{}}, }
+\item[{{\bf Data\-Model} $\ast$}]{in\-\_\-data\-\_\-model = {\ttfamily 0}}
 \end{DoxyParamCaption}
-)}}\label{classToolChain_a04186696e28e3193b2fc756a89d14882}
+)}}\label{classToolChain_aba22fc00bab0c21c7162ef9a22f69940}
 Constructor with explicit configuration variables passed as arguments. 
 \begin{DoxyParams}{Parameters}
 {\em verbose} & The verbosity level of the \hyperlink{classToolChain}{Tool\-Chain}. The higher the number the more explicit the print outs. 0 = silent apart from errors. \\
