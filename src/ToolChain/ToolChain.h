@@ -53,16 +53,14 @@ class ToolChain{
      Constructor with explicit configuration variables passed as arguments.
      @param verbose The verbosity level of the ToolChain. The higher the number the more explicit the print outs. 0 = silent apart from errors.
      @param errorlevel The behavior that occurs when the ToolChain encounters an error. 0 = do not exit for both handeled and unhandeled errors, 1 = exit on unhandeled errors only, 2 = exit on handeled and unhandeled errors.
-     @param service The name of the ToolChain service to boradcast for service discovery
-     @param logmode Where log printouts should be forwarded too. "Interactive" = cout, "Remote" = send to a remote logging system, "local" = ouput logs to a file. 
+     @param log_interactive sets the logging class to use standard output and error to screen
+     @param log_local sets the logging class to redirect standard output and error to disk
+logmode Where log printouts should be forwarded too. "Interactive" = cout, "Remote" = send to a remote logging system, "local" = ouput logs to a file. 
      @param log_local_path The file path and name of where to store logs if in Local logging mode.
-     @param log_service Service name of remote logging system if in Remote logging mode.
-     @param log_port The Port number of the remote logging service
-     @param pub_sec The number of seconds between publishing multicast serivce beacons
-     @param kick_sec The number of seconds to wait before removing a servic from the remote services list if no beacon received.
-     @param IO_Threads The number of ZMQ IO threads to use (~1 per Gbps of traffic).
+     @param log_split_files when loggign to local file whether to split standard output and standard error into differnt files
+     @param in_data_model option to specify an external data modle for use in ToolChain.
    */
-  ToolChain(int verbose=1, int errorlevel=0, std::string logmode="Off", std::string log_local_path="./log", DataModel* in_data_model=0); 
+  ToolChain(int verbose=1, int errorlevel=0, bool log_interactive=true, bool log_local=false, std::string log_local_path="./log", bool log_split_files=false, DataModel* in_data_model=0); 
   //verbosity: true= print out status messages , false= print only error messages;
   //errorlevels: 0= do not exit; error 1= exit if unhandeled error ; exit 2= exit on handeled and unhandeled errors; 
   virtual ~ToolChain(); 
@@ -86,15 +84,13 @@ class ToolChain{
   std::vector<Tool*> m_tools;
   std::vector<std::string> m_toolnames;
   std::vector<std::string> m_configfiles;
-
-  //DataModel m_data;
-  std::streambuf *bcout;
-  std::ostream *out;
   
   //conf variables
   int m_verbose;
   int m_errorlevel;
-  std::string m_log_mode;
+  bool m_log_interactive;
+  bool m_log_local;
+  bool m_log_split_files;
   std::string m_log_local_path;
   bool m_interactive;
   int m_inline;

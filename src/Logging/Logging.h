@@ -11,8 +11,6 @@
 #include <pthread.h>
 #include <time.h>
 
-#include "Store.h"
-
 #define red "\033[38;5;196m"
 #define darkred "\033[38;5;88m"
 #define green "\033[38;5;46m"
@@ -72,89 +70,95 @@ struct MsgL{
 
 
 
-
-
 class Logging: virtual public std::ostream {
 
  public:
-
-  class MyStreamBuf: virtual public std::stringbuf
-    {
-
-      std::ostream&   output;
-      
-    public:
-
-    MyStreamBuf():output(*tmp){;};
-      MyStreamBuf(std::ostream& str ,std::string mode, std::string localpath="");
-      
-      virtual int sync ( );
-      
-      bool ChangeOutFile(std::string localpath);
-
-      int m_messagelevel;
-      int m_verbose;
-      
-     virtual ~MyStreamBuf();
-
-    protected:
-
-      std::ostream* tmp;
-
-      std::string m_mode;
-
-      std::ofstream file;
-      std::streambuf *psbuf, *backup;
-
-   
-    }; 
-
   
-  MyStreamBuf* buffer; ///< Stream buffer used to replace std::cout for redirection to coustom output.
+  class TFStreamBuf: virtual public std::stringbuf 
+   {
+     
+   public:
+     
+     TFStreamBuf(bool interactive=true, bool local=false,  std::string localpath="./log", bool error=false, std::ostream* filestream=0);
+     
+     virtual ~TFStreamBuf();
+     
+     virtual int sync ( );
+     
+     bool ChangeOutFile(std::string localpath);
+     
+     int m_messagelevel;
+     int m_verbose;
+     
+     std::ostream*   output;
+     std::ostream*   fileoutput;
+     
+   protected:
+     
+     std::ostream* tmp;
+     
+     bool m_local;
+     bool m_interactive;
+     bool m_error;
+     
+     std::ofstream file;
+     std::streambuf *psbuf, *backup1, *backup2;
+     
+     bool no_delete;
+   }; 
+
   
   /**
      Constructor for Logging class
      
-     @param str
-     @param context Pointer to ZMW context used for creating sockets
-     @param UUID ToolChain UUID for unique labelling of log messages
-     @param service 
-     @param mode
+     @param interactive if loging class prints log output to screen
+     @param local if loggign class prints log output to file
      @param localpath Local path for log output file 
-     @param logservice Remote service to connect to to send logs
-     @param logport remothe port to send logging information to
+     @param split_output_files if log is directed to disk then whether or nto to use sperate files for standard output and standard error
   */
-
-  // Logging(std::ostream& str, std::string mode, std::string localpath=""):std::ostream(&buffer), buffer(str, mode, localpath){};
-
- Logging(std::ostream& str, std::string mode, std::string localpath=""):std::ostream(buffer), buffer(new MyStreamBuf(str, mode, localpath)){};
-
-  Logging(){;};
-
-  virtual ~Logging();
-
-  /**
-       Function to create a log messages. 
  
-       @param message templated log message text.
-       @param messagelevel message verbosity level of the message being sent (e.g. if 'messagelevel>= verbose' Then message is sent). 
-       @param verbose verbosity level of the current Tool.    
-       
-  */
+  // Logging(std::ostream& str, std::string mode, std::string localpath=""):std::ostream(&buffer), buffer(str, mode, localpath){};
+ 
+  //Logging(std::ostream& str, std::string mode, std::string localpath=""):std::ostream(buffer), buffer(new MyStreamBuf(str, mode, localpath)), errbuffer(new MyStreamBuf(str, mode, localpath)){};
+ 
+ Logging(bool interactive=true, bool local=false,  std::string localpath="./log", bool split_output_files=false);//:buffer(new MyStreamBuf(interactive, local, localpath, false)),errbuffer(new MyStreamBuf(interactive, local, localpath, true)){};
+ 
+ //:std::ostream(buffer){};
+ //, buffer(new MyStreamBuf(interactive, local, "", error)){};
+ 
+ // Logging(){;};
+ 
+ virtual ~Logging();
+ 
+ /**
+    Function to create a log messages. 
+ 
+    @param message templated log message text.
+    @param messagelevel message verbosity level of the message being sent (e.g. if 'messagelevel>= verbose' Then message is sent). 
+    @param verbose verbosity level of the current Tool.    
+    
+ */
+ 
+ template <typename T>  void Log(T message, int messagelevel=1, int verbose=1){
+ 
 
-  template <typename T>  void Log(T message, int messagelevel=1, int verbose=1){
-    if(messagelevel<=verbose){    
-      std::stringstream tmp;
-      tmp<<message;
-      buffer->m_messagelevel=messagelevel;
-      buffer->m_verbose=verbose;
-      std::cout<<tmp.str()<<plain<<std::endl;
-      buffer->m_messagelevel=1;
-      buffer->m_verbose=1;
-    } 
-  }
-  
-  
+   if(messagelevel<=verbose){    
+     int previous_messagelevel = buffer->m_messagelevel;
+     int previous_verbosity = buffer->m_verbose;
+
+     buffer->m_messagelevel=messagelevel;
+     buffer->m_verbose=verbose;
+
+     std::cout.rdbuf(buffer);
+     std::cout<<message<<plain<<std::endl;
+
+     buffer->m_messagelevel=previous_messagelevel;
+     buffer->m_verbose=previous_verbosity;
+   } 
+ 
+ }
+ 
+ 
   /**
      Functionn to change the logs out file if set to a local path.
      
@@ -163,38 +167,43 @@ class Logging: virtual public std::ostream {
      
   */
  bool ChangeOutFile(std::string localpath){return buffer->ChangeOutFile(localpath);} 
-  
-  
+ 
+ 
+ 
+ 
+ Logging& operator<<(MsgL a){
 
+   buffer->m_messagelevel=a.messagelevel;
+   buffer->m_verbose=a.verbose;
+   
+   return *this;
+ }
 
-  Logging& operator<<(MsgL a){
+ 
+ Logging& operator<<(std::ostream& (*foo)(std::ostream&)) { 
+   
+   std::cout.rdbuf(buffer);
+   std::cout<<plain<<std::endl;
+   
+   return *this;
+ }
+ 
+ template<typename T>  Logging& operator<<(T &a){
+     
+   std::cout.rdbuf(buffer);
+   std::cout<<a;
 
-    buffer->m_messagelevel=a.messagelevel;
-    buffer->m_verbose=a.verbose;
+   return *this;
+   
+ }
 
-    return *this;
-  }
-  
-  Logging& operator<<(std::ostream& (*foo)(std::ostream&)) { 
-    
-    std::cout<<plain<<std::endl;
-    
-    return *this;
-  }
+ 
+ protected:
+ 
+ TFStreamBuf* buffer; ///< Stream buffer used to replace std::cout for redirection to coustom output.
+ TFStreamBuf* errbuffer;
 
-  template<typename T>  Logging& operator<<(T &a){
-    
-    std::stringstream tmp; 
-    tmp<<a;
-  
-    std::cout<<tmp.str();
-    return *this;
-    
-  }
-  
- private:
-  
-
+ 
  };
 
 
