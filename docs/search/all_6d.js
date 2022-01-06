@@ -9,7 +9,6 @@ var searchData=
   ['mlc',['MLC',['../classTool.html#ae4da557812278419f6f8b8484df08115',1,'Tool']]],
   ['msgflag',['msgflag',['../structToolChainargs.html#a3551269b039d543b844a2d0d924ce96b',1,'ToolChainargs']]],
   ['msgl',['MsgL',['../structMsgL.html',1,'']]],
-  ['mystreambuf',['MyStreamBuf',['../classLogging_1_1MyStreamBuf.html',1,'Logging']]],
   ['mytool',['MyTool',['../classMyTool.html',1,'MyTool'],['../classMyTool.html#ad85b796bdd675ae22e69cf40fe7b6314',1,'MyTool::MyTool()']]],
   ['mytooldynamicmultithread',['MyToolDynamicMultiThread',['../classMyToolDynamicMultiThread.html',1,'MyToolDynamicMultiThread'],['../classMyToolDynamicMultiThread.html#a5eec7239400c507754ba6218b3eb8d4a',1,'MyToolDynamicMultiThread::MyToolDynamicMultiThread()']]],
   ['mytooldynamicmultithread_5fargs',['MyToolDynamicMultiThread_args',['../structMyToolDynamicMultiThread__args.html',1,'']]],

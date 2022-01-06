@@ -1,7 +1,6 @@
 var searchData=
 [
   ['msgl',['MsgL',['../structMsgL.html',1,'']]],
-  ['mystreambuf',['MyStreamBuf',['../classLogging_1_1MyStreamBuf.html',1,'Logging']]],
   ['mytool',['MyTool',['../classMyTool.html',1,'']]],
   ['mytooldynamicmultithread',['MyToolDynamicMultiThread',['../classMyToolDynamicMultiThread.html',1,'']]],
   ['mytooldynamicmultithread_5fargs',['MyToolDynamicMultiThread_args',['../structMyToolDynamicMultiThread__args.html',1,'']]],

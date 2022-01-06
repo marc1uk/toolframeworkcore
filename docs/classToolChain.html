@@ -101,8 +101,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a133e224899a743ee4a679396f8569bf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#a133e224899a743ee4a679396f8569bf9">ToolChain</a> (std::string configfile, int argc=0, char *argv[]=0)</td></tr>
 <tr class="memdesc:a133e224899a743ee4a679396f8569bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that obtains all of the configuration varaibles from an input file.  <a href="#a133e224899a743ee4a679396f8569bf9">More...</a><br/></td></tr>
 <tr class="separator:a133e224899a743ee4a679396f8569bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba22fc00bab0c21c7162ef9a22f69940"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#aba22fc00bab0c21c7162ef9a22f69940">ToolChain</a> (int verbose=1, int errorlevel=0, std::string logmode=&quot;Off&quot;, std::string log_local_path=&quot;./log&quot;, DataModel *in_data_model=0)</td></tr>
-<tr class="separator:aba22fc00bab0c21c7162ef9a22f69940"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adefb544d73c43c2621f3ccb14ad93dc7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#adefb544d73c43c2621f3ccb14ad93dc7">ToolChain</a> (int verbose=1, int errorlevel=0, bool log_interactive=true, bool log_local=false, std::string log_local_path=&quot;./log&quot;, bool log_split_files=false, <a class="el" href="classDataModel.html">DataModel</a> *in_data_model=0)</td></tr>
+<tr class="separator:adefb544d73c43c2621f3ccb14ad93dc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6859092e14be1f9538c50d7c838fe8e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classToolChain.html#ae6859092e14be1f9538c50d7c838fe8e">Add</a> (std::string name, <a class="el" href="classTool.html">Tool</a> *tool, std::string configfile=&quot;&quot;)</td></tr>
 <tr class="memdesc:ae6859092e14be1f9538c50d7c838fe8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a <a class="el" href="classTool.html">Tool</a> to the <a class="el" href="classToolChain.html">ToolChain</a>.  <a href="#ae6859092e14be1f9538c50d7c838fe8e">More...</a><br/></td></tr>
 <tr class="separator:ae6859092e14be1f9538c50d7c838fe8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,21 +161,21 @@ std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bott
 <tr class="memitem:a74cb5832ff5a41714a4da2448b87cee6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a74cb5832ff5a41714a4da2448b87cee6"></a>
 std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_configfiles</b></td></tr>
 <tr class="separator:a74cb5832ff5a41714a4da2448b87cee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd495ff385339222139bd08a8f639f70"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd495ff385339222139bd08a8f639f70"></a>
-std::streambuf *&#160;</td><td class="memItemRight" valign="bottom"><b>bcout</b></td></tr>
-<tr class="separator:afd495ff385339222139bd08a8f639f70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf212e76acd47432881da21765029bee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf212e76acd47432881da21765029bee"></a>
-std::ostream *&#160;</td><td class="memItemRight" valign="bottom"><b>out</b></td></tr>
-<tr class="separator:acf212e76acd47432881da21765029bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e157c7148cbdb9eccd43fce185297f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e157c7148cbdb9eccd43fce185297f5"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>m_verbose</b></td></tr>
 <tr class="separator:a3e157c7148cbdb9eccd43fce185297f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26843fabb52f0fba5f91be3da7564e4e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a26843fabb52f0fba5f91be3da7564e4e"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>m_errorlevel</b></td></tr>
 <tr class="separator:a26843fabb52f0fba5f91be3da7564e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa36a20b14abe2e1f491396f396bf41c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa36a20b14abe2e1f491396f396bf41c3"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_log_mode</b></td></tr>
-<tr class="separator:aa36a20b14abe2e1f491396f396bf41c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c1470a33c6f3f2749230ed4b2165c5b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0c1470a33c6f3f2749230ed4b2165c5b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_log_interactive</b></td></tr>
+<tr class="separator:a0c1470a33c6f3f2749230ed4b2165c5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2076a51d02b80034f523b332ddd452c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2076a51d02b80034f523b332ddd452c3"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_log_local</b></td></tr>
+<tr class="separator:a2076a51d02b80034f523b332ddd452c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aa84e0beb152870363f4c7a23466c15"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0aa84e0beb152870363f4c7a23466c15"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_log_split_files</b></td></tr>
+<tr class="separator:a0aa84e0beb152870363f4c7a23466c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a030b1214102cfb02242e2247248f6087"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a030b1214102cfb02242e2247248f6087"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_log_local_path</b></td></tr>
 <tr class="separator:a030b1214102cfb02242e2247248f6087"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -258,7 +258,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>msgflag</b></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aba22fc00bab0c21c7162ef9a22f69940"></a>
+<a class="anchor" id="adefb544d73c43c2621f3ccb14ad93dc7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -277,14 +277,26 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>msgflag</b></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>logmode</em> = <code>&quot;Off&quot;</code>, </td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>log_interactive</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>log_local</em> = <code>false</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>log_local_path</em> = <code>&quot;./log&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>log_split_files</em> = <code>false</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -299,19 +311,17 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>msgflag</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Constructor with explicit configuration variables passed as arguments. </p>
+<pre class="fragment"> Constructor with explicit configuration variables passed as arguments.
+ @param verbose The verbosity level of the ToolChain. The higher the number the more explicit the print outs. 0 = silent apart from errors.
+ @param errorlevel The behavior that occurs when the ToolChain encounters an error. 0 = do not exit for both handeled and unhandeled errors, 1 = exit on unhandeled errors only, 2 = exit on handeled and unhandeled errors.
+ @param log_interactive sets the logging class to use standard output and error to screen
+ @param log_local sets the logging class to redirect standard output and error to disk
+</pre><p> logmode Where log printouts should be forwarded too. "Interactive" = cout, "Remote" = send to a remote logging system, "local" = ouput logs to a file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">verbose</td><td>The verbosity level of the <a class="el" href="classToolChain.html">ToolChain</a>. The higher the number the more explicit the print outs. 0 = silent apart from errors. </td></tr>
-    <tr><td class="paramname">errorlevel</td><td>The behavior that occurs when the <a class="el" href="classToolChain.html">ToolChain</a> encounters an error. 0 = do not exit for both handeled and unhandeled errors, 1 = exit on unhandeled errors only, 2 = exit on handeled and unhandeled errors. </td></tr>
-    <tr><td class="paramname">service</td><td>The name of the <a class="el" href="classToolChain.html">ToolChain</a> service to boradcast for service discovery </td></tr>
-    <tr><td class="paramname">logmode</td><td>Where log printouts should be forwarded too. "Interactive" = cout, "Remote" = send to a remote logging system, "local" = ouput logs to a file. </td></tr>
     <tr><td class="paramname">log_local_path</td><td>The file path and name of where to store logs if in Local logging mode. </td></tr>
-    <tr><td class="paramname">log_service</td><td>Service name of remote logging system if in Remote logging mode. </td></tr>
-    <tr><td class="paramname">log_port</td><td>The Port number of the remote logging service </td></tr>
-    <tr><td class="paramname">pub_sec</td><td>The number of seconds between publishing multicast serivce beacons </td></tr>
-    <tr><td class="paramname">kick_sec</td><td>The number of seconds to wait before removing a servic from the remote services list if no beacon received. </td></tr>
-    <tr><td class="paramname">IO_Threads</td><td>The number of ZMQ IO threads to use (~1 per Gbps of traffic). </td></tr>
+    <tr><td class="paramname">log_split_files</td><td>when loggign to local file whether to split standard output and standard error into differnt files </td></tr>
+    <tr><td class="paramname">in_data_model</td><td>option to specify an external data modle for use in <a class="el" href="classToolChain.html">ToolChain</a>. </td></tr>
   </table>
   </dd>
 </dl>

@@ -14,12 +14,12 @@ Inheritance diagram for Logging\-:\begin{figure}[H]
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classLogging_1_1MyStreamBuf}{My\-Stream\-Buf}
+class \hyperlink{classLogging_1_1TFStreamBuf}{T\-F\-Stream\-Buf}
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}{Logging} (std\-::ostream \&str, std\-::string mode, std\-::string localpath=\char`\"{}\char`\"{})
+\hyperlink{classLogging_a7a3c6bcf0b0241779e7f500e29162e5e}{Logging} (bool interactive=true, bool local=false, std\-::string localpath=\char`\"{}./log\char`\"{}, bool split\-\_\-output\-\_\-files=false)
 \item 
 {\footnotesize template$<$typename T $>$ }\\void \hyperlink{classLogging_af7839ee68729b066da269cc012b1fcc9}{Log} (T message, int messagelevel=1, int verbose=1)
 \item 
@@ -34,7 +34,7 @@ bool \hyperlink{classLogging_a7a0c89c152ad81fb41a849ed9d81e429}{Change\-Out\-Fil
 \hypertarget{classLogging_a4e1557aba6b12232714eead91264587e}{{\footnotesize template$<$typename T $>$ }\\\hyperlink{classLogging}{Logging} \& {\bfseries operator$<$$<$} (T \&a)}\label{classLogging_a4e1557aba6b12232714eead91264587e}
 
 \item 
-\hyperlink{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}{Logging} (std\-::ostream \&str, std\-::string mode, std\-::string localpath=\char`\"{}\char`\"{})
+\hyperlink{classLogging_a7a3c6bcf0b0241779e7f500e29162e5e}{Logging} (bool interactive=true, bool local=false, std\-::string localpath=\char`\"{}./log\char`\"{}, bool split\-\_\-output\-\_\-files=false)
 \item 
 {\footnotesize template$<$typename T $>$ }\\void \hyperlink{classLogging_af7839ee68729b066da269cc012b1fcc9}{Log} (T message, int messagelevel=1, int verbose=1)
 \item 
@@ -49,12 +49,15 @@ bool \hyperlink{classLogging_a7a0c89c152ad81fb41a849ed9d81e429}{Change\-Out\-Fil
 \hypertarget{classLogging_a4e1557aba6b12232714eead91264587e}{{\footnotesize template$<$typename T $>$ }\\\hyperlink{classLogging}{Logging} \& {\bfseries operator$<$$<$} (T \&a)}\label{classLogging_a4e1557aba6b12232714eead91264587e}
 
 \end{DoxyCompactItemize}
-\subsection*{Public Attributes}
+\subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classLogging_a0fe24ccb3e56851bb763031243819107}{\hyperlink{classLogging_1_1MyStreamBuf}{My\-Stream\-Buf} $\ast$ \hyperlink{classLogging_a0fe24ccb3e56851bb763031243819107}{buffer}}\label{classLogging_a0fe24ccb3e56851bb763031243819107}
+\hypertarget{classLogging_a2b1a01d786e51680682452a80b0e45fa}{\hyperlink{classLogging_1_1TFStreamBuf}{T\-F\-Stream\-Buf} $\ast$ \hyperlink{classLogging_a2b1a01d786e51680682452a80b0e45fa}{buffer}}\label{classLogging_a2b1a01d786e51680682452a80b0e45fa}
 
-\begin{DoxyCompactList}\small\item\em Stream buffer used to replace std\-::cout for redirection to coustom output. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Stream buffer used to replace std\-::cout for redirection to coustom output. \end{DoxyCompactList}\item 
+\hypertarget{classLogging_ad595cac6dfecdc0c2320595a50fd4d21}{\hyperlink{classLogging_1_1TFStreamBuf}{T\-F\-Stream\-Buf} $\ast$ {\bfseries errbuffer}}\label{classLogging_ad595cac6dfecdc0c2320595a50fd4d21}
+
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -69,15 +72,16 @@ B.\-Richards
 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}{\index{Logging@{Logging}!Logging@{Logging}}
+\hypertarget{classLogging_a7a3c6bcf0b0241779e7f500e29162e5e}{\index{Logging@{Logging}!Logging@{Logging}}
 \index{Logging@{Logging}!Logging@{Logging}}
 \subsubsection[{Logging}]{\setlength{\rightskip}{0pt plus 5cm}Logging\-::\-Logging (
 \begin{DoxyParamCaption}
-\item[{std\-::ostream \&}]{str, }
-\item[{std\-::string}]{mode, }
-\item[{std\-::string}]{localpath = {\ttfamily \char`\"{}\char`\"{}}}
+\item[{bool}]{interactive = {\ttfamily true}, }
+\item[{bool}]{local = {\ttfamily false}, }
+\item[{std\-::string}]{localpath = {\ttfamily \char`\"{}./log\char`\"{}}, }
+\item[{bool}]{split\-\_\-output\-\_\-files = {\ttfamily false}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}
+)}}\label{classLogging_a7a3c6bcf0b0241779e7f500e29162e5e}
 Constructor for \hyperlink{classLogging}{Logging} class
 
 
@@ -99,34 +103,27 @@ Constructor for \hyperlink{classLogging}{Logging} class
 {\em logport} & remothe port to send logging information to \\
 \hline
 \end{DoxyParams}
-\hypertarget{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}{\index{Logging@{Logging}!Logging@{Logging}}
+\hypertarget{classLogging_a7a3c6bcf0b0241779e7f500e29162e5e}{\index{Logging@{Logging}!Logging@{Logging}}
 \index{Logging@{Logging}!Logging@{Logging}}
 \subsubsection[{Logging}]{\setlength{\rightskip}{0pt plus 5cm}Logging\-::\-Logging (
 \begin{DoxyParamCaption}
-\item[{std\-::ostream \&}]{str, }
-\item[{std\-::string}]{mode, }
-\item[{std\-::string}]{localpath = {\ttfamily \char`\"{}\char`\"{}}}
+\item[{bool}]{interactive = {\ttfamily true}, }
+\item[{bool}]{local = {\ttfamily false}, }
+\item[{std\-::string}]{localpath = {\ttfamily \char`\"{}./log\char`\"{}}, }
+\item[{bool}]{split\-\_\-output\-\_\-files = {\ttfamily false}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classLogging_acdc54e0c7b62f8542ab9508b1df77aa0}
+)}}\label{classLogging_a7a3c6bcf0b0241779e7f500e29162e5e}
 Constructor for \hyperlink{classLogging}{Logging} class
 
 
 \begin{DoxyParams}{Parameters}
-{\em str} & \\
+{\em interactive} & if loging class prints log output to screen \\
 \hline
-{\em context} & Pointer to Z\-M\-W context used for creating sockets \\
-\hline
-{\em U\-U\-I\-D} & \hyperlink{classToolChain}{Tool\-Chain} U\-U\-I\-D for unique labelling of log messages \\
-\hline
-{\em service} & \\
-\hline
-{\em mode} & \\
+{\em local} & if loggign class prints log output to file \\
 \hline
 {\em localpath} & Local path for log output file \\
 \hline
-{\em logservice} & Remote service to connect to to send logs \\
-\hline
-{\em logport} & remothe port to send logging information to \\
+{\em split\-\_\-output\-\_\-files} & if log is directed to disk then whether or nto to use sperate files for standard output and standard error \\
 \hline
 \end{DoxyParams}
 

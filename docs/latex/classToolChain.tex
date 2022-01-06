@@ -10,7 +10,7 @@
 \item 
 \hyperlink{classToolChain_a133e224899a743ee4a679396f8569bf9}{Tool\-Chain} (std\-::string configfile, int argc=0, char $\ast$argv\mbox{[}$\,$\mbox{]}=0)
 \begin{DoxyCompactList}\small\item\em Constructor that obtains all of the configuration varaibles from an input file. \end{DoxyCompactList}\item 
-\hyperlink{classToolChain_aba22fc00bab0c21c7162ef9a22f69940}{Tool\-Chain} (int verbose=1, int errorlevel=0, std\-::string logmode=\char`\"{}Off\char`\"{}, std\-::string log\-\_\-local\-\_\-path=\char`\"{}./log\char`\"{}, Data\-Model $\ast$in\-\_\-data\-\_\-model=0)
+\hyperlink{classToolChain_adefb544d73c43c2621f3ccb14ad93dc7}{Tool\-Chain} (int verbose=1, int errorlevel=0, bool log\-\_\-interactive=true, bool log\-\_\-local=false, std\-::string log\-\_\-local\-\_\-path=\char`\"{}./log\char`\"{}, bool log\-\_\-split\-\_\-files=false, \hyperlink{classDataModel}{Data\-Model} $\ast$in\-\_\-data\-\_\-model=0)
 \item 
 bool \hyperlink{classToolChain_ae6859092e14be1f9538c50d7c838fe8e}{Add} (std\-::string name, \hyperlink{classTool}{Tool} $\ast$tool, std\-::string configfile=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em Add a \hyperlink{classTool}{Tool} to the \hyperlink{classToolChain}{Tool\-Chain}. \end{DoxyCompactList}\item 
@@ -64,19 +64,19 @@ int \hyperlink{classToolChain_a303e299293fd4d3a5e91865e04898e52}{Execute} (int r
 \hypertarget{classToolChain_a74cb5832ff5a41714a4da2448b87cee6}{std\-::vector$<$ std\-::string $>$ {\bfseries m\-\_\-configfiles}}\label{classToolChain_a74cb5832ff5a41714a4da2448b87cee6}
 
 \item 
-\hypertarget{classToolChain_afd495ff385339222139bd08a8f639f70}{std\-::streambuf $\ast$ {\bfseries bcout}}\label{classToolChain_afd495ff385339222139bd08a8f639f70}
-
-\item 
-\hypertarget{classToolChain_acf212e76acd47432881da21765029bee}{std\-::ostream $\ast$ {\bfseries out}}\label{classToolChain_acf212e76acd47432881da21765029bee}
-
-\item 
 \hypertarget{classToolChain_a3e157c7148cbdb9eccd43fce185297f5}{int {\bfseries m\-\_\-verbose}}\label{classToolChain_a3e157c7148cbdb9eccd43fce185297f5}
 
 \item 
 \hypertarget{classToolChain_a26843fabb52f0fba5f91be3da7564e4e}{int {\bfseries m\-\_\-errorlevel}}\label{classToolChain_a26843fabb52f0fba5f91be3da7564e4e}
 
 \item 
-\hypertarget{classToolChain_aa36a20b14abe2e1f491396f396bf41c3}{std\-::string {\bfseries m\-\_\-log\-\_\-mode}}\label{classToolChain_aa36a20b14abe2e1f491396f396bf41c3}
+\hypertarget{classToolChain_a0c1470a33c6f3f2749230ed4b2165c5b}{bool {\bfseries m\-\_\-log\-\_\-interactive}}\label{classToolChain_a0c1470a33c6f3f2749230ed4b2165c5b}
+
+\item 
+\hypertarget{classToolChain_a2076a51d02b80034f523b332ddd452c3}{bool {\bfseries m\-\_\-log\-\_\-local}}\label{classToolChain_a2076a51d02b80034f523b332ddd452c3}
+
+\item 
+\hypertarget{classToolChain_a0aa84e0beb152870363f4c7a23466c15}{bool {\bfseries m\-\_\-log\-\_\-split\-\_\-files}}\label{classToolChain_a0aa84e0beb152870363f4c7a23466c15}
 
 \item 
 \hypertarget{classToolChain_a030b1214102cfb02242e2247248f6087}{std\-::string {\bfseries m\-\_\-log\-\_\-local\-\_\-path}}\label{classToolChain_a030b1214102cfb02242e2247248f6087}
@@ -147,38 +147,32 @@ Constructor that obtains all of the configuration varaibles from an input file.
 {\em configfile} & The path and name of the config file to read configuration values from. \\
 \hline
 \end{DoxyParams}
-\hypertarget{classToolChain_aba22fc00bab0c21c7162ef9a22f69940}{\index{Tool\-Chain@{Tool\-Chain}!Tool\-Chain@{Tool\-Chain}}
+\hypertarget{classToolChain_adefb544d73c43c2621f3ccb14ad93dc7}{\index{Tool\-Chain@{Tool\-Chain}!Tool\-Chain@{Tool\-Chain}}
 \index{Tool\-Chain@{Tool\-Chain}!ToolChain@{Tool\-Chain}}
 \subsubsection[{Tool\-Chain}]{\setlength{\rightskip}{0pt plus 5cm}Tool\-Chain\-::\-Tool\-Chain (
 \begin{DoxyParamCaption}
 \item[{int}]{verbose = {\ttfamily 1}, }
 \item[{int}]{errorlevel = {\ttfamily 0}, }
-\item[{std\-::string}]{logmode = {\ttfamily \char`\"{}Off\char`\"{}}, }
+\item[{bool}]{log\-\_\-interactive = {\ttfamily true}, }
+\item[{bool}]{log\-\_\-local = {\ttfamily false}, }
 \item[{std\-::string}]{log\-\_\-local\-\_\-path = {\ttfamily \char`\"{}./log\char`\"{}}, }
+\item[{bool}]{log\-\_\-split\-\_\-files = {\ttfamily false}, }
 \item[{{\bf Data\-Model} $\ast$}]{in\-\_\-data\-\_\-model = {\ttfamily 0}}
 \end{DoxyParamCaption}
-)}}\label{classToolChain_aba22fc00bab0c21c7162ef9a22f69940}
-Constructor with explicit configuration variables passed as arguments. 
+)}}\label{classToolChain_adefb544d73c43c2621f3ccb14ad93dc7}
+\begin{DoxyVerb} Constructor with explicit configuration variables passed as arguments.
+ @param verbose The verbosity level of the ToolChain. The higher the number the more explicit the print outs. 0 = silent apart from errors.
+ @param errorlevel The behavior that occurs when the ToolChain encounters an error. 0 = do not exit for both handeled and unhandeled errors, 1 = exit on unhandeled errors only, 2 = exit on handeled and unhandeled errors.
+ @param log_interactive sets the logging class to use standard output and error to screen
+ @param log_local sets the logging class to redirect standard output and error to disk
+\end{DoxyVerb}
+ logmode Where log printouts should be forwarded too. \char`\"{}\-Interactive\char`\"{} = cout, \char`\"{}\-Remote\char`\"{} = send to a remote logging system, \char`\"{}local\char`\"{} = ouput logs to a file. 
 \begin{DoxyParams}{Parameters}
-{\em verbose} & The verbosity level of the \hyperlink{classToolChain}{Tool\-Chain}. The higher the number the more explicit the print outs. 0 = silent apart from errors. \\
-\hline
-{\em errorlevel} & The behavior that occurs when the \hyperlink{classToolChain}{Tool\-Chain} encounters an error. 0 = do not exit for both handeled and unhandeled errors, 1 = exit on unhandeled errors only, 2 = exit on handeled and unhandeled errors. \\
-\hline
-{\em service} & The name of the \hyperlink{classToolChain}{Tool\-Chain} service to boradcast for service discovery \\
-\hline
-{\em logmode} & Where log printouts should be forwarded too. \char`\"{}\-Interactive\char`\"{} = cout, \char`\"{}\-Remote\char`\"{} = send to a remote logging system, \char`\"{}local\char`\"{} = ouput logs to a file. \\
-\hline
 {\em log\-\_\-local\-\_\-path} & The file path and name of where to store logs if in Local logging mode. \\
 \hline
-{\em log\-\_\-service} & Service name of remote logging system if in Remote logging mode. \\
+{\em log\-\_\-split\-\_\-files} & when loggign to local file whether to split standard output and standard error into differnt files \\
 \hline
-{\em log\-\_\-port} & The Port number of the remote logging service \\
-\hline
-{\em pub\-\_\-sec} & The number of seconds between publishing multicast serivce beacons \\
-\hline
-{\em kick\-\_\-sec} & The number of seconds to wait before removing a servic from the remote services list if no beacon received. \\
-\hline
-{\em I\-O\-\_\-\-Threads} & The number of Z\-M\-Q I\-O threads to use ($\sim$1 per Gbps of traffic). \\
+{\em in\-\_\-data\-\_\-model} & option to specify an external data modle for use in \hyperlink{classToolChain}{Tool\-Chain}. \\
 \hline
 \end{DoxyParams}
 
