@@ -3,7 +3,7 @@
 
 Logging::TFStreamBuf::~TFStreamBuf(){
   
-  if(m_local)file.close();
+  if(m_local && !no_delete) file.close();
  
   if(m_error){
     std::cerr.rdbuf(backup1);
@@ -78,7 +78,7 @@ Logging::TFStreamBuf::TFStreamBuf ( bool interactive, bool local, std::string lo
 
 int Logging::TFStreamBuf::sync ( )
 {
-
+ 
   if( (( m_interactive || m_local) && (m_messagelevel <= m_verbose)) && str()!=""){
     
     time_t rawtime;

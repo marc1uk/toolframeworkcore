@@ -1,7 +1,7 @@
 #include "ToolChain.h"
 
 ToolChain::ToolChain(std::string configfile,  int argc, char* argv[]){
-
+ 
   m_data=new DataModel();
   
   if(!m_data->vars.Initialise(configfile)){
@@ -500,22 +500,22 @@ void* ToolChain::InteractiveThread(void* arg){
 
 
 ToolChain::~ToolChain(){
-  
+ 
   for (int i=0;i<m_tools.size();i++){
     delete m_tools.at(i);
     m_tools.at(i)=0;
   }
-
+  
   m_tools.clear();
-
-  if(m_data->Log==m_log){
-    m_data->Log=0;
+  
+  if(m_data!=0 && m_data->Log==m_log){
+    m_data->Log=0; 
     delete m_data;
     m_data=0;
   }
+
   delete m_log;  
   m_log=0;
-
-
+  
 }
 
