@@ -1,14 +1,51 @@
 #include <BStore.h>
 
-BStore::BStore(bool header, bool type_checking){
+////////////////////////
+//Notes for Ben
+///////////////////////////////
+
+// for compressed keep track of if open in read or append and then switch between if genentry or save and close are called.
+
+// for post pre to get rollback to work rewrite old flags at the end of the file uncompressed or find a way to write the old header uncomressed and everythingelse compressed. might need a defrag only option with no roll back
+
+//better option might be to just have all but the version and type flags in the compressed section then the data would not be corupted (if that is the issue)
+
+
+// defrag function.
+
+
+
+BStore::BStore(bool header, bool type_checking):m_version(1.0){
   //  m_serialise=true;
   m_type_checking=type_checking;
   m_has_header=header;  
-  if(header) m_header=new BStore(false,false);
-  else m_header=0;
+  Header=0;
+  if(header) Header=new BStore(false,false);
+  
+  m_file_end=0;
+  m_file_name="";
+  m_open_file_end=0;
+  m_previous_file_end=0;
+  m_type=ram;
+  
+  m_header_start=0;
+  m_flags_start=0;
+  
+  m_lookup_start=0;
+  //  m_lookup_size=0;
+  
+  //  m_current_loaded_entry=0;
+  m_update=false;
+
 }
 
-std::string BStore::GetVersion(){return "BStore:1.0.0";}
+std::string BStore::GetVersion(){
+
+  std::stringstream tmp;
+  tmp<<"BStore:"<<m_version;
+  return tmp.str();
+
+}
 
 bool BStore::GetFlags(unsigned int file_end){
 
@@ -16,22 +53,53 @@ bool BStore::GetFlags(unsigned int file_end){
   m_file_end=file_end;       // not sure if i wnna keep thiese two here
   m_open_file_end=file_end;
   
-  if(!output.Bseek( file_end-(sizeof(m_header_start)+sizeof(m_has_header)+sizeof(m_lookup_start)+sizeof(m_lookup_size)+sizeof(m_type_checking)+sizeof(m_type)+sizeof(m_previous_file_end)), SEEK_SET)) return false;
+  if(!output.Bseek( file_end-(sizeof(m_version)+sizeof(m_header_start)+sizeof(m_has_header)+sizeof(m_lookup_start)+sizeof(m_type_checking)+sizeof(m_type)+sizeof(m_previous_file_end)), SEEK_SET)){
+    std::clog<<"ERROR BStore::GetFlags : Error seeking start of flags"<<std::endl;
+    return false;
+  }
   //  std::cout<<"current pos-11="<<output.Btell()<<std::endl;
   m_flags_start=output.Btell();
   //std::cout<<"flast start pos="<<m_flags_start<<std::endl;
   //std::cout<<"current pos5="<<output.Btell()<<std::endl;
-  if(!(output >> m_header_start)) return false;                                               
-  if(!(output >> m_has_header)) return false;
-  if(!(output >> m_lookup_start)) return false;
+  float version=0;
+  if(!(output >> version)){
+    std::clog<<"ERROR BStore::GetFlags : Error reading version"<<std::endl;
+    return false;                                               
+  }  
+  if(version!=m_version) std::clog<<"Warning BStore::GetFlags : version missmatch m_version="<<m_version<<", file version="<<version<<". possibly incompatible"<<std::endl;
+
+  if(!(output >> m_header_start)){
+    std::clog<<"ERROR BStore::GetFlags : Error reading m_header_start"<<std::endl;
+    return false;                                               
+  }
+  if(!(output >> m_has_header)){
+    std::clog<<"ERROR BStore::GetFlags : Error reading m_has_header"<<std::endl;
+    return false;
+  }
+  if(!(output >> m_lookup_start)){
+    std::clog<<"ERROR BStore::GetFlags : Error reading m_lookup_start"<<std::endl; 
+    return false;
+  }
   //std::cout<<"current pos="<<output.Btell()<<std::endl;
-  if(!(output >> m_lookup_size)) return false;
+  //if(!(output >> m_lookup_size)){
+  // std::clog<<"ERROR BStore::GetFlags : Error reading m_lookup_size"<<std::endl;
+  //  return false;
+  // }
   //std::cout<<"current pos="<<output.Btell()<<std::endl;
-  if(!(output >> m_type_checking)) return false;
+  if(!(output >> m_type_checking)){
+    std::clog<<"ERROR BStore::GetFlags : Error reading m_type_checking"<<std::endl;
+    return false;
+  }
   //std::cout<<"current pos="<<output.Btell()<<std::endl;
-  if(!(output >> m_type)) return false; 
+  if(!(output >> m_type)){
+    std::clog<<"ERROR BStore::GetFlags : Error reading m_type"<<std::endl;
+    return false; 
+  }
   //std::cout<<"current pos="<<output.Btell()<<std::endl;
-  if(!(output >> m_previous_file_end)) return false;
+  if(!(output >> m_previous_file_end)){
+    std::clog<<"ERROR BStore::GetFlags : Error reading m_precious_file_end"<<std::endl;
+    return false;
+  }
   //std::cout<<"current pos="<<output.Btell()<<std::endl;
   //std::cout<<"loading"<<std::endl;
   //std::cout<<"m_lookup_start="<< m_lookup_start<<std::endl;
@@ -46,11 +114,20 @@ bool BStore::GetFlags(unsigned int file_end){
 
 bool BStore::GetFlags(std::string filename, unsigned int file_end){
   
-  if(!output.Bclose()) return false;
-  if(!output.Bopen(filename, READ, UNCOMPRESSED)) return false;
-  if(!output.Bseek(0, SEEK_END)) return false;
+  if(!output.Bclose()){
+    std::clog<<"ERROR BStore::GetFlags : Error closing any open file"<<std::endl;
+    return false;
+  }
+  if(!output.Bopen(filename, READ, UNCOMPRESSED)){
+    std::clog<<"ERROR BStore::GetFlags : Error opening file for flags"<<std::endl;
+    return false;
+  }
+  if(!output.Bseek(0, SEEK_END)){
+    std::clog<<"ERROR BStore::GetFlags : Error seeking end of file"<<std::endl;
+    return false;
+  }
   if(file_end==0){
-    if(!output.Bseek(0, SEEK_END)) return false;
+    //if(!output.Bseek(0, SEEK_END)) return false;
     m_file_end=output.Btell();
   }
   else m_file_end=file_end;
@@ -59,12 +136,17 @@ bool BStore::GetFlags(std::string filename, unsigned int file_end){
   m_file_name=filename;
   //std::cout<<"current pos-2="<<output.Btell()<<std::endl;
   
-  if(!GetFlags(m_file_end)) return false;
-
+  if(!GetFlags(m_file_end)){
+    std::clog<<"ERROR BStore::GetFlags : Error getting flags"<<std::endl;
+    return false;
+  }
   //  if(!output.Bseek(0, SEEK_END)) return false;
   //std::cout<<"current pos="<<output.Btell()<<std::endl;
   
-  if(!output.Bclose()) return false;
+  if(!output.Bclose()){
+    std::clog<<"ERROR BStore::GetFlags : Error closing file after retreiving flags"<<std::endl;
+    return false;
+  }
   //  m_entry=m_lookup_size;
   
   return true;
@@ -73,33 +155,64 @@ bool BStore::GetFlags(std::string filename, unsigned int file_end){
 
 
 bool BStore::Initnew(std::string filename, enum_type type, bool header, bool type_checking, unsigned int file_end){
-  struct stat buffer;   
+ m_file_name=filename; 
+ 
+ struct stat buffer;   
   if(stat (filename.c_str(), &buffer) == 0){ //if file exists    
     //std::cout<<"file exists"<<std::endl;
-    if(!GetFlags(filename, file_end)) return false;
-
-    if(type==uncompressed){
-      if(!output.Bopen(filename, READ_APPEND, UNCOMPRESSED)) return false;
+    if(!GetFlags(filename, file_end)){ 
+      std::clog<<"ERROR BStore::Initnew : Error in obtaining flags"<<std::endl;
+      return false;
+    }
+    if(m_type==uncompressed){
+      if(!output.Bopen(filename, READ_APPEND, UNCOMPRESSED)){
+	std::clog<<"ERROR Bstore::Initnew : Error opening uncompressed file"<<std::endl;	
+	return false;
+      }
     }
 #ifdef ZLIB
-    else if(type==compressed){
-      if(!output.Bopen(filename, READ, COMPRESSED)) return false;
+    else if(m_type==compressed){
+      if(!output.Bopen(filename, READ, COMPRESSED)){
+	std::clog<<"ERROR BStore::Initnew : Error openning compressed file"<<std::endl;
+	return false; //also need to reassign file end??
+      }
     }
-    else if(type==post_pre_compress){
+    else if(m_type==post_pre_compress){
       //std::cout<<"BEN loading file correctly"<<std::endl;
-      if(!output.Bopen(filename, READ_APPEND, POST_PRE_COMPRESS)) return false;
-      if(!output.Bseek(0, SEEK_END)) return false;
+      if(!output.Bopen(filename, READ_APPEND, POST_PRE_COMPRESS)){
+	std::clog<<"ERROR BStore::Initnew : Error openning post_pre_compressed file"<<std::endl;	
+	return false;
+      }
+      if(!output.Bseek(0, SEEK_END)){
+	std::clog<<"ERROR BStore::Initnew : Error seeking end of file"<<std::endl;
+	return false;
+      }
       m_file_end=output.Btell();
       m_open_file_end=output.Btell();
     }
 #endif
-    else return false;
-    
-    if(!output.Bseek(m_lookup_start,SEEK_SET)) return false;
-    if(!(output >> m_lookup)) return false;
-    if(!GetHeader()) return false;  
-    if(!GetEntry(0)) return false;
-    
+    else{
+      std::clog<<"ERROR BStore::Initnew : unkown m_type"<<std::endl;
+      return false;
+    }    
+
+    if(!output.Bseek(m_lookup_start,SEEK_SET)){
+      std::clog<<"ERROR BStore::Initnew : Error seeking m_lookup_start"<<std::endl; 
+      return false;
+    }
+    if(!(output >> m_lookup)){
+      std::clog<<"ERROR BStore::Initnew : Error retreiving lookup table"<<std::endl;
+      return false;
+    }
+    if(!GetHeader()){
+      std::clog<<"ERROR BStore::Initnew : Error retreiving header"<<std::endl; 
+      return false;  
+    }
+    if(!GetEntry(0)){
+      std::clog<<"ERROR BStore::Initnew : Error retreiving Entry(0)"<<std::endl;
+      return false;
+    }
+
   }
   
   else{ 
@@ -107,33 +220,43 @@ bool BStore::Initnew(std::string filename, enum_type type, bool header, bool typ
     m_file_end=0;
     //m_entry=0;
     if(type==uncompressed){
-      if(!output.Bopen(filename, READ_APPEND, UNCOMPRESSED)) return false;
+      if(!output.Bopen(filename, READ_APPEND, UNCOMPRESSED)){
+	std::clog<<"ERROR BStore::Initnew : Error openning new compressed file"<<std::endl;
+	return false;
+      }
     }
 #ifdef ZLIB
     else if(type==compressed){
-      if(!output.Bopen(filename, APPEND, COMPRESSED)) return false;
+      if(!output.Bopen(filename, APPEND, COMPRESSED)){
+	std::clog<<"ERROR BStore::Initnew : Error openning new compressed file"<<std::endl;
+	return false;
+      }
     }
     else if(type==post_pre_compress){
-      if(!output.Bopen(filename, READ_APPEND, POST_PRE_COMPRESS)) return false;
+      if(!output.Bopen(filename, READ_APPEND, POST_PRE_COMPRESS)){
+	std::clog<<"ERROR BStore::Initnew : Error openning new post_pre_compressed file"<<std::endl;  
+	return false;
+      }
     }
 #endif
-    else return false;
-
-    if(m_header!=0){
-      delete m_header;
-      m_header=0;
+    else{
+      std::clog<<"ERROR BStore::Initnew : unknown new file type"<<std::endl;
+      return false;
+    }
+    if(Header!=0){
+      delete Header;
+      Header=0;
     }
     m_has_header=header;
-    if(header) m_header= new BStore(false,false);
-
+    if(header) Header= new BStore(false,false);
+    
     m_type=type;
     m_type_checking=type_checking;
-    m_file_name=filename;    
   }
-
+  
   m_update=false;
-
-  return true; // no idea jsut added this please check  
+  
+  return true;  
 }
 
 /*
@@ -201,46 +324,62 @@ bool BStore::Save(unsigned int entry){ //defualt save in next entry so need to d
 
   m_update=true;
   
-  std::cout<<"debug1 entry="<<entry<<std::endl;
+  //  std::cout<<"debug1 entry="<<entry<<std::endl;
 
   //  entry++;
-  std::cout<<"m_lookup.size()="<<m_lookup.size()<<std::endl;
+  //std::cout<<"m_lookup.size()="<<m_lookup.size()<<std::endl;
   if(entry>=m_lookup.size()){
     entry=m_lookup.size();
     m_lookup.resize(m_lookup.size()+1); 
   }
-  std::cout<<"debug2 entry="<<entry<<std::endl;
+  //std::cout<<"debug2 entry="<<entry<<std::endl;
   
   
-  std::cout<<"debug3 entry="<<entry<<std::endl;
+  //std::cout<<"debug3 entry="<<entry<<std::endl;
   
-  std::cout<<"save start2="<<output.Btell()<<std::endl;
-  std::cout<<"m_file_end="<<m_file_end<<std::endl;
-  if(!output.Bseek(m_file_end,SEEK_SET)) return false;
-  std::cout<<"save entry2="<<entry<<std::endl;
+  //std::cout<<"save start2="<<output.Btell()<<std::endl;
+  //std::cout<<"m_file_end="<<m_file_end<<std::endl;
+ 
+  if(!output.Bseek(m_file_end,SEEK_SET)){
+    std::clog<<"ERROR BStore::Save : Error seeking end of file"<<std::endl;  
+    return false;
+  }
+  //std::cout<<"save entry2="<<entry<<std::endl;
   m_lookup.at(entry)=output.Btell();
-  std::cout<<"m_variables.size()="<<m_variables.size()<<std::endl;
-  std::cout<<"m_lookup.size()="<<m_lookup.size()<<std::endl;
-  std::cout<<"before saving m_variables="<<output.Btell()<<std::endl;
-  if(!(output << m_variables)) return false;
-  std::cout<<"after saving m_variables="<<output.Btell()<<std::endl;
-  if(m_type_checking) if(!(output << m_type_info)) return false;
+  //std::cout<<"m_variables.size()="<<m_variables.size()<<std::endl;
+  //std::cout<<"m_lookup.size()="<<m_lookup.size()<<std::endl;
+  //std::cout<<"before saving m_variables="<<output.Btell()<<std::endl;
+  if(!(output << m_variables)){
+    std::clog<<"ERROR BStore::Save : Error writing m_varaibles"<<std::endl;
+    return false;
+  }
+  //std::cout<<"after saving m_variables="<<output.Btell()<<std::endl;
+  if(m_type_checking){
+    if(!(output << m_type_info)){
+      std::clog<<"ERROR BStore::Save : Error writing m_type_info"<<std::endl;
+      return false;
+    }
+  }
   m_file_end=output.Btell(); 
- 
- 
+  
+  
   return true;
 }
 
 bool BStore::GetHeader(){
   
   if(m_has_header){
-    if(m_header!=0){
-      delete m_header;
-      m_header=0;
+    if(Header!=0){
+      delete Header;
+      Header=0;
     }
-    m_header= new BStore(false, false);
+
+    Header= new BStore(false, false);
     output.Bseek(m_header_start, SEEK_SET);
-    if(!(output >> m_header)) return false;
+    if(!(output >> Header->m_variables)){
+      std::clog<<"ERROR BStore::GetHeader : Error retreiving header"<<std::endl;
+      return false;
+    }
   }
 
   return true;
@@ -250,23 +389,37 @@ bool BStore::GetEntry(unsigned int entry_request){
   //std::cout<<"mode="<<output.m_mode<<std::endl;
   //  entry_request++;
   
-  //std::cout<<"gettentry called="<<entry_request<<std::endl;
+  // std::cout<<"gettentry called="<<entry_request<<std::endl;
 
   //if(!entry_request) return false;  
   //std::cout<<"passed non zero check"<<std::endl;
-  if((m_lookup.size()-1)<entry_request) return false;
-  //if(!m_lookup.count(entry_request)) return false;
+  if((m_lookup.size()-1)<entry_request){
+    std::clog<<"ERROR BStore::GetEntry : Entry outside of range"<<std::endl;
+    return false;
+  } 
+ //if(!m_lookup.count(entry_request)) return false;
   //std::cout<<"mode="<<output.m_mode<<std::endl;
   //std::cout<<"passed get entry checks"<<std::endl;
 
   Delete();
   //std::cout<<"getting entry data: entry="<<entry_request<<", location is="<<m_lookup[entry_request]<<std::endl;  
   //std::cout<<"mode="<<output.m_mode<<std::endl;
-  if(!output.Bseek(m_lookup[entry_request], SEEK_SET)) return false;
+  if(!output.Bseek(m_lookup[entry_request], SEEK_SET)){
+    std::clog<<"ERROR BStore::GetEntry : Error seeking entry"<<std::endl;  
+    return false;
+  }
   //std::cout<<"mode="<<output.m_mode<<std::endl;  
-  if(!(output >> m_variables))return false;
+  if(!(output >> m_variables)){
+    std::clog<<"ERROR BStore::GetEntry : Error reteriving entry varaibles"<<std::endl;
+    return false;
+  }
   //std::cout<<"mode="<<output.m_mode<<std::endl;
-  if(m_type_checking)  if(!(output >>  m_type_info)) return false;
+  if(m_type_checking){
+    if(!(output >>  m_type_info)){
+      std::clog<<"ERROR BStore::GetEntry : Error reteriving m_type_info"<<std::endl;
+      return false;
+    }
+  }
   //std::cout<<"mode="<<output.m_mode<<std::endl;
   return true;
   
@@ -275,21 +428,26 @@ bool BStore::GetEntry(unsigned int entry_request){
 
 // write header and lookup
 bool BStore::WriteHeader(){
-
+  
   m_header_start=output.Btell();
-  if(m_has_header>0 && !(output << *m_header)) return false;
-  m_file_end=output.Btell();
-
+  if(m_has_header>0 && !(output << Header->m_variables)){
+    std::clog<<"ERROR BStore::WriteHeader : Entry saving Header varaibles"<<std::endl;
+    return false;
+  }  m_file_end=output.Btell();
+  
   return true;
-
+  
 }
 
 bool BStore::WriteLookup(){
-
+  
   m_lookup_start= output.Btell();
-  m_lookup_size=m_lookup.size();
+  //m_lookup_size=m_lookup.size();
   m_previous_file_end=m_open_file_end;
-  if(!(output << m_lookup)) return false;
+  if(!(output << m_lookup)){
+    std::clog<<"ERROR BStore::WriteLookup : Error saving lookup table"<<std::endl;
+    return false;
+  }
   m_file_end=output.Btell();
 
   return true;
@@ -297,13 +455,38 @@ bool BStore::WriteLookup(){
 
 bool BStore::WriteFlags(){
 
-  if(!(output << m_header_start)) return false;
-  if(!(output << m_has_header)) return false; 
-  if(!(output << m_lookup_start)) return false;
-  if(!(output << m_lookup_size)) return false;
-  if(!(output << m_type_checking)) return false;
-  if(!(output << m_type)) return false;
-  if(!(output << m_previous_file_end)) return false;
+  if(!(output << m_version)){
+    std::clog<<"ERROR BStore::WriteFlags : Error writing m_version"<<std::endl;
+    return false;
+  }
+  if(!(output << m_header_start)){
+    std::clog<<"ERROR BStore::WriteFlags : Error writing m_header_start"<<std::endl;
+    return false;
+  }
+  if(!(output << m_has_header)){
+    std::clog<<"ERROR BStore::WriteFlags : Error writing m_has_header"<<std::endl;
+    return false; 
+  }
+  if(!(output << m_lookup_start)){
+    std::clog<<"ERROR BStore::WriteFlags : Error writing m_lookup_start"<<std::endl;
+    return false;
+  }
+  //  if(!(output << m_lookup_size)){
+  //  std::clog<<"ERROR BStore::WriteFlags : Error writing m_lookup_size"<<std::endl;
+  //  return false;
+  //}  
+  if(!(output << m_type_checking)){
+    std::clog<<"ERROR BStore::WriteFlags : Error writing m_type_checking"<<std::endl;
+    return false;
+  }
+  if(!(output << m_type)){
+    std::clog<<"ERROR BStore::WriteFlags : Error writing m_type"<<std::endl;
+    return false;
+  }
+  if(!(output << m_previous_file_end)){
+    std::clog<<"ERROR BStore::WriteFlags : Error writing m_previous_file_end"<<std::endl;
+    return false;
+  }
   return true;
 
 }
@@ -316,17 +499,24 @@ bool BStore::Close(){
     //std::cout<<"in close"<<std::endl;
     //std::cout<<"btell="<<output.Btell()<<std::endl;
     //std::cout<<"m_file_end"<<m_file_end<<std::endl;
-
+    //   std::cout<<"s1"<<std::endl;
     // write header and lookup
-    if(!output.Bseek(m_file_end,SEEK_SET))return false;
+    if(!output.Bseek(m_file_end,SEEK_SET)){
+      std::clog<<"ERROR BStore::Close : Error seeking m_file_end"<<std::endl;
+      return false;
+    }
     //    m_lookup[0]=output.Btell();                         old header location need to fix
    
+    //std::cout<<"s2"<<std::endl;
     // m_header_start=output.Btell();
     // std::cout<<"btell="<<output.Btell()<<std::endl;
     //std::cout<<"saving header"<<std::endl;
     // if(m_has_header>0 && !(output << *m_header)) return false; 
-    if(!WriteHeader()) return false;
-
+    if(!WriteHeader()){
+      std::clog<<"ERROR BStore::Close : Error writing Header"<<std::endl;
+      return false;
+    }
+    //std::cout<<"s3"<<std::endl;
     //std::cout<<"header saved"<<std::endl;
     //std::cout<<"btell="<<output.Btell()<<std::endl;
    
@@ -339,22 +529,34 @@ bool BStore::Close(){
     //std::cout<<"btell="<<output.Btell()<<std::endl;
     //m_file_end=output.Btell();
     //
-    if(!WriteLookup()) return false;
+    if(!WriteLookup()){
+      std::clog<<"ERROR BStore::Close : Error writing loopup"<<std::endl;
+      return false;
+    }    //std::cout<<"s4"<<std::endl;
 
 
-
-    if(m_type!=uncompressed){
-
-      if(!output.Bclose())return false;
+    if(m_type!=uncompressed && m_type!=ram){
+      //std::cout<<"s5"<<std::endl;
+      if(!output.Bclose()){
+	std::clog<<"ERROR BStore::Close : Error closing compressed file prior to flags"<<std::endl;
+	return false;
+      }
       //std::cout<<"k1"<<std::endl;
-      if(!output.Bopen(m_file_name,APPEND,UNCOMPRESSED))return false;
-      //std::cout<<"k2 ="<<output.pfile<<std::endl;
+      //std::cout<<"s6"<<std::endl;
+      if(!output.Bopen(m_file_name,APPEND,UNCOMPRESSED)){
+	std::clog<<"ERROR BStore::Close : Error oppening file to append flags"<<std::endl;
+	return false;
+      }     //std::cout<<"k2 ="<<output.pfile<<std::endl;
+      //std::cout<<"s7"<<std::endl;
     }
     
 
     //std::cout<<"k3 saving flag start pos="<<output.Btell()<<std::endl;
-    if(!output.Bseek(0,SEEK_END))return false;
-    //std::cout<<" k3 saving flag start pos2="<<output.Btell()<<std::endl;
+    if(!output.Bseek(0,SEEK_END)){
+      std::clog<<"ERROR BStore::Close : Error seeking end of file"<<std::endl;
+      return false;
+    }    // std::cout<<"s8"<<std::endl;    
+//std::cout<<" k3 saving flag start pos2="<<output.Btell()<<std::endl;
     //std::cout<<"m_lookup_start="<< m_lookup_start<<std::endl;
     //std::cout<<"m_lookup_size="<< m_lookup_size<<std::endl;
     //std::cout<<"m_type_checking="<< m_type_checking<<std::endl;
@@ -362,7 +564,10 @@ bool BStore::Close(){
     //std::cout<<"m_previous_file_end="<< m_previous_file_end<<std::endl;
    
     //write flags
-    if(!WriteFlags()) return false;
+    if(!WriteFlags()){
+      std::clog<<"ERROR BStore::Close : Error writing flags"<<std::endl;
+      return false;
+    }    //std::cout<<"s9"<<std::endl;
     //if(!(output << m_header_start)) return false;
     //if(!(output << m_has_header)) return false; 
     //if(!(output << m_lookup_start)) return false;
@@ -371,9 +576,14 @@ bool BStore::Close(){
     //if(!(output << m_type)) return false;
     //if(!(output << m_previous_file_end)) return false;
     //std::cout<<"k4 "<<output.Btell()<<std::endl;
-    if(!output.Bclose()) return false;
+    if(!output.Bclose()){
+      std::clog<<"ERROR BStore::Close : Error closing file after writing flags"<<std::endl;
+      return false;
+    }    
+    //std::cout<<"s10"<<std::endl;
     //std::cout<<"k5"<<std::endl;
     Delete();    
+    //std::cout<<"s12"<<std::endl;
     //std::cout<<"k6"<<std::endl;
     return true;
   }
@@ -500,49 +710,97 @@ bool BStore::Has(std::string key){
 
 bool BStore::DeleteEntry(unsigned int entry_request){
  
-  //Impliment this when you ahve changed it to a vector will be much easier
-
- /*
-  entry_request++;
-
-  if(!entry_request) return false;
-
-  if(entry_request>=m_lookup.size()) return false;
-
-  std::map<unsigned int, unsigned int>::iterator itbuff=m_lookup.end()
-
-  for(std::map<unsigned int, unsigned int>::iterator it=m_lookup.end(); it!=m_lookup.begin(); it--){
-    if(it->first==entry_request){
-      itbuff=it;
-      break;
-    }   
-    else {
-      std::map<unsigned int, unsigned int>::iterator ittmp=it;
-      it->second=itbuff->second;
-      itbuff=ittmp;
-    }
-  }
-  */
-
+  if(entry_request>=m_lookup.size()){
+    std::clog<<"ERROR BStore::DeleteEntry : Error entry "<<entry_request<<" not in BStore"<<std::endl;
+    return false;
+  }  
+  m_lookup.erase(m_lookup.begin()+entry_request);
+  
+  m_update=true;
+  
   return true;
-  }
+}
 
 
 bool BStore::Rollback(){
 
   //ned to check if compressed or prepost to get location right sigh....
-
+  if(!m_previous_file_end){
+    std::clog<<"Warning BStore::Rollback : no rollback state exists"<<std::endl;
+    return false;
+  }
   Delete();
   m_lookup.clear();
 
-  Initnew(m_file_name, m_type, m_has_header, m_type_checking, m_previous_file_end);    
+  Initnew(m_file_name, m_type, m_has_header, m_type_checking, m_previous_file_end);    // is this better than just reloading lookup and headers etc?
 
   return true;
 }
 
 
 bool BStore::Serialise(BinaryStream &bs){ // do return properly
- 
+
+
+  ///neive new testing
+
+  bs & output;
+  bs & m_lookup;
+  GetEntry(0);
+  /*
+  save;
+
+  if(bs.m_write){
+    finishfile
+      bs & output;
+    close
+      }
+
+  else{
+
+    bs & output;
+    close
+      open
+      }
+  */
+
+  /* 
+  bs & m_lookup;
+
+  
+  bs & m_file_end;
+  bs & m_file_name;
+  bs & m_open_file_end;
+  bs & m_previous_file_end;
+  bs & m_type;
+  bs & m_type_checking;
+  bs & m_has_header;
+  bs & m_header_start;
+  
+  bs &m_flags_start;
+  
+  
+  bs & m_lookup_start;
+  bs & m_lookup_size;
+  
+  bs & m_current_loaded_entry;
+  bs & m_update;
+  
+  bs & m_file_type; 
+
+  if(!GetHeader()) return false;
+  if(!GetEntry(0)) return false;
+  */
+
+
+
+
+
+
+
+
+  /////
+
+
   /*   // uncomment here to start
   //writing 
   if(bs.m_write){
@@ -621,27 +879,18 @@ bool BStore::Serialise(BinaryStream &bs){ // do return properly
   }
 
 
+unsigned int BStore::NumEntries(){
+  
+  return m_lookup.size();
+  
+}
+
+BStore::~BStore(){
+
+  delete Header;
+  Header=0;
+
+  Delete();
 
 
-//////////////////////////////////////////////////////////////
-/// entry 1 size
-/// entry 1 
-/// entry 2 size
-/// entry 2 
-/// entry 2 extra data for nesting 
-/// entry 3 size
-/// entry 3
-/// ..
-/// ..
-/// Header / entry 0
-/// lookup 0                                        :  lookup_start
-/// lookup 1 
-/// ..
-/// ..
-/// lookup_start                                    :  flags_start
-/// lookup_size
-/// type   //
-/// previous_file_end
-//////////////////////////////////////////////////  :  file_end
-
-
+}

@@ -16,7 +16,7 @@
 #include <BinaryStream.h>
 #include <sys/stat.h>
 
-enum enum_type {uncompressed, compressed, post_pre_compress};
+enum enum_type {uncompressed, compressed, post_pre_compress, ram};
 
 class BStore: public SerialisableObject{
   
@@ -25,6 +25,7 @@ class BStore: public SerialisableObject{
  public:
 
   BStore(bool header=true, bool type_checking=false);
+  ~BStore();
   //  void Init();
   // void Init2();
   bool Initnew(std::string filename, enum_type type=post_pre_compress, bool header=true, bool type_checking=false, unsigned int file_end=0);    
@@ -38,6 +39,7 @@ class BStore: public SerialisableObject{
   bool GetHeader();
   bool GetEntry(unsigned int entry_request);
   bool DeleteEntry(unsigned int entry_request);
+  unsigned int NumEntries();
   bool Close();
   bool Rollback();
 
@@ -46,9 +48,9 @@ class BStore: public SerialisableObject{
 
   std::map<std::string,BinaryStream> m_variables;
   std::map<std::string,std::string> m_type_info;
-  //  std::map<std::string,BinaryStream> Header;
-  BStore* m_header; 
- std::map<std::string,PointerWrapperBase*> m_ptrs;
+  // std::map<std::string,BinaryStream> m_header;
+  BStore* Header; 
+  std::map<std::string,PointerWrapperBase*> m_ptrs;
 
 
   /////////importing
@@ -125,7 +127,7 @@ class BStore: public SerialisableObject{
      @param name The key to be used to store and reference the variable in the BoostStore.
      @param in the varaible to be stored.
   */
-  template<typename T> bool Set(std::string name,T in){
+  template<typename T> bool Set(std::string name,T& in){
     //std::cout<<"in set"<<std::endl;
     m_variables[name].buffer.clear();
     m_variables[name].m_pos=0;
@@ -221,14 +223,16 @@ class BStore: public SerialisableObject{
   
   
   unsigned int m_lookup_start;
-  unsigned int m_lookup_size;
+  //unsigned int m_lookup_size;
   
   //  std::map<unsigned int, unsigned int> m_lookup;
   //unsigned int m_entry;
-  unsigned int m_current_loaded_entry;
+  // unsigned int m_current_loaded_entry;
   bool m_update;
   
-  int m_file_type; //0=gzopen, 1=fopen, 2=stringstream
+  //int m_file_type; //0=gzopen, 1=fopen, 2=stringstream
+  float m_version;
+
   
 };
 
@@ -239,27 +243,31 @@ class BStore: public SerialisableObject{
 
 
 
-
-  //////////////////////////////////////////////////////////////
-  /// entry 1 size
+  /////////////////////////////////////////////////////////////////
+  ////////////////////// BStore Binary file schematic /////////////
+  /////////////////////////////////////////////////////////////////
+  /// entry 0                                      
+  /// *entry 0 type_info
   /// entry 1 
-  /// entry 2 size
+  /// entry 1 
+  /// entry 1 extra data for nesting 
   /// entry 2 
-  /// entry 2 extra data for nesting 
-  /// entry 3 size
-  /// entry 3
+  /// *entry 2 type_info
   /// ..
   /// ..
-  /// Header / entry 0
-  /// lookup 0                                        :  lookup_start
+  /// Header                                          :  m_header_start
+  /// lookup 0                                        :  m_lookup_start
   /// lookup 1 
   /// ..
   /// ..
-  /// lookup_start                                    :  flags_start
-  /// lookup_size
-  /// type   //
-  /// previous_file_end
-  //////////////////////////////////////////////////  :  file_end
+  /// m_version                                       :  m_flags_start    #here down always uncompressed
+  /// m_header_start                                  
+  /// m_has_header
+  /// m_lookup_start
+  /// m_type_checking
+  /// m_type   
+  /// m_previous_file_end
+  //////////////////////////////////////////////////  :  m_file_end  m_open_file_end
 
 
 
