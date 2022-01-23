@@ -23,5 +23,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: make
-      run: yum install git make gcc-c++ dialog
+      run: yum install -y git make gcc-c++ dialog
         make
