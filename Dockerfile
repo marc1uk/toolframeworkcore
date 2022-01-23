@@ -7,8 +7,8 @@ FROM toolframework/centos7
 USER root
 
 
-RUN git clone https://github.com/ToolFramework/ToolFrameworkCore.git \opt\ToolFrameworkCore \
-    && cd \opt\ToolFrameworkCore \
+RUN git clone https://github.com/ToolFramework/ToolFrameworkCore.git /opt/ToolFrameworkCore \
+    && cd /opt/ToolFrameworkCore \
     && make
 
 ### Open terminal
