@@ -18,6 +18,18 @@
 
 enum enum_type {uncompressed, compressed, post_pre_compress, ram};
 
+
+/**
+ * \class BStore
+ *
+ * This class Is a dynamic data storeage class and can be used to store variables of any type listed by ASCII key. The storage of the varaible is a binarystream.
+ *
+ * $Author: B.Richards $
+ * $Date: 2022/01/23 10:44:00 $
+ */
+
+
+
 class BStore: public SerialisableObject{
   
 #define CHUNK 16384
