@@ -21,8 +21,6 @@ jobs:
     - name: test
       run : export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH && ./main
     
-#    - name: Doxygen Action
-#      uses: mattnotmitt/doxygen-action@1.9.1
   build_centos-latest:
     runs-on: ubuntu-latest
     container: 'centos:latest'
