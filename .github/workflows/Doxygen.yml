@@ -23,6 +23,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      - name: Make docs folder
+      	run: mkdir docs
       
       # Runs a single command using the runners shell
       - name: Doxygen Action
