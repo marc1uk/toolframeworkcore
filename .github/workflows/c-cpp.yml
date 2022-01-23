@@ -16,7 +16,7 @@ jobs:
     - name: make
       run: make
     - name: test
-      run : source Setup.sh && ./main
+      run : export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH && ./main
     
 #    - name: Doxygen Action
 #      uses: mattnotmitt/doxygen-action@1.9.1
@@ -30,4 +30,4 @@ jobs:
     - name: make
       run: make
     - name: test
-      run : source Setup.sh && ./main
+      run : export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH && ./main
