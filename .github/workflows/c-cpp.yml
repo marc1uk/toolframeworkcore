@@ -22,7 +22,8 @@ jobs:
     container: 'centos:latest'
     steps:
     - uses: actions/checkout@v2
+    - name: prerequisits
+      run: yum install -y git make gcc-c++ dialog
     - name: make
-      run: 
-        yum install -y git make gcc-c++ dialog
-        make
+      run: make
+
