@@ -4,7 +4,7 @@ ToolFramework is an open source general modular C++ Framework.
 
 
 # *PLEASE NOTE: This is the core framework only!!! do not clone this repo for building your own application.
-To create your own ToolFramework appliciaion please clone/fork the ToolApplication repository https://github.com/ToolFramework/ToolApplication which has a script "*GetToolFramework.sh*" to pull this repository down as a dependancy and set up everything for you.
+To create your own ToolFramework appliciaion please clone/fork the ToolApplication repository https://github.com/ToolFramework/ToolApplication which has a script ```GetToolFramework.sh``` to pull this repository down as a dependancy and set up everything for you.
 
 ****************************
 # Concept
