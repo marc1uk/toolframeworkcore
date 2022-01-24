@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag toolframework/toolframeworkcore:latest
+      run: docker build . --file Dockerfile --tag toolframework/core:latest
     
     - name: docker login
       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -25,4 +25,4 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         
     - name: push docker images
-      run: docker push toolframework/toolframeworkcore:latest
+      run: docker push toolframework/core:latest
