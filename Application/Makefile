@@ -1,6 +1,6 @@
 Dependencies=Dependencies
 
-CXXFLAGS=  -fPIC -O3 -Wpedantic 
+CXXFLAGS=  -fPIC -O3 -Wpedantic -Wall
 
 ifeq ($(MAKECMDGOALS),debug)
 CXXFLAGS+= -O0 -g -lSegFault -rdynamic -DDEBUG

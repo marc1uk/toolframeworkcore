@@ -196,7 +196,7 @@ class BinaryStream : public SerialisableObject{
       bool ret=true;
       unsigned int tmp=rhs.size();
       ret*=(*this) << tmp;
-      for(int i=0; i<tmp; i++){
+      for(unsigned int i=0; i<tmp; i++){
 	ret*=(*this) << rhs.at(i);
       }
       return ret;
@@ -210,7 +210,7 @@ class BinaryStream : public SerialisableObject{
       unsigned int tmp=0;
       ret*=(*this) >> tmp;
       rhs.resize(tmp);
-      for(int i=0; i<tmp; i++){
+      for(unsigned int i=0; i<tmp; i++){
 	ret*=(*this) >> rhs.at(i);
       }
       return ret;
@@ -244,7 +244,7 @@ class BinaryStream : public SerialisableObject{
       bool ret=true;
       unsigned int tmp=0;      
       ret*=(*this) >> tmp;
-      for (int i=0; i<tmp; i++){
+      for (unsigned int i=0; i<tmp; i++){
 	T key;
 	U value;
 	ret*=(*this) >> key;
@@ -304,7 +304,7 @@ class BinaryStream : public SerialisableObject{
       bool ret=true;
       unsigned int tmp=rhs.size();
       ret*=(*this) << tmp;
-      for(int i=0; i<tmp; i++){
+      for(unsigned int i=0; i<tmp; i++){
 	ret*=(*this) << rhs.at(i);
       }
       return ret;
@@ -318,7 +318,7 @@ class BinaryStream : public SerialisableObject{
       unsigned int tmp=0;
       ret*=(*this) >> tmp;
       rhs.resize(tmp);
-      for(int i=0; i<tmp; i++){
+      for(unsigned int i=0; i<tmp; i++){
 	ret*=(*this) >> rhs.at(i);
       }
       return ret;

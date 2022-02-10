@@ -112,7 +112,7 @@ int ToolChain::Initialise(){
     *m_log<<MsgL(1,m_verbose)<<yellow<<"********************************************************\n"<<"**** Initialising tools in toolchain ****\n"<<"********************************************************\n"<<std::endl;
 
   
-    for(int i=0 ; i<m_tools.size();i++){  
+    for(unsigned int i=0 ; i<m_tools.size();i++){  
       *m_log<<MsgL(2,m_verbose)<<cyan<<"Initialising "<<m_toolnames.at(i)<<std::endl;
       *m_log<<MsgL(0,0);
 
@@ -171,7 +171,7 @@ int ToolChain::Execute(int repeates){
      
       *m_log<<MsgL(3,m_verbose)<<yellow<<"********************************************************\n"<<"**** Executing tools in toolchain ****\n"<<"********************************************************\n"<<std::endl;
       
-      for(int i=0 ; i<m_tools.size();i++){
+      for(unsigned int i=0 ; i<m_tools.size();i++){
 	m_data->vars.Get("Skip",skip); 
 	if(skip){
 	  skip=false;
@@ -244,7 +244,7 @@ int ToolChain::Finalise(){
   if(Initialised){
     *m_log<<MsgL(1,m_verbose)<<yellow<<"********************************************************\n"<<"**** Finalising tools in toolchain ****\n"<<"********************************************************\n"<<std::endl;
 
-    for(int i=0 ; i<m_tools.size();i++){
+    for(unsigned int i=0 ; i<m_tools.size();i++){
       *m_log<<MsgL(2,m_verbose)<<cyan<<"Finalising "<<m_toolnames.at(i)<<std::endl;
       *m_log<<MsgL(0,0);
 
@@ -501,7 +501,7 @@ void* ToolChain::InteractiveThread(void* arg){
 
 ToolChain::~ToolChain(){
  
-  for (int i=0;i<m_tools.size();i++){
+  for (unsigned int i=0;i<m_tools.size();i++){
     delete m_tools.at(i);
     m_tools.at(i)=0;
   }
