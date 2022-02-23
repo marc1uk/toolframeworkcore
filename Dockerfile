@@ -9,7 +9,9 @@ USER root
 
 RUN git clone https://github.com/ToolFramework/ToolFrameworkCore.git /opt/ToolFrameworkCore \
     && cd /opt/ToolFrameworkCore \
-    && make
+    && make \
+    && useradd -M tool \
+    && chmod -R a+rw /opt/ToolFrameworkCore \
 
 ### Open terminal
 CMD ["/bin/bash"]
