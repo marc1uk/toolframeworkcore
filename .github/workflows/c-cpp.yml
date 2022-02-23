@@ -23,7 +23,7 @@ jobs:
     
   build_centos-stream-8:
     runs-on: ubuntu-latest
-    container: 'centos:stream8'
+    container: 'quay.io/centos/centos:stream8'
     steps:
     - uses: actions/checkout@v2
     - name: prerequisits
