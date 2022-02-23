@@ -11,7 +11,7 @@ RUN git clone https://github.com/ToolFramework/ToolFrameworkCore.git /opt/ToolFr
     && cd /opt/ToolFrameworkCore \
     && make \
     && useradd -M tool \
-    && chmod -R a+rw /opt/ToolFrameworkCore \
+    && chmod -R a+rw /opt/ToolFrameworkCore 
 
 ### Open terminal
 CMD ["/bin/bash"]
