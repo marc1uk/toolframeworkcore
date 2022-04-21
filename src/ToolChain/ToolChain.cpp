@@ -17,6 +17,14 @@ ToolChain::ToolChain(std::string configfile,  int argc, char* argv[]){
   if(!m_data->vars.Get("log_local",m_log_local)) m_log_local=false;
   if(!m_data->vars.Get("log_split_files",m_log_split_files)) m_log_split_files=false;
   if(!m_data->vars.Get("log_local_path",m_log_local_path)) m_log_local_path="./log";
+  bool log_append_time=false;
+  m_data->vars.Get("log_append_time", log_append_time);
+  if(log_append_time){
+    std::stringstream tmp;
+    tmp<<m_log_local_path<<"."<<time(NULL);
+    m_log_local_path= tmp.str();
+  }
+
   
   if(!m_data->vars.Get("Inline",m_inline)) m_inline=1;
   if(!m_data->vars.Get("Interactive",m_interactive)) m_interactive=false;  
