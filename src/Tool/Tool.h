@@ -18,7 +18,7 @@
 class Tool{
   
  public:
-  
+  Tool();
   virtual bool Initialise(std::string configfile,DataModel &data)=0; ///< virtual Initialise function that reads in the assigned config file and optain DataMoodel reference @param configfile Path and name of config file to read in. @param data Reference to DataModel. 
   virtual bool Execute()=0; ///< Virtual Execute function.
   virtual bool Finalise()=0; ///< Virtual Finalise function.
