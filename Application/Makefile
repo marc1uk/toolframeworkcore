@@ -20,7 +20,7 @@ all: lib/libMyTools.so lib/libToolChain.so lib/libStore.so include/Tool.h lib/li
 
 main: src/main.cpp lib/libStore.so lib/libLogging.so lib/libToolChain.so | lib/libMyTools.so  lib/libDataModel.so 
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	g++ $(CXXFLAGS) src/main.cpp -o main -I include -L lib -lStore -lMyTools -lToolChain -lDataModel -lLogging  -lpthread $(DataModelInclude) $(MyToolsInclude) $(MyToolsLib) $(DataModelib) 
+	g++ $(CXXFLAGS) src/main.cpp -o main -I include -L lib -lStore -lMyTools -lToolChain -lDataModel -lLogging  -lpthread $(DataModelInclude) $(MyToolsInclude) $(MyToolsLib) $(DataModelLib) 
 
 
 lib/libStore.so: $(Dependencies)/ToolFrameworkCore/src/Store/*
