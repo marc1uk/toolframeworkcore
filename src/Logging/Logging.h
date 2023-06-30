@@ -167,6 +167,7 @@ class Logging: public std::ostream {
   Logging& operator<<(std::ostream& (*foo)(std::ostream&)) { 
     
     std::cout<<plain<<std::endl;
+    return *this;
     
   }
 

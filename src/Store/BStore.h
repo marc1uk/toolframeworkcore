@@ -36,6 +36,7 @@ class BStore: public SerialisableObject{
   bool WriteFlags();
   bool Save(unsigned int entry=-1);
   bool GetHeader();
+  std::vector<std::string> GetKeys();
   bool GetEntry(unsigned int entry_request);
   bool DeleteEntry(unsigned int entry_request);
   bool Close();
@@ -55,7 +56,7 @@ class BStore: public SerialisableObject{
   
   void JsonParser(std::string input); ///< Converts a flat JSON formatted string to Store entries in the form of key value pairs.  @param input The input flat JSON string. 
   bool Print();
-  void Print(bool values); ///< Prints the contents of the BoostStore. @param values If true values and keys are printed. If false just keys are printed
+  bool Print(bool values); ///< Prints the contents of the BoostStore. @param values If true values and keys are printed. If false just keys are printed
   void Delete(); ///< Deletes all entries in the BoostStore.
   void Remove(std::string key); ///< Removes a single entry from the BoostStore. @param key The key of the entry to remove. 
   std::string Type(std::string key); ///< Queries the type of an entry if type checking is turned on. @param key The key of the entry to check. @return A string encoding the type info.

@@ -132,7 +132,7 @@ bool BStore::Initnew(std::string filename, enum_type type, bool header, bool typ
   }
 
   m_update=false;
-  
+  return true;
 }
 
 /*
@@ -380,9 +380,9 @@ bool BStore::Close(){
 }
 //importing
   
-bool BStore::Print(){ Print(false);}
+bool BStore::Print(){ Print(false); return true;}
 
-void BStore::Print(bool values){
+bool BStore::Print(bool values){
   
   for (std::map<std::string,BinaryStream>::iterator it=m_variables.begin(); it!=m_variables.end(); ++it){
     
@@ -400,6 +400,18 @@ void BStore::Print(bool values){
     }
   }
   
+  return true;
+}
+
+std::vector<std::string> BStore::GetKeys(){
+    std::vector<std::string> keys;
+    for (std::map<std::string,BinaryStream>::iterator it=m_variables.begin(); it!=m_variables.end(); ++it){
+        keys.push_back(it->first);
+    }
+    for (std::map<std::string,PointerWrapperBase*>::iterator it=m_ptrs.begin(); it!=m_ptrs.end(); ++it){
+        if(m_variables.count(it->first)==0) keys.push_back(it->first);
+    }
+    return keys;
 }
 
 

@@ -85,6 +85,6 @@ bool Logging::MyStreamBuf::ChangeOutFile(std::string localpath){
     psbuf = file.rdbuf();
     output.rdbuf(psbuf);
   }
-  
+  return true;  
 }
 

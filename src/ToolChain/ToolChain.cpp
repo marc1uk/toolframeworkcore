@@ -179,7 +179,11 @@ int ToolChain::Initialise(){
 
 #ifndef DEBUG	
     }      
-      catch(...){
+    catch(std::exception& e){
+        logmessage <<e.what()<<std::endl;
+        throw;
+    }
+    catch(...){
 	logmessage<<red<<"WARNING !!!!! "<<m_toolnames.at(i)<<" Failed to initialise (uncaught error)"<<plain<<std::endl;
 	m_data.Log->Log( logmessage.str(),0,m_verbose);
 	logmessage.str("");
@@ -277,7 +281,10 @@ int ToolChain::Execute(int repeates){
 	  
 #ifndef DEBUG
 	}
-	
+	catch(std::exception& e){
+      logmessage<<e.what()<<std::endl;
+      throw;
+    }
 	catch(...){
 	  logmessage<<red<<"WARNING !!!!!! "<<m_toolnames.at(i)<<" Failed to execute (uncaught error)"<<plain<<std::endl;
 	  m_data.Log->Log( logmessage.str(),0,m_verbose);
@@ -357,6 +364,10 @@ int ToolChain::Finalise(){
 #ifndef DEBUG      
       }
       
+    catch(std::exception& e){
+      logmessage<<e.what()<<std::endl;
+      throw;
+    }
       catch(...){
 	logmessage<<red<<"WARNING !!!!!!! "<<m_toolnames.at(i)<<" Finalised successfully (uncaught error)"<<plain<<std::endl;
 	m_data.Log->Log( logmessage.str(),0,m_verbose);
