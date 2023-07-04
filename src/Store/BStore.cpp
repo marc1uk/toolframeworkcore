@@ -672,22 +672,49 @@ void BStore::Remove(std::string key){
 
 void BStore::JsonParser(std::string input){
   
+  //need to handel arrays and objects properly
+
   int type=0;
   std::string key;
   std::string value;
   
   for(std::string::size_type i = 0; i < input.size(); ++i) {
     
-    if(input[i]=='\"')type++;
-    else if(type==1)key+=input[i];
-    else if(type==3)value+=input[i];
-    else if(type==4){
-      type=0;
-      m_variables[key] << value;
-      key="";
-      value="";
-    }
+    //std::cout<<"i="<<i<<" , "<<input[i]<<" , type="<<type<<std::endl;
+ 
+     //type 0011112233444444550011112233333333001111223366666665500111122337777777555
+     //     { "key" : "value" , "key" : value , "key" : {......} , "key" : [......] }
+
+     // types: 0 - pre key
+     //        1 - key
+     //        2 - postkey
+     //        3 - value
+     //        4 - string value
+     //        5 - post value
+     //        6 - object
+     //        7 - array
+
+     if(input[i]=='\"' && type<5) type++;
+     else if(type==1) key+=input[i];
+     else if(input[i]==':' && type==2) type=3;   
+     else if((input[i]==',' || input[i]=='}') && (type==5 || type==3)){
+       type=0;
+       //std::cout<<"key="<<key<<" , value="<<value<<std::endl;
+       m_variables[key] << value;     
+       key="";
+       value="";
+     }
+     else if(type==3  && !(input[i]==' ' || input[i]=='{' || input[i]=='[')) value+=input[i];
+     else if(type==3  && input[i]=='{'){ value+=input[i]; type=6; }
+     else if(type==6  && input[i]=='}'){ value+=input[i]; type=5; }
+     else if(type==3  && input[i]=='['){ value+=input[i]; type=7; }
+     else if(type==7  && input[i]==']'){ value+=input[i]; type=5; }
+     else if(type==4 || type==6 || type==7) value+=input[i];
   }
+  
+
+
+
 }
 
 
