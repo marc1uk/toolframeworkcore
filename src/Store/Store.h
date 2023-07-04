@@ -6,7 +6,8 @@
 #include <vector>
 #include <map>
 #include <iostream>
-#include <sstream>
+#include <sstream> 
+
 
 /**
  * \class Store
@@ -28,6 +29,7 @@ class Store{
   void Print(); ///< Prints the contents of the Store.
   void Delete(); ///< Deletes all entries in the Store.
   bool Has(std::string key); ///<Returns bool based on if store contains entry given by sting @param string key to comapre.
+  std::vector<std::string> Keys(); //returns a vector of the keys
 
   /**
      Templated getter function for sore content. Assignment is templated and via reference.
@@ -102,11 +104,17 @@ class Store{
     obj=stream.str();
    
   } 
- 
+
+  std::map<std::string, std::string>::const_iterator begin() { return m_variables.begin(); }
+  std::map<std::string, std::string>::const_iterator end()   { return m_variables.end(); }
+
+
  private:
 
+  
   std::map<std::string,std::string> m_variables;
 
 };
+
 
 #endif

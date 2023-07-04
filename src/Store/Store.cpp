@@ -89,3 +89,18 @@ bool Store::Has(std::string key){
   return (m_variables.count(key)!=0);
 
 }
+
+
+std::vector<std::string> Store::Keys(){
+
+  std::vector<std::string> ret;
+
+  for(std::map<std::string, std::string>::iterator it= m_variables.begin(); it!= m_variables.end(); it++){
+
+    ret.push_back(it->first);
+
+  }
+
+  return ret;
+
+}
