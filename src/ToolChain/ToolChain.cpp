@@ -126,6 +126,7 @@ void ToolChain::Add(std::string name,Tool *tool,std::string configfile){
     m_data.Log->Log(logmessage.str(),1,m_verbose);
     logmessage.str("");
     
+    tool->m_unique_name = name;
     m_tools.push_back(tool);
     m_toolnames.push_back(name);
     m_configfiles.push_back(configfile);

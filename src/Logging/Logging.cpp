@@ -41,7 +41,8 @@ int Logging::MyStreamBuf::sync ( )
 
     
     if(m_mode=="Local"){
-      output<< "{"<<t<<"} ["<<m_messagelevel<<"]: " << str();
+      //output<< "{"<<t<<"} ["<<m_messagelevel<<"]: " << str();
+      output<<str();
       str("");
       output.flush();
       
@@ -65,7 +66,8 @@ int Logging::MyStreamBuf::sync ( )
 	      
 	      output<<"\033[38;5;"<<code<<"m["<<m_messagelevel<<"]: " << str()<<"\033[0m";
      */ 
-      output<<"["<<m_messagelevel<<"]: " << str();
+      //output<<"["<<m_messagelevel<<"]: " << str();
+      output<<str();
       str("");
       output.flush(); 
     }
