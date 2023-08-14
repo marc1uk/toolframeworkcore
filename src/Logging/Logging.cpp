@@ -118,10 +118,13 @@ int Logging::TFStreamBuf::sync ( )
 	output<<"\033[38;5;"<<code<<"m["<<m_messagelevel<<"]: " << str()<<"\033[0m";
       */ 
       if(m_error) (*output)<<red;
+      /*
       (*output)<<"[";
       if(m_error) (*output)<<"ERROR";
       else (*output)<<m_messagelevel;
       (*output)<<"]: " << str();
+      */
+      (*output) << str();
       if(m_error) (*output)<<plain;      
       output->flush(); 
     }

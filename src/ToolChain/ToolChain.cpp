@@ -96,6 +96,7 @@ bool ToolChain::Add(std::string name,Tool *tool,std::string configfile){
     
     *m_log<<MsgL(1,m_verbose)<<cyan<<"Adding Tool='"<<name<<"' to ToolChain"<<std::endl;
     
+    tool->m_unique_name = name;
     m_tools.push_back(tool);
     m_toolnames.push_back(name);
     m_configfiles.push_back(configfile);

@@ -893,7 +893,7 @@ bool BStore::Serialise(BinaryStream &bs){ // do return properly
     if(!GetHeader()) return false;  
     if(!GetEntry(0)) return false;
   }
-
+*/
 
  /*
    //std::cout<<"p1"<<std::endl;

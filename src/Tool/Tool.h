@@ -24,6 +24,8 @@ class Tool{
   virtual bool Finalise()=0; ///< Virtual Finalise function.
   virtual ~Tool(){}; ///< virtual destructor.
   
+  std::string m_unique_name;
+  
  protected:
   
   Store m_variables; ///< Store used to store configuration varaibles
@@ -35,11 +37,14 @@ class Tool{
   template <typename T>  void Log(T message, int messagelevel=1, int verbosity=1){m_data->Log->Log(message,messagelevel,verbosity);}
   template <typename T>  void Log(T message, int messagelevel){m_data->Log->Log(message,messagelevel,m_verbose);}  ///< Logging fuction for printouts. @param message Templated message string. @param messagelevel The verbosity level at which to show the message. Checked against internal verbosity level
   
-  
+ int get_ok;
+ std::string logmessage;
+ static const int v_error=0;
+ static const int v_warning=1;
+ static const int v_message=2;
+ static const int v_debug=3;
  private:
   std::string m_tool_name;
-  
-  
   
   
   
