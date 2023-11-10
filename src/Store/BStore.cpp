@@ -39,6 +39,32 @@ BStore::BStore(bool header, bool type_checking):m_version(1.0){
 
 }
 
+BStore::BStore(const BStore &bs):m_version(1.0){
+
+   m_variables = bs.m_variables;
+   m_type_info = bs.m_type_info;
+   
+   if(bs.Header){
+     Header = new BStore(*bs.Header);
+   }
+   
+   m_lookup = bs.m_lookup;
+   output = bs.output;
+   m_file_end = m_file_end;
+   m_file_name = m_file_name;
+   m_open_file_end = m_open_file_end;
+   m_previous_file_end = m_previous_file_end;
+   m_type = m_type;
+   m_type_checking = m_type_checking;
+   m_has_header = m_has_header;
+   m_header_start = m_header_start;
+   m_flags_start = m_flags_start;
+   m_lookup_start = m_lookup_start;
+   m_update = m_update;  
+   m_version = m_version;
+   
+}
+
 std::string BStore::GetVersion(){
 
   std::stringstream tmp;

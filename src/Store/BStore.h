@@ -37,6 +37,7 @@ class BStore: public SerialisableObject{
  public:
 
   BStore(bool header=true, bool type_checking=false);
+  BStore(const BStore &bs);
   ~BStore();
   //  void Init();
   // void Init2();
