@@ -141,7 +141,7 @@ class BStore: public SerialisableObject{
      @param name The key to be used to store and reference the variable in the BoostStore.
      @param in the varaible to be stored.
   */
-  template<typename T> bool Set(std::string name,T& in){
+  template<typename T> bool Set(std::string name,T in){
     //std::cout<<"in set"<<std::endl;
     m_variables[name].buffer.clear();
     m_variables[name].m_pos=0;
