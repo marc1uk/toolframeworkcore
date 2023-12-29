@@ -5,6 +5,8 @@
 
 #include "Store.h"
 #include "DataModel.h"
+#include <string>
+
 
 /**
  * \class Tool
@@ -18,14 +20,17 @@
 class Tool{
   
  public:
-  Tool(){};
+  Tool(){}
   virtual bool Initialise(std::string configfile,DataModel &data)=0; ///< virtual Initialise function that reads in the assigned config file and optain DataMoodel reference @param configfile Path and name of config file to read in. @param data Reference to DataModel. 
   virtual bool Execute()=0; ///< Virtual Execute function.
   virtual bool Finalise()=0; ///< Virtual Finalise function.
   virtual ~Tool(){}; ///< virtual destructor.
-  
+  std::string Getname() {return m_tool_name;};
+  void SetName(std::string name) {m_tool_name=name;};
+
  protected:
   
+  std::string m_tool_name;
   Store m_variables; ///< Store used to store configuration varaibles
   DataModel* m_data; ///< Pointer to transiant DataModel class
   Logging* m_log; ///< Pointer to logging class
@@ -37,7 +42,6 @@ class Tool{
   
   
  private:
-  std::string m_tool_name;
   
   
   
