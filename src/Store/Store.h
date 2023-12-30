@@ -46,10 +46,18 @@ class Store{
       return !stream.fail();
     }
     
-    else return false;
+    return false;
 
   }
 
+/**
+     getter function for string content..
+     @param name The ASCII key that the variable in the Store is stored with.
+     @param out The variable to fill with the value.
+     @return Return value is true if varaible exists in the Store and correctly assigned to out and false if not.
+  */
+  bool Get(std::string name, std::string &out);
+  
 
   /**
      Templated getter function for sore content. 

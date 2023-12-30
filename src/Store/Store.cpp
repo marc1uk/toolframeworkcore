@@ -114,3 +114,14 @@ std::vector<std::string> Store::Keys(){
   return ret;
 
 }
+
+
+bool Store::Get(std::string name, std::string &out){
+  
+  if(m_variables.count(name)>0){ 
+    out=m_variables[name];
+    return true;
+  }
+  return false;
+}
+
