@@ -58,9 +58,10 @@ bool MyToolMultiThread::Execute(){
     if(args.at(i)->busy==0) m_freethreads++;
   }
 
-  std::cout<<"free threads="<<m_freethreads<<":"<<args.size()<<std::endl;
-  
-  sleep(1);
+ *m_log<<ML(1)<<"free threads="<<m_freethreads<<":"<<args.size()<<std::endl;
+  MLC();
+
+ // sleep(1);  for single tool testing
   
   return true;
 }

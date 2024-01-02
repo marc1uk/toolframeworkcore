@@ -55,9 +55,10 @@ bool MyToolDynamicMultiThread::Execute(){
   if(m_freethreads<1) CreateThread();
   if(m_freethreads>1) DeleteThread(lastfree);
   
-  std::cout<<"free threads="<<m_freethreads<<":"<<args.size()<<std::endl;
+  *m_log<<ML(1)<<"free threads="<<m_freethreads<<":"<<args.size()<<std::endl;
+  MLC();
   
-  sleep(1);
+  // sleep(1);  for single tool testing
   
   return true;
 }

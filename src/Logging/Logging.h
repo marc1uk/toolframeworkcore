@@ -198,6 +198,15 @@ class Logging: virtual public std::ostream {
    
  }
 
+template<typename T>  Logging& operator<<(const T &a){
+     
+   std::cout.rdbuf(buffer);
+   std::cout<<a;
+
+   return *this;
+   
+ }
+
  
  protected:
  

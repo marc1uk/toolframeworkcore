@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <Logging.h>
 
 #include "Tool.h"
 
@@ -28,7 +29,6 @@ class DummyTool: public Tool {
 
  private:
 
-  int m_verbose;
 
 };
 
