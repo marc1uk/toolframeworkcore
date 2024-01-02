@@ -3,7 +3,6 @@
 
 #include <string>
 #include <iostream>
-#include <Logging.h>
 
 #include "Tool.h"
 

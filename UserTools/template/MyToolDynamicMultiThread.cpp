@@ -35,7 +35,7 @@ bool MyToolDynamicMultiThread::Execute(){
 
   for(unsigned int i=0; i<args.size(); i++){
     if(args.at(i)->busy==0){
-      std::cout<<"reply="<<args.at(i)->message<<std::endl;
+      *m_log<<"reply="<<args.at(i)->message<<std::endl;
       args.at(i)->message="Hi";
       args.at(i)->busy=1;
       break;
