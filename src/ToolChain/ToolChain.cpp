@@ -179,7 +179,7 @@ int ToolChain::Execute(int repeates){
 
     if(m_inline)  *m_log<<MsgL(2,m_verbose)<<yellow<<"********************************************************\n"<<"**** Executing toolchain "<<repeates<<" times ****\n"<<"********************************************************\n"<<std::endl;
 
-    for(int i=0;i<repeates;i++){
+    for(int j=0;j<repeates;j++){
      
       *m_log<<MsgL(3,m_verbose)<<yellow<<"********************************************************\n"<<"**** Executing tools in toolchain ****\n"<<"********************************************************\n"<<std::endl;
       

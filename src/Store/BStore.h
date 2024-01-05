@@ -48,7 +48,7 @@ class BStore: public SerialisableObject{
   bool WriteHeader();
   bool WriteLookup();
   bool WriteFlags();
-  bool Save(unsigned int entry=-1);
+  bool Save(unsigned int entry=0);
   bool GetHeader();
   bool GetEntry(unsigned int entry_request);
   bool DeleteEntry(unsigned int entry_request);

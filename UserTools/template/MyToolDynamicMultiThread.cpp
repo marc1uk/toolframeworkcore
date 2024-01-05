@@ -44,7 +44,7 @@ bool MyToolDynamicMultiThread::Execute(){
   }
 
   m_freethreads=0;
-  int lastfree=0;
+  unsigned int lastfree=0;
   for(unsigned int i=0; i<args.size(); i++){
     if(args.at(i)->busy==0){
       m_freethreads++;
@@ -89,7 +89,7 @@ void MyToolDynamicMultiThread::CreateThread(){
 
 }
 
- void MyToolDynamicMultiThread::DeleteThread(int pos){
+ void MyToolDynamicMultiThread::DeleteThread(unsigned int pos){
 
    m_util->KillThread(args.at(pos));
    delete args.at(pos);

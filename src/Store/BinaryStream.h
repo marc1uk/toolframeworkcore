@@ -31,7 +31,7 @@ class BinaryStream : public SerialisableObject{
   bool Bclose(bool Ignore_Post_Pre_compress=false);
   bool Bwrite(const void* in, unsigned int size);
   bool Bread(void* out, unsigned int size);
-  long int Btell();
+  unsigned long int Btell();
   bool Bseek(unsigned int pos, int whence);
   bool Print();
   bool Serialise(BinaryStream &bs);  
@@ -45,7 +45,7 @@ class BinaryStream : public SerialisableObject{
   std::string buffer;
   bool m_write;
   std::string m_file_name;
-  long int m_pos;
+  unsigned long int m_pos;
 
   enum_mode m_mode; //0=READ, 1==WRITE, 2==READ/APPEND
   //  0=READ, 1==WRITE, 2==APPEND, 3 READ/WRITE, 4 READ/APPEND/ , 5 READ/OVEWRITE

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <Store.h>
 
-unsigned int test_counter=0;
+int test_counter=0;
 
 template <typename T> int Test(T &a, T &b, std::string message=""){
 test_counter++;

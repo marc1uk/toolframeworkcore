@@ -18,12 +18,12 @@ bool MyToolMultiThread::Initialise(std::string configfile, DataModel &data){
 
   if(!m_variables.Get("verbose",m_verbose)) m_verbose=1;
 
-  int threadcount=0;
+  unsigned int threadcount=0;
   if(!m_variables.Get("Threads",threadcount)) threadcount=4;
 
   m_util=new Utilities();
 
-  for(int i=0;i<threadcount;i++){
+  for(unsigned int i=0;i<threadcount;i++){
     MyToolMultiThread_args* tmparg=new MyToolMultiThread_args();   
     tmparg->busy=0;
     tmparg->message="";
