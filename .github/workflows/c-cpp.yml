@@ -44,3 +44,15 @@ jobs:
       run: make
     - name: test
       run : export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH && ./main
+
+  Rocky-9:
+    runs-on: ubuntu-latest
+    container: 'rockylinux:9-minimal'
+    steps:
+    - uses: actions/checkout@v2
+    - name: prerequisits
+      run: yum install -y git make gcc-c++ zlib-devel dialog
+    - name: make
+      run: make
+    - name: test
+      run : export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH && ./main
