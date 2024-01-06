@@ -48,6 +48,7 @@ class ToolChain{
   
  public:
 
+  ToolChain(){};
   ToolChain(std::string configfile, int argc=0, char* argv[]=0); ///< Constructor that obtains all of the configuration varaibles from an input file. @param configfile The path and name of the config file to read configuration values from.
 
   /**
@@ -61,7 +62,7 @@ logmode Where log printouts should be forwarded too. "Interactive" = cout, "Remo
      @param log_split_files when loggign to local file whether to split standard output and standard error into differnt files
      @param in_data_model option to specify an external data modle for use in ToolChain.
    */
-  ToolChain(int verbose=1, int errorlevel=0, bool log_interactive=true, bool log_local=false, std::string log_local_path="./log", bool log_split_files=false, DataModel* in_data_model=0); 
+  ToolChain(int verbose, int errorlevel=0, bool log_interactive=true, bool log_local=false, std::string log_local_path="./log", bool log_split_files=false, DataModel* in_data_model=0); 
   //verbosity: true= print out status messages , false= print only error messages;
   //errorlevels: 0= do not exit; error 1= exit if unhandeled error ; exit 2= exit on handeled and unhandeled errors; 
   virtual ~ToolChain(); 

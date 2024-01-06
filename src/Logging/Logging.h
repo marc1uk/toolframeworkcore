@@ -122,7 +122,7 @@ class Logging: virtual public std::ostream {
  
   //Logging(std::ostream& str, std::string mode, std::string localpath=""):std::ostream(buffer), buffer(new MyStreamBuf(str, mode, localpath)), errbuffer(new MyStreamBuf(str, mode, localpath)){};
  
- Logging(bool interactive=true, bool local=false,  std::string localpath="./log", bool split_output_files=false);//:buffer(new MyStreamBuf(interactive, local, localpath, false)),errbuffer(new MyStreamBuf(interactive, local, localpath, true)){};
+ Logging(bool interactive, bool local=false,  std::string localpath="./log", bool split_output_files=false);//:buffer(new MyStreamBuf(interactive, local, localpath, false)),errbuffer(new MyStreamBuf(interactive, local, localpath, true)){};
  
  //:std::ostream(buffer){};
  //, buffer(new MyStreamBuf(interactive, local, "", error)){};
