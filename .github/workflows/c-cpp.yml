@@ -47,7 +47,7 @@ jobs:
 
   Rocky-9:
     runs-on: ubuntu-latest
-    container: 'rockylinux:9-minimal'
+    container: 'rockylinux:9'
     steps:
     - uses: actions/checkout@v2
     - name: prerequisits
