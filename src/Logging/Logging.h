@@ -79,7 +79,7 @@ class Logging: virtual public std::ostream {
      
    public:
 
-     TFStreamBuf(void* null){};
+     TFStreamBuf(){};
      TFStreamBuf(bool interactive=true, bool local=false,  std::string localpath="./log", bool error=false, std::ostream* filestream=0);
      
      virtual ~TFStreamBuf();
@@ -127,7 +127,7 @@ class Logging: virtual public std::ostream {
  //:std::ostream(buffer){};
  //, buffer(new MyStreamBuf(interactive, local, "", error)){};
  
- Logging(void* null){};
+ Logging(){};
  
  virtual ~Logging();
  
@@ -184,7 +184,7 @@ class Logging: virtual public std::ostream {
  Logging& operator<<(std::ostream& (*foo)(std::ostream&)) { 
    
    std::cout.rdbuf(buffer);
-   std::cout<<plain<<std::endl;
+   std::cout<<plain<<foo;//std::endl;
    
    return *this;
  }

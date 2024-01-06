@@ -48,7 +48,7 @@ class ToolChain{
   
  public:
 
-  ToolChain(void* null){};
+  ToolChain(){};
   ToolChain(std::string configfile, int argc=0, char* argv[]=0); ///< Constructor that obtains all of the configuration varaibles from an input file. @param configfile The path and name of the config file to read configuration values from.
 
   /**

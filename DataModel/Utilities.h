@@ -24,6 +24,7 @@ struct Thread_args{
 
   Thread_args(){ ///< Simple constructor 
     kill=false;
+    running=false;
   }
    
   virtual ~Thread_args(){ ///< virtual constructor 
