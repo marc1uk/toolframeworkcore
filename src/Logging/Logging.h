@@ -80,7 +80,7 @@ class Logging: virtual public std::ostream {
    public:
 
      TFStreamBuf(){};
-     TFStreamBuf(bool interactive=true, bool local=false,  std::string localpath="./log", bool error=false, std::ostream* filestream=0);
+     TFStreamBuf(bool interactive, bool local=false,  std::string localpath="./log", bool error=false, std::ostream* filestream=0);
      
      virtual ~TFStreamBuf();
      
