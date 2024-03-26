@@ -4,6 +4,8 @@ cmake_minimum_required (VERSION 2.6)
 
 project (ToolFrameworkApplicaiton)
 
+set(DEPENDENCIES_PATH "${PROJECT_SOURCE_DIR}/Dependencies")
+
 set(DATAMODEL_INC "")
 set(DATAMODEL_LIB_PATH "")
 set(DATAMODEL_LIBS "")
@@ -12,8 +14,8 @@ set(MYTOOLS_INC "")
 set(MYTOOLS_LIB_PATH "")
 set(MYTOOLS_LIBS "")
 
-set(TOOLFRAMEWORK_INC "${PROJECT_SOURCE_DIR}/Dependencies/ToolFrameworkCore/include")
-set(TOOLFRAMEWORK_LIBS_PATH "${PROJECT_SOURCE_DIR}/Dependencies/ToolFrameworkCore/lib")
+set(TOOLFRAMEWORK_INC "${DEPENDENCIES_PATH}/ToolFrameworkCore/include")
+set(TOOLFRAMEWORK_LIBS_PATH "${DEPENDENCIES_PATH}/ToolFrameworkCore/lib")
 set(TOOLFRAMEWORK_LIBS DataModelBase Logging Store ToolChain)
 
 include_directories (${DATAMODEL_INC} ${MYTOOLS_INC} ${TOOLFRAMEWORK_INC})
