@@ -102,12 +102,3 @@ clean:
 Docs:
 	doxygen Doxyfile
 
-
-test: $(patsubst %.cpp, %.o, $(wildcard */*.cpp) $(wildcard */*/*.cpp)) 
-	echo 
-	echo  $(patsubst %.cpp, %.o, $(wildcard */*.cpp) $(wildcard */*/*.cpp)) 
-#	echo $(patsubst %, lib/Lib%.so, $(filter-out %.o %.cpp src, $(subst /, , $(wildcard src/*))))
-
-test2:
-	echo $(patsubst %.h, include/%.h, $(filter %.h, $(subst /, ,$(wildcard src/*/*.h) )))
-	echo $(patsubst %.h, include/%.h, $(filter %.h, $(subst /, ,$(patsubst src/%.h, include/%.h, $(wildcard src/*/*.h) ))))
