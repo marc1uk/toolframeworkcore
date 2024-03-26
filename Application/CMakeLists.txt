@@ -14,7 +14,7 @@ set(MYTOOLS_LIBS "")
 
 set(TOOLFRAMEWORK_INC "${PROJECT_SOURCE_DIR}/Dependencies/ToolFrameworkCore/include")
 set(TOOLFRAMEWORK_LIBS_PATH "${PROJECT_SOURCE_DIR}/Dependencies/ToolFrameworkCore/lib")
-set(TOOLFRAMEWORK_LIBS "-lDataModelBase -lLogging -lStore -lToolChain")
+set(TOOLFRAMEWORK_LIBS DataModelBase Logging Store ToolChain)
 
 include_directories (${DATAMODEL_INC} ${MYTOOLS_INC} ${TOOLFRAMEWORK_INC})
 link_directories(${DATAMODEL_LIB_PATH} ${MYTOOLS_LIB_PATH} ${TOOLFRAMEWORK_LIBS_PATH})
@@ -35,8 +35,6 @@ FILE(COPY ${PROJECT_SOURCE_DIR}/configfiles DESTINATION ${PROJECT_BINARY_DIR}/)
 
 HEADER_DIRECTORIES(header_list)
 include_directories(${header_list})
-
-message(header_list=${header_list})
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 
