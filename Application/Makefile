@@ -23,7 +23,7 @@ MyToolHEADERS:=$(patsubst %.h, include/%.h, $(filter %.h, $(subst /, ,$(wildcard
 ToolLibs = $(patsubst %.so, %, $(patsubst lib%, -l%,$(filter lib%, $(subst /, , $(wildcard UserTools/*/*.so)))))
 AlreadyCompiled = $(wildcard UserTools/$(filter-out %.so UserTools , $(subst /, ,$(wildcard UserTools/*/*.so)))/*.cpp)
 SOURCEFILES:=$(patsubst %.cpp, %.o,  $(filter-out $(AlreadyCompiled), $(wildcard */*.cpp) $(wildcard */*/*.cpp)))
-Libs=-L $(SOURCEDIR)/lib/ -lMyTools -lDataModel -L $(ToolFrameworkCore)/lib/ -lStore -lLogging -lToolChain -lDataModelBase -lpthread  $(ToolLibs)
+Libs=-L $(SOURCEDIR)/lib/ -lMyTools -lDataModel -L $(ToolFrameworkCore)/lib/  -lToolChain -lDataModelBase -lLogging -lStore -lpthread  $(ToolLibs)
 
 
 #.SECONDARY: $(%.o)
