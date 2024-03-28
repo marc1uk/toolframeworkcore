@@ -98,6 +98,7 @@ clean:
 	rm -f include/*.h
 	rm -f tempinclude/*.h
 	rm -f lib/*.so
+	rm -f main
 
 Docs:
 	doxygen Doxyfile

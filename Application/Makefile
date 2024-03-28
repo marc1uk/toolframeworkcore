@@ -74,6 +74,7 @@ clean:
 	rm -f */*.o
 	rm -f include/*.h
 	rm -f lib/*.so
+	rm -f main
 
 Docs:
 	doxygen Doxyfile
