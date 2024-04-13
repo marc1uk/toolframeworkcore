@@ -37,7 +37,7 @@ debug: all
 
 main: src/main.o $(LIBRARIES) $(HEADERS) $(TempDataModelHEADERS) $(TempMyToolHEADERS) | $(SOURCEFILES)
 	@echo -e "\e[38;5;11m\n*************** Making " $@ " ****************\e[0m"
-	g++  $(CXXFLAGS) $< -o $@ $(Includes) $(Libs) $(TempDataModelInclude) $(TempDataModellib) $(TempToolsInclude) $(TempToolslib) 
+	g++  $(CXXFLAGS) $< -o $@ $(Includes) $(Libs) $(TempDataModelInclude) $(TempDataModelLib) $(TempToolsInclude) $(TempToolsLib) 
 
 include/%.h:
 	@echo -e "\e[38;5;87m\n*************** sym linking headers ****************\e[0m"
