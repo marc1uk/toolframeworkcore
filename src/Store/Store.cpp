@@ -18,7 +18,17 @@ bool Store::Initialise(std::string filename){
 	std::string key;
 	std::string value;
 	std::stringstream stream(line);
-	if(stream>>key>>value) m_variables[key]=value;
+	stream>>key>>value;
+	std::string tmp;
+	stream>>tmp;
+
+	while(tmp.length() && tmp[0]!='#'){
+	  value+=" "+tmp;
+	  tmp="";
+	  stream>>tmp;
+	}
+
+	if(value!="") m_variables[key]=value;
       }
       
     }
@@ -124,5 +134,29 @@ bool Store::Get(std::string name, std::string &out){
     return true;
   }
   return false;
+}
+
+bool Store::Get(std::string name, bool &out){
+
+  if(m_variables.count(name)>0){
+    if(m_variables[name]=="true") out=true;
+    else if(m_variables[name]=="false") out=false;
+    else if(m_variables[name]=="" || m_variables[name]=="0") out=false;
+    else out=true;
+    return true;
+    
+  }
+  return false;
+
+}
+
+bool Store::Get(std::string name, Store &out){
+
+  if(m_variables.count(name)>0 && m_variables[name][0]=='{'){
+      out.JsonParser(m_variables[name]);
+      return true;
+ }
+ return false;
+  
 }
 

@@ -50,6 +50,41 @@ namespace ToolFramework{
       return false;
       
     }
+
+    /**
+       Templated getter function for sore vector/array content. Assignment is templated and via reference.
+       @param name The ASCII key that the variable in the Store is stored with.
+       @param out The variable to fill with the value.
+       @return Return value is true if varaible exists in the Store and correctly assigned to out and false if not.
+    */
+    template<typename T> bool Get(std::string name,std::vector<T> &out){
+
+      if(m_variables.count(name)>0 && m_variables[name][0]=='['){
+	std::stringstream stream;
+	out.clear();
+	  
+	for(unsigned int i=1; i<m_variables[name].length(); i++){
+	  if(m_variables[name][i]!=',' && m_variables[name][i]!=']') stream.put(m_variables[name][i]);
+	  else {
+	    T tmp;
+	    stream>>tmp;
+	    if(stream.fail()){
+	      out.clear();
+	      return false;
+	    }
+	    stream.str("");
+	    stream.clear();
+	    out.push_back(tmp);
+	  }
+	  
+	}
+	return true;
+	  
+      }
+      
+      return false;
+      
+    }
     
     /**
        getter function for string content..
@@ -58,10 +93,26 @@ namespace ToolFramework{
        @return Return value is true if varaible exists in the Store and correctly assigned to out and false if not.
     */
     bool Get(std::string name, std::string &out);
-    
+
+        /**
+       getter function for bool content..
+       @param name The ASCII key that the variable in the Store is stored with.
+       @param out The variable to fill with the value.
+       @return Return value is true if varaible exists in the Store and correctly assigned to out and false if not.
+    */
+    bool Get(std::string name, bool &out);
+
+        /**
+       getter function for store content..
+       @param name The ASCII key that the variable in the Store is stored with.
+       @param out The variable to fill with the value.
+       @return Return value is true if varaible exists in the Store and correctly assigned to out and false if not.
+    */
+    bool Get(std::string name, Store &out);
+
     
     /**
-       Templated getter function for sore content. 
+       Templated getter function for store content. 
        @param name The ASCII key that the variable in the Store is stored with.
        @return Return value is default copiler costructed value if not true (note: no checking exists)
     */
@@ -73,6 +124,7 @@ namespace ToolFramework{
       return tmp;
       
     }
+
     
     
     /**
@@ -84,6 +136,28 @@ namespace ToolFramework{
       std::stringstream stream;
       stream<<in;
       m_variables[name]=stream.str();
+    }
+
+      /**
+	 Templated setter function to assign vairables in the Store from a vector.
+	 @param name The key to be used to store and reference the variable in the Store.
+	 @param in the varaible to be stored.
+      */
+    
+    template<typename T> void Set(std::string name,std::vector<T> in){
+     
+      std::stringstream stream;
+      std::string tmp="[";
+      for(unsigned int i=0; i<in.size(); i++){
+	stream<<in.at(i);
+	tmp+=stream.str();
+	if(i!=in.size()-1)tmp+=',';
+	stream.str("");
+	stream.clear();	
+      }
+      tmp+=']';
+      m_variables[name]=tmp;
+      
     }
     
     /**
@@ -99,13 +173,15 @@ namespace ToolFramework{
        Allows streaming of a flat JASON formatted string of Store contents.
     */
     template<typename T> void operator>>(T& obj){
-      
+
       std::stringstream stream;
       stream<<"{";
       bool first=true;
-      for (std::map<std::string,std::string>::iterator it=m_variables.begin(); it!=m_variables.end(); ++it){ 
+      for (std::map<std::string,std::string>::iterator it=m_variables.begin(); it!=m_variables.end(); ++it){
 	if (!first) stream<<",";
-	stream<<"\""<<it->first<<"\":\""<< it->second<<"\"";
+	if(it->second[0]!='[' && it->second[0]!='{' && it->second!="true" && it->second!="false" && it->second!="null") stream<<"\""<<it->first<<"\":\""<< it->second<<"\"";
+	else stream<<"\""<<it->first<<"\":"<< it->second<<" ";
+	
 	first=false;
       }
       stream<<"}";
