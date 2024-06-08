@@ -27,7 +27,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: prerequisits
-      run: yum update && yum install -y git make gcc-c++ zlib-devel dialog
+      run: cd /etc/yum.repos.d/ && sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-* && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-* && yum install -y git make gcc-c++ zlib-devel dialog
     - name: make
       run: make
     - name: test
