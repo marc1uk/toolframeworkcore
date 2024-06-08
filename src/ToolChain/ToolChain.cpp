@@ -36,7 +36,8 @@ ToolChain::ToolChain(std::string configfile, DataModel* data_model,  int argc, c
   for(int i=0; i<argc; i++){
     std::stringstream tmp;
     tmp<<"$"<<i;
-    m_data->vars.Set(tmp.str(),argv[i]);
+    std::string key(argv[i]);
+    m_data->vars.Set(tmp.str(),key);
   }
  
 #ifdef DEBUG  
@@ -487,7 +488,7 @@ std::string ToolChain::ExecuteCommand(std::string command){
 	else tmp<<"ToolChain running (loop counter="<<execounter<<")";
       }
       
-      if(*(m_data->vars["Status"])!="") tmp<<" : "<<*(m_data->vars["Status"]);
+      if(m_data->vars.Has("Status") && m_data->vars.Get<std::string>("Status")!="") tmp<<" : "<<m_data->vars.Get<std::string>("Status");
       returnmsg<<tmp.str();
     }
     else if(command=="?")returnmsg<<" Available commands: Initialise, Execute, Finalise, Start, Stop, Restart, Pause, Unpause, Quit, Status, ?";

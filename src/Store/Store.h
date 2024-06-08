@@ -42,7 +42,7 @@ namespace ToolFramework{
       
       if(m_variables.count(name)>0){
 	
-	std::stringstream stream(m_variables[name]);
+	std::stringstream stream(StringStrip(m_variables[name]));
 	stream>>out;
 	return !stream.fail();
       }
@@ -59,12 +59,14 @@ namespace ToolFramework{
     */
     template<typename T> bool Get(std::string name,std::vector<T> &out){
 
-      if(m_variables.count(name)>0 && m_variables[name][0]=='['){
+      if(m_variables.count(name)>0 && StringStrip(m_variables[name])[0]=='['){
 	std::stringstream stream;
 	out.clear();
 	  
 	for(unsigned int i=1; i<m_variables[name].length(); i++){
-	  if(m_variables[name][i]!=',' && m_variables[name][i]!=']') stream.put(m_variables[name][i]);
+	  if(m_variables[name][i]!=',' && m_variables[name][i]!=']'){
+	    if(m_variables[name][i]!='"') stream.put(m_variables[name][i]);
+	  }
 	  else {
 	    T tmp;
 	    stream>>tmp;
@@ -79,7 +81,7 @@ namespace ToolFramework{
 	  
 	}
 	return true;
-	  
+	
       }
       
       return false;
@@ -138,11 +140,27 @@ namespace ToolFramework{
       m_variables[name]=stream.str();
     }
 
-      /**
-	 Templated setter function to assign vairables in the Store from a vector.
-	 @param name The key to be used to store and reference the variable in the Store.
-	 @param in the varaible to be stored.
-      */
+    /**
+       string setter function to assign vairables in the Store.
+       @param name The key to be used to store and reference the variable in the Store.
+       @param in the varaible to be stored.
+    */
+
+    void Set(std::string name, std::string in);
+
+    /**
+       string setter function to assign vairables in the Store.
+       @param name The key to be used to store and reference the variable in the Store.
+       @param in the varaible to be stored.
+    */
+
+    void Set(std::string name, const char* in);
+
+    /**
+       Templated setter function to assign vairables in the Store from a vector.
+       @param name The key to be used to store and reference the variable in the Store.
+       @param in the varaible to be stored.
+    */
     
     template<typename T> void Set(std::string name,std::vector<T> in){
      
@@ -159,7 +177,14 @@ namespace ToolFramework{
       m_variables[name]=tmp;
       
     }
+
+    /**
+       string setter function to assign vairables in the Store from a vector.
+       @param name The key to be used to store and reference the variable in the Store.
+       @param in the varaible to be stored.
+    */
     
+    void Set(std::string name,std::vector<std::string> in);
     /**
        Returns string pointer to Store element.
        @param key The key of the string pointer to return.
@@ -179,8 +204,7 @@ namespace ToolFramework{
       bool first=true;
       for (std::map<std::string,std::string>::iterator it=m_variables.begin(); it!=m_variables.end(); ++it){
 	if (!first) stream<<",";
-	if(it->second[0]!='[' && it->second[0]!='{' && it->second!="true" && it->second!="false" && it->second!="null") stream<<"\""<<it->first<<"\":\""<< it->second<<"\"";
-	else stream<<"\""<<it->first<<"\":"<< it->second<<" ";
+	stream<<"\""<<it->first<<"\":"<< it->second<<" ";
 	
 	first=false;
       }
@@ -198,6 +222,7 @@ namespace ToolFramework{
     
     
     std::map<std::string,std::string> m_variables;
+    std::string StringStrip(std::string in);
     
   };
   

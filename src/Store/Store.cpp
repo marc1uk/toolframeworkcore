@@ -15,18 +15,20 @@ bool Store::Initialise(std::string filename){
     while (getline(file,line)){
       if (line.size()>0){
 	if (line.at(0)=='#')continue;
-	std::string key;
-	std::string value;
+	std::string key="";
+	std::string value="";
 	std::stringstream stream(line);
 	stream>>key>>value;
 	std::string tmp;
 	stream>>tmp;
-
+	value='"'+value;
+	  
 	while(tmp.length() && tmp[0]!='#'){
 	  value+=" "+tmp;
 	  tmp="";
 	  stream>>tmp;
 	}
+	value+="\"";
 
 	if(value!="") m_variables[key]=value;
       }
@@ -83,7 +85,11 @@ void Store::JsonParser(std::string input){
      //        6 - object
      //        7 - array
 
-     if(input[i]=='\"' && type<5) type++;
+    if(input[i]=='\"' && type<5){
+      if(type==4) value+='"';
+      type++;
+      if(type==4) value+='"';
+    }
      else if(type==1) key+=input[i];
      else if(input[i]==':' && type==2) type=3;   
      else if((input[i]==',' || input[i]=='}') && (type==5 || type==3)){
@@ -128,20 +134,19 @@ std::vector<std::string> Store::Keys(){
 
 
 bool Store::Get(std::string name, std::string &out){
-  
   if(m_variables.count(name)>0){ 
-    out=m_variables[name];
+    out=StringStrip(m_variables[name]);
     return true;
   }
   return false;
 }
 
 bool Store::Get(std::string name, bool &out){
-
   if(m_variables.count(name)>0){
-    if(m_variables[name]=="true") out=true;
-    else if(m_variables[name]=="false") out=false;
-    else if(m_variables[name]=="" || m_variables[name]=="0") out=false;
+    std::string tmp=StringStrip(m_variables[name]);
+    if(tmp=="true") out=true;
+    else if(tmp=="false") out=false;
+    else if(tmp=="" || tmp=="0") out=false;
     else out=true;
     return true;
     
@@ -151,12 +156,44 @@ bool Store::Get(std::string name, bool &out){
 }
 
 bool Store::Get(std::string name, Store &out){
-
-  if(m_variables.count(name)>0 && m_variables[name][0]=='{'){
-      out.JsonParser(m_variables[name]);
+  if(m_variables.count(name)>0 && StringStrip(m_variables[name])[0]=='{'){
+    out.JsonParser(StringStrip(m_variables[name]));
       return true;
  }
  return false;
   
 }
 
+void Store::Set(std::string name, std::string in){
+  std::stringstream stream;
+  stream<<"\""<<in<<"\"";
+  m_variables[name]=stream.str();
+}
+
+void Store::Set(std::string name, const char* in){
+  std::stringstream stream;
+  stream<<"\""<<in<<"\"";
+  m_variables[name]=stream.str();
+}
+
+void Store::Set(std::string name,std::vector<std::string> in){
+  std::stringstream stream;
+  std::string tmp="[";
+  for(unsigned int i=0; i<in.size(); i++){
+    stream<<"\""<<in.at(i)<<"\"";
+    tmp+=stream.str();
+    if(i!=in.size()-1)tmp+=',';
+    stream.str("");
+    stream.clear();
+  }
+  tmp+=']';
+  m_variables[name]=tmp;
+  
+}
+
+std::string Store::StringStrip(std::string in){
+
+  if(in.length() && in[0]=='"' && in[in.length()-1]=='"') return in.substr(1,in.length()-2);
+  return in;
+
+}
