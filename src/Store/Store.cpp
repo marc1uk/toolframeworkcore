@@ -68,6 +68,7 @@ void Store::JsonParser(std::string input){
   int type=0;
   std::string key="";
   std::string value="";
+  int bracket_counter=0;
 
   for(std::string::size_type i = 0; i < input.size(); ++i) {
    
@@ -101,9 +102,11 @@ void Store::JsonParser(std::string input){
      }
      else if(type==3  && !(input[i]==' ' || input[i]=='{' || input[i]=='[')) value+=input[i];
      else if(type==3  && input[i]=='{'){ value+=input[i]; type=6; }
-     else if(type==6  && input[i]=='}'){ value+=input[i]; type=5; }
+     else if(type==6  && input[i]=='{'){ value+=input[i]; bracket_counter++; }
+     else if(type==6  && input[i]=='}'){ value+=input[i]; bracket_counter--;if(bracket_counter==-1){ type=5; bracket_counter=0;} }
      else if(type==3  && input[i]=='['){ value+=input[i]; type=7; }
-     else if(type==7  && input[i]==']'){ value+=input[i]; type=5; }
+     else if(type==7  && input[i]=='['){ value+=input[i]; bracket_counter++; }
+     else if(type==7  && input[i]==']'){ value+=input[i]; bracket_counter--;if(bracket_counter==-1){ type=5; bracket_counter=0;} }
      else if(type==4 || type==6 || type==7) value+=input[i];
   }
 
@@ -195,5 +198,13 @@ std::string Store::StringStrip(std::string in){
 
   if(in.length() && in[0]=='"' && in[in.length()-1]=='"') return in.substr(1,in.length()-2);
   return in;
+
+}
+
+bool Store::Destring(std::string key){
+
+  if(!m_variables.count(key)) return false;
+  m_variables[key]=StringStrip(m_variables[key]);
+  return true;
 
 }

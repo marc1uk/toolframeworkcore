@@ -31,6 +31,7 @@ namespace ToolFramework{
     void Delete(); ///< Deletes all entries in the Store.
     bool Has(std::string key); ///<Returns bool based on if store contains entry given by sting @param string key to comapre.
     std::vector<std::string> Keys(); //returns a vector of the keys
+    bool Destring(std::string key); //convers an element from a string by stripping the speachmarks @param string key to comapre.
     
     /**
        Templated getter function for sore content. Assignment is templated and via reference.
@@ -214,8 +215,8 @@ namespace ToolFramework{
       
     } 
     
-    std::map<std::string, std::string>::const_iterator begin() { return m_variables.begin(); }
-    std::map<std::string, std::string>::const_iterator end()   { return m_variables.end(); }
+    std::map<std::string, std::string>::iterator begin() { return m_variables.begin(); }
+    std::map<std::string, std::string>::iterator end()   { return m_variables.end(); }
     
     
   private:
