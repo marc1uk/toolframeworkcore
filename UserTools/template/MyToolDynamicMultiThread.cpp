@@ -92,7 +92,7 @@ void MyToolDynamicMultiThread::CreateThread(){
    m_util->KillThread(args.at(pos));
    delete args.at(pos);
    args.at(pos)=0;
-   args.erase(args.begin()+(pos-1));
+   args.erase(args.begin()+(pos));
 
  }
 
