@@ -47,7 +47,7 @@ namespace ToolFramework{
     void InitialiseTool(DataModel &data){m_data= &data; ///< Logging fuction to set the datamodel and and logging poitners @param messagelevel data DataModel reference;
       m_log=reinterpret_cast<DataModelBase*>(m_data)->Log;
     }
-    bool InitialiseConfiguration(std::string &configfile){ ///< Inisialisation of m_varaiables first from global vars and then local config file to overlaod. @param configfile configfile path.
+    bool InitialiseConfiguration(std::string configfile=""){ ///< Inisialisation of m_varaiables first from global vars and then local config file to overlaod. @param configfile configfile path.
       std::string vars_json="";
       if(reinterpret_cast<DataModelBase*>(m_data)->vars.Get(m_tool_name, vars_json)) m_variables.JsonParser(vars_json);
       if(configfile!="")  return m_variables.Initialise(configfile);
