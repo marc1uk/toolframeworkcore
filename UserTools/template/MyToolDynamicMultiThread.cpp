@@ -64,7 +64,7 @@ bool MyToolDynamicMultiThread::Execute(){
 
 bool MyToolDynamicMultiThread::Finalise(){
 
-  for(unsigned int i=0;i<args.size();i++) m_util->KillThread(args.at(i));
+  for(unsigned int i=0;i<args.size();i++) DeleteThread(0);
   
   args.clear();
   
