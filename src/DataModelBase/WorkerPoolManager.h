@@ -51,7 +51,7 @@ namespace ToolFramework{
     ~PoolManager_args();
 
     JobQueue* job_queue;
-    unsigned int thread_cap;  ///< Variable to cap the number of thread workers
+    unsigned int* thread_cap;  ///< Variable to cap the number of thread workers
     unsigned int* global_thread_cap;
     unsigned int* global_thread_num;
     JobDeque* job_out_deque;
@@ -99,7 +99,7 @@ namespace ToolFramework{
        * @param thrad_management_period_us how long between evaluating the number of worker threads to avoid rapid killing and recreating
        * @param job_assignment_period how long the managers sleeps between checking if there are free workers to assign them new jobs
        */
-    WorkerPoolManager(JobQueue& job_queue,  unsigned int thread_cap=4, unsigned int* global_thread_cap=0, unsigned int* global_thread_num=0, JobDeque* job_out_deque=0, bool self_serving=false, bool threaded=true, unsigned int thread_sleep_us=100, unsigned int thread_management_period_us=10000, unsigned int job_assignment_period_us=1000);
+    WorkerPoolManager(JobQueue& job_queue,  unsigned int* thread_cap=0, unsigned int* global_thread_cap=0, unsigned int* global_thread_num=0, JobDeque* job_out_deque=0, bool self_serving=false, bool threaded=true, unsigned int thread_sleep_us=100, unsigned int thread_management_period_us=10000, unsigned int job_assignment_period_us=1000);
     ~WorkerPoolManager(); ///< Simple Destructor
     
     void ManageWorkers(); ///< Function to manage workers and distribute jobs to be run when unthreaded if you choose to not have the managment run on a thread.

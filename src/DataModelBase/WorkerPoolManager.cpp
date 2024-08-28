@@ -10,7 +10,7 @@ PoolManager_args::PoolManager_args() : Thread_args() {}
 
 PoolManager_args::~PoolManager_args() {}
 
-WorkerPoolManager::WorkerPoolManager(JobQueue& job_queue, unsigned int thread_cap, unsigned int* global_thread_cap, unsigned int* global_thread_num, JobDeque* job_out_deque, bool self_serving, bool threaded, unsigned int thread_sleep_us, unsigned int thread_management_period_us, unsigned int job_assignment_period_us){
+WorkerPoolManager::WorkerPoolManager(JobQueue& job_queue, unsigned int* thread_cap, unsigned int* global_thread_cap, unsigned int* global_thread_num, JobDeque* job_out_deque, bool self_serving, bool threaded, unsigned int thread_sleep_us, unsigned int thread_management_period_us, unsigned int job_assignment_period_us){
 
   m_util = new Utilities();
   
@@ -155,7 +155,7 @@ void WorkerPoolManager::ManagerThread(Thread_args* arg) {
       }
     }
     
-    if (args->free_threads < 1 && args->args.size()<(args->thread_cap) && ( !args->global_thread_cap || args->global_thread_num<args->global_thread_cap  ) ) CreateWorkerThread(args->args, args->self_serving, args->thread_sleep_us, args->job_queue, args->job_out_deque, args->thread_num, args->util, args->global_thread_num);
+    if (args->free_threads < 1 && args->args.size()<(*(args->thread_cap)) && ( !args->global_thread_cap || (*(args->global_thread_num))<(*(args->global_thread_cap))  ) ) CreateWorkerThread(args->args, args->self_serving, args->thread_sleep_us, args->job_queue, args->job_out_deque, args->thread_num, args->util, args->global_thread_num);
     
     if (args->free_threads > 1) DeleteWorkerThread(last_free, args->util, args->args, args->global_thread_num);
     
