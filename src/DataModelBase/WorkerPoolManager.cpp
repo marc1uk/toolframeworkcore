@@ -107,8 +107,8 @@ void WorkerPoolManager::WorkerThread(Thread_args* arg) {
     }
     if(args->job_out_deque) args->job_out_deque->push_back(args->job);
     else{
-      delete args->job;
-      args->job=0;
+      //delete args->job;
+      //args->job=0;
     }
     args->job->m_in_progress=false;
     args->busy = false;   
