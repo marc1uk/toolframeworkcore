@@ -104,6 +104,7 @@ void WorkerPoolManager::WorkerThread(Thread_args* arg) {
     }
     catch(...){
       args->job->m_failed=true;
+      if(args->job->fail_func) args->job->fail_func(args->job->data);
     }
     if (args->job_out_deque) {
       args->job_out_deque->push_back(args->job);
