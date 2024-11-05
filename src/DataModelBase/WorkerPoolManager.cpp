@@ -102,9 +102,30 @@ void WorkerPoolManager::WorkerThread(Thread_args* arg) {
       if(args->job->func(args->job->data)) args->job->m_complete=true;
       else args->job->m_failed=true;
     }
+    catch (std::exception& e) {
+      std::clog<<"Job Failed \""<<args->job->m_id<<"\": "<<e.what() <<std::endl;
+       args->job->m_failed=true;
+       try{
+	 if(args->job->fail_func) args->job->fail_func(args->job->data);
+       }
+       catch (std::exception& p) {
+	 std::clog<<"Job fail_func Failed \"args->job->m_id\" likely memory leaking: "<<p.what() <<std::endl;
+       }
+       catch(...){
+	 std::clog<<"Job fail_func Failed \"args->job->m_id\" likely memory leaking: "<<std::endl;
+       }
+    }
     catch(...){
       args->job->m_failed=true;
-      if(args->job->fail_func) args->job->fail_func(args->job->data);
+      try{
+	if(args->job->fail_func) args->job->fail_func(args->job->data);
+      }
+      catch (std::exception& e) {
+	std::clog<<"Job fail_func Failed \"args->job->m_id\" likely memory leaking: "<<e.what() <<std::endl;
+      }
+      catch(...){
+	std::clog<<"Job fail_func Failed \"args->job->m_id\" likely memory leaking: "<<std::endl;
+      }
     }
     if (args->job_out_deque) {
       args->job_out_deque->push_back(args->job);
