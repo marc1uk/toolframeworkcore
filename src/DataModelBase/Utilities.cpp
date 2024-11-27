@@ -1,5 +1,7 @@
 #include <Utilities.h>
 
+using namespace ToolFramework;
+
 Utilities::Utilities(){ 
   Threads.clear();
 }

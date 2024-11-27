@@ -10,20 +10,18 @@ MyToolMultiThread::MyToolMultiThread():Tool(){}
 
 bool MyToolMultiThread::Initialise(std::string configfile, DataModel &data){
 
-  if(configfile!="")  m_variables.Initialise(configfile);
+  InitialiseTool(data);                                                                                               
+  InitialiseConfiguration(configfile);
   //m_variables.Print();
-
-  m_data= &data;
-  m_log= m_data->Log;
 
   if(!m_variables.Get("verbose",m_verbose)) m_verbose=1;
 
-  int threadcount=0;
+  unsigned int threadcount=0;
   if(!m_variables.Get("Threads",threadcount)) threadcount=4;
 
   m_util=new Utilities();
 
-  for(int i=0;i<threadcount;i++){
+  for(unsigned int i=0;i<threadcount;i++){
     MyToolMultiThread_args* tmparg=new MyToolMultiThread_args();   
     tmparg->busy=0;
     tmparg->message="";
@@ -35,7 +33,7 @@ bool MyToolMultiThread::Initialise(std::string configfile, DataModel &data){
   
   m_freethreads=threadcount;
   
-    
+  ExportConfiguration();  
   
   return true;
 }
@@ -45,7 +43,7 @@ bool MyToolMultiThread::Execute(){
 
   for(unsigned int i=0; i<args.size(); i++){
     if(args.at(i)->busy==0){
-      std::cout<<"reply="<<args.at(i)->message<<std::endl;
+      *m_log<<"reply="<<args.at(i)->message<<std::endl;
       args.at(i)->message="Hi";
       args.at(i)->busy=1;
       break;
@@ -58,9 +56,10 @@ bool MyToolMultiThread::Execute(){
     if(args.at(i)->busy==0) m_freethreads++;
   }
 
-  std::cout<<"free threads="<<m_freethreads<<":"<<args.size()<<std::endl;
-  
-  sleep(1);
+ *m_log<<ML(1)<<"free threads="<<m_freethreads<<":"<<args.size()<<std::endl;
+  MLC();
+
+ // sleep(1);  for single tool testing
   
   return true;
 }

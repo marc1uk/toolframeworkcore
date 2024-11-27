@@ -1,5 +1,7 @@
 #include <BinaryStream.h>
 
+using namespace ToolFramework;
+
 BinaryStream::BinaryStream(enum_endpoint endpoint){
 
   m_endpoint=endpoint;
@@ -81,8 +83,8 @@ bool BinaryStream::Bopen(std::string filename, enum_mode method, enum_endpoint e
   }
 #ifdef ZLIB
   else if(m_endpoint== POST_PRE_COMPRESS){
-    struct stat buffer;
-    if(stat (m_file_name.c_str(), &buffer) == 0){ //if file exists
+    struct stat fbuffer;
+    if(stat (m_file_name.c_str(), &fbuffer) == 0){ //if file exists
       FILE* source = fopen(m_file_name.c_str(), "rb");
       if(source==NULL) return false;
       //int fd = mkstemp(filename)
@@ -113,8 +115,8 @@ bool BinaryStream::Bopen(std::string filename, enum_mode method, enum_endpoint e
     else if(method==NEW)  pfile = fopen(m_file_name.c_str(), "wb");
     else if(method==APPEND)  pfile = fopen(m_file_name.c_str(), "ab");
     else if(method==UPDATE){
-      struct stat buffer;
-      if(stat (filename.c_str(), &buffer) == 0) pfile = fopen(m_file_name.c_str(), "rb+"); //if file exists 
+      struct stat fbuffer;
+      if(stat (filename.c_str(), &fbuffer) == 0) pfile = fopen(m_file_name.c_str(), "rb+"); //if file exists 
       else pfile = fopen(m_file_name.c_str(), "wb+"); //if it doesnt 
     }
     else if(method==READ_APPEND) pfile = fopen(m_file_name.c_str(), "ab+");
@@ -225,13 +227,13 @@ bool BinaryStream::Bread(void* out, unsigned int size){
 }
 
 
-long int BinaryStream::Btell(){
+unsigned long int BinaryStream::Btell(){
   
   if(m_endpoint==RAM){
     return m_pos;
   }
   else if(m_endpoint==UNCOMPRESSED || m_endpoint==POST_PRE_COMPRESS){
-    return ftell(pfile);
+    return (unsigned long) ftell(pfile);
   }
 #ifdef ZLIB
   else if(m_endpoint==COMPRESSED){
@@ -264,7 +266,7 @@ bool BinaryStream::Bseek(unsigned int pos, int whence){
 
 bool BinaryStream::Print(){
 
-  std::cout<<"endpoint="<<m_endpoint<<std::endl;
+  std::cout<<"endpoint="<<(int)m_endpoint<<std::endl;
   return true;
 }
 

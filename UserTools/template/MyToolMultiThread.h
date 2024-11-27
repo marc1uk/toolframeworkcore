@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Tool.h"
+#include "DataModel.h"
 
 /**
  * \struct MyToolMultiThread_args
@@ -50,7 +51,7 @@ class MyToolMultiThread: public Tool {
   Utilities* m_util; ///< Pointer to utilities class to help with threading
   std::vector<MyToolMultiThread_args*> args; ///< Vector of thread args (also holds pointers to the threads)
 
-  int m_freethreads; ///< Keeps track of free threads
+  unsigned int m_freethreads; ///< Keeps track of free threads
 
 };
 

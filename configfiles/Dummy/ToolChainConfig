@@ -7,10 +7,10 @@ attempt_recover 1	 # 1= will attempt to finalise if an execute fails, 0= will no
 
 ###### Logging #####
 log_interactive 1	# Interactive=cout;  0=false, 1= true
-log_local 0 		# Local = local file log;  0=false, 1= true
+log_local 1 		# Local = local file log;  0=false, 1= true
 log_local_path ./log	# file to store logs to if local is active
 log_append_time 0       # append seconds since epoch to filename; 0=false, 1= true
-log_split_files 0 	# seperate output and error log files (named x.o and x.e); 0=false, 1= true
+log_split_files 1 	# seperate output and error log files (named x.o and x.e); 0=false, 1= true
 
 ##### Tools To Add #####
 Tools_File configfiles/Dummy/ToolsConfig	# list of tools to run and their config files
