@@ -3,7 +3,8 @@
 
 #include <string>
 #include "Tool.h"
-#include "Unity.h"
+
+using namespace ToolFramework;
 
 /**
  * Global Factory function for creating Tools.

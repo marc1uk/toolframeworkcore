@@ -1,5 +1,9 @@
 #include <BStore.h>
 
+#include <unordered_map>
+
+using namespace ToolFramework;
+
 ////////////////////////
 //Notes for Ben
 ///////////////////////////////
@@ -37,6 +41,33 @@ BStore::BStore(bool header, bool type_checking):m_version(1.0){
   //  m_current_loaded_entry=0;
   m_update=false;
 
+}
+
+BStore::BStore(const BStore &bs):m_version(1.0){
+
+   m_variables = bs.m_variables;
+   m_type_info = bs.m_type_info;
+   
+   if(bs.Header){
+     Header = new BStore(*bs.Header);
+   } else
+     Header = nullptr;
+   
+   m_lookup = bs.m_lookup;
+   output = bs.output;
+   m_file_end = bs.m_file_end;
+   m_file_name = bs.m_file_name;
+   m_open_file_end = bs.m_open_file_end;
+   m_previous_file_end = bs.m_previous_file_end;
+   m_type = bs.m_type;
+   m_type_checking = bs.m_type_checking;
+   m_has_header = bs.m_has_header;
+   m_header_start = bs.m_header_start;
+   m_flags_start = bs.m_flags_start;
+   m_lookup_start = bs.m_lookup_start;
+   m_update = bs.m_update;
+   m_version = bs.m_version;
+   
 }
 
 std::string BStore::GetVersion(){
@@ -672,22 +703,49 @@ void BStore::Remove(std::string key){
 
 void BStore::JsonParser(std::string input){
   
+  //need to handel arrays and objects properly
+
   int type=0;
   std::string key;
   std::string value;
   
   for(std::string::size_type i = 0; i < input.size(); ++i) {
     
-    if(input[i]=='\"')type++;
-    else if(type==1)key+=input[i];
-    else if(type==3)value+=input[i];
-    else if(type==4){
-      type=0;
-      m_variables[key] << value;
-      key="";
-      value="";
-    }
+    //std::cout<<"i="<<i<<" , "<<input[i]<<" , type="<<type<<std::endl;
+ 
+     //type 0011112233444444550011112233333333001111223366666665500111122337777777555
+     //     { "key" : "value" , "key" : value , "key" : {......} , "key" : [......] }
+
+     // types: 0 - pre key
+     //        1 - key
+     //        2 - postkey
+     //        3 - value
+     //        4 - string value
+     //        5 - post value
+     //        6 - object
+     //        7 - array
+
+     if(input[i]=='\"' && type<5) type++;
+     else if(type==1) key+=input[i];
+     else if(input[i]==':' && type==2) type=3;   
+     else if((input[i]==',' || input[i]=='}') && (type==5 || type==3)){
+       type=0;
+       //std::cout<<"key="<<key<<" , value="<<value<<std::endl;
+       m_variables[key] << value;     
+       key="";
+       value="";
+     }
+     else if(type==3  && !(input[i]==' ' || input[i]=='{' || input[i]=='[')) value+=input[i];
+     else if(type==3  && input[i]=='{'){ value+=input[i]; type=6; }
+     else if(type==6  && input[i]=='}'){ value+=input[i]; type=5; }
+     else if(type==3  && input[i]=='['){ value+=input[i]; type=7; }
+     else if(type==7  && input[i]==']'){ value+=input[i]; type=5; }
+     else if(type==4 || type==6 || type==7) value+=input[i];
   }
+  
+
+
+
 }
 
 
@@ -745,7 +803,10 @@ bool BStore::Serialise(BinaryStream &bs){ // do return properly
 
   bs & output;
   bs & m_lookup;
-  GetEntry(0);
+  bs & m_variables;
+  bs & m_type_checking;
+  if (m_type_checking) bs & m_type_info;
+
   /*
   save;
 
@@ -893,4 +954,112 @@ BStore::~BStore(){
   Delete();
 
 
+}
+
+namespace ToolFramework {
+  bool json_encode(std::ostream& output, const BStore& store) {
+    return store.JsonEncode(output);
+  }
+};
+
+template <typename T>
+static bool json_encode_bs(std::ostream& output, const BinaryStream& input) {
+  T datum;
+  // input must be const to conform to the JSON encoders interface layed out in
+  // Json.h (const std::vector<BStore>& must be JSON-serializable) and to the
+  // general idea that reading an object shouldn't change it. However, reading
+  // from BinaryStream changes its position. We have to either cast away the
+  // constness here or declare BinaryStream::m_pos mutable. I don't know which
+  // way is better.  --- Evgenii
+  auto& in = const_cast<BinaryStream&>(input);
+  in.m_pos = 0;
+  return (in >> datum) && json_encode(output, datum);
+}
+
+// Maps typeid().name to a function that extracts data from BinaryStream and
+// prints it as JSON.
+//
+// Extend as needed
+std::unordered_map<std::string, bool (*)(std::ostream&, const BinaryStream&)> json_encoders {
+#define encoder(type) { typeid(type).name(), json_encode_bs<type> }
+  encoder(bool),
+  encoder(int),
+  encoder(unsigned int),
+  encoder(double),
+  encoder(std::string),
+  encoder(BStore),
+  encoder(std::vector<int>),
+  encoder(std::vector<double>),
+  encoder(std::vector<std::string>),
+  encoder(std::vector<BStore>)
+#undef encoder
+};
+
+bool (*BStore::GetJsonEncoder(const std::string& key) const)(std::ostream&, const BinaryStream&){
+  auto type = m_type_info.find(key);
+  if (type == m_type_info.end()) return nullptr;
+  auto encoder = json_encoders.find(type->second);
+  if (encoder == json_encoders.end()) {
+    std::clog
+      << "BStore::JsonEncode: encoder for type "
+      << type->second
+      << " (field "
+      << key
+      << ") is not implemented"
+      << std::endl;
+    return nullptr;
+  };
+  return encoder->second;
+}
+
+bool BStore::JsonEncode(std::ostream& stream) const {
+  if (!m_type_checking) {
+    std::clog
+      << "BStore::JsonEncode: type checking is required for JSON encoding"
+      << std::endl;
+    return false;
+  };
+
+  bool comma = false;
+  stream << '{';
+  for (auto& kv : m_variables) {
+    if (comma)
+      stream << ',';
+    else
+      comma = true;
+    if (!json_encode(stream, kv.first)) return false;
+    stream << ':';
+    auto encoder = GetJsonEncoder(kv.first);
+    if (!encoder || !encoder(stream, kv.second)) return false;
+  };
+  stream << '}';
+  return true;
+}
+
+bool BStore::JsonEncode(std::string& json) const {
+  std::stringstream ss;
+  if (!JsonEncode(ss)) return false;
+  json = ss.str();
+  return true;
+}
+
+bool BStore::JsonEncode(const std::string& key, std::ostream& stream) const {
+  if (!m_type_checking) {
+    std::clog
+      << "BStore::JsonEncode: type checking is required for JSON encoding"
+      << std::endl;
+    return false;
+  };
+
+  auto kv = m_variables.find(key);
+  if (kv == m_variables.end()) return false;
+  auto encoder = GetJsonEncoder(kv->first);
+  return encoder && encoder(stream, kv->second);
+}
+
+bool BStore::JsonEncode(const std::string& key, std::string& json) const {
+  std::stringstream ss;
+  if (!JsonEncode(key, ss)) return false;
+  json = ss.str();
+  return true;
 }

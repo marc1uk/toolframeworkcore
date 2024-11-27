@@ -1,8 +1,10 @@
 #include "ToolChain.h"
 
-ToolChain::ToolChain(std::string configfile,  int argc, char* argv[]){
+using namespace ToolFramework;
+
+ToolChain::ToolChain(std::string configfile, DataModel* data_model,  int argc, char* argv[]){
   
-  m_data=new DataModel();
+  m_data=reinterpret_cast<DataModelBase*>(data_model);
   
   if(!m_data->vars.Initialise(configfile)){
     std::clog<<"\033[38;5;196m ERROR!!!: No valid config file quitting \033[0m"<<std::endl;
@@ -34,7 +36,8 @@ ToolChain::ToolChain(std::string configfile,  int argc, char* argv[]){
   for(int i=0; i<argc; i++){
     std::stringstream tmp;
     tmp<<"$"<<i;
-    m_data->vars.Set(tmp.str(),argv[i]);
+    std::string key(argv[i]);
+    m_data->vars.Set(tmp.str(),key);
   }
  
 #ifdef DEBUG
@@ -64,10 +67,10 @@ ToolChain::ToolChain(int verbose, int errorlevel, bool log_interactive, bool log
   m_log_split_files=log_split_files;
   m_log_local_path=log_local_path;
   
-  if(in_data_model==0) m_data=new DataModel;
-  else m_data=in_data_model;
+  if(in_data_model==0) m_data=new DataModelBase;  
+  else m_data=reinterpret_cast<DataModelBase*>(in_data_model); // need to set a flag that you don't own the data model for use during deletion.  (check this for other constructor too).
   
-  Init();
+  Init(); //need to check if logging already made in case passing a datamodel for subtoolcahin
   
 }
 
@@ -95,7 +98,7 @@ bool ToolChain::Add(std::string name,Tool *tool,std::string configfile){
   if(tool!=0){
     
     *m_log<<MsgL(1,m_verbose)<<cyan<<"Adding Tool='"<<name<<"' to ToolChain"<<std::endl;
-    
+    tool->SetName(name);  
     m_tools.push_back(tool);
     m_toolnames.push_back(name);
     m_configfiles.push_back(configfile);
@@ -123,18 +126,18 @@ int ToolChain::Initialise(){
     for(unsigned int i=0 ; i<m_tools.size();i++){
       *m_log<<MsgL(2,m_verbose)<<cyan<<"Initialising "<<m_toolnames.at(i)<<std::endl;
       *m_log<<MsgL(0,0);
-      
+
 #ifndef DEBUG
       try{
 #endif
-        
-        if(m_tools.at(i)->Initialise(m_configfiles.at(i), *m_data))  *m_log<<MsgL(2,m_verbose)<<green<<m_toolnames.at(i)<<" initialised successfully\n"<<std::endl;
-        else{
-          *m_log<<MsgL(0,m_verbose)<<red<<"WARNING !!!!! "<<m_toolnames.at(i)<<" Failed to initialise (exit error code)\n"<<std::endl;
-          result=1;
-          if(m_errorlevel>1) exit(1);
-        }
-        
+         
+	       if(m_tools.at(i)->Initialise(m_configfiles.at(i), *(reinterpret_cast<DataModel*>(m_data))))  *m_log<<MsgL(2,m_verbose)<<green<<m_toolnames.at(i)<<" initialised successfully\n"<<std::endl;
+	       else{
+	         *m_log<<MsgL(0,m_verbose)<<red<<"WARNING !!!!! "<<m_toolnames.at(i)<<" Failed to initialise (exit error code)\n"<<std::endl;
+	         result=1;
+	         if(m_errorlevel>1) exit(1);
+	       }
+
 #ifndef DEBUG
       }
       catch(std::exception& e){
@@ -179,8 +182,8 @@ int ToolChain::Execute(int repeates){
     
     if(m_inline)  *m_log<<MsgL(2,m_verbose)<<yellow<<"********************************************************\n"<<"**** Executing toolchain "<<repeates<<" times ****\n"<<"********************************************************\n"<<std::endl;
     
-    for(int i=0;i<repeates;i++){
-     
+    for(int j=0;j<repeates;j++){
+      
       *m_log<<MsgL(3,m_verbose)<<yellow<<"********************************************************\n"<<"**** Executing tools in toolchain ****\n"<<"********************************************************\n"<<std::endl;
       
       for(unsigned int i=0 ; i<m_tools.size();i++){
@@ -485,7 +488,7 @@ std::string ToolChain::ExecuteCommand(std::string command){
         else tmp<<"ToolChain running (loop counter="<<execounter<<")";
       }
       
-      if(*(m_data->vars["Status"])!="") tmp<<" : "<<*(m_data->vars["Status"]);
+      if(m_data->vars.Has("Status") && m_data->vars.Get<std::string>("Status")!="") tmp<<" : "<<m_data->vars.Get<std::string>("Status");
       returnmsg<<tmp.str();
     }
     else if(command=="?")returnmsg<<" Available commands: Initialise, Execute, Finalise, Start, Stop, Restart, Pause, Unpause, Quit, Status, ?";

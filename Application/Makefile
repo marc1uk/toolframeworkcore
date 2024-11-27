@@ -1,11 +1,13 @@
 Dependencies=Dependencies
+ToolFrameworkCore=$(Dependencies)/ToolFrameworkCore
+SOURCEDIR=`pwd`
 
-CXXFLAGS=  -fPIC -O3 -Wpedantic -Wall
+CXXFLAGS=  -fPIC -O3 -Wpedantic -Wall -std=c++11 -Wno-comment -Wno-unused -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept  -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wswitch-default -Wundef #-Werror -Wold-style-cast 
+
 
 ifeq ($(MAKECMDGOALS),debug)
 CXXFLAGS+= -O0 -g -lSegFault -rdynamic -DDEBUG
 endif
-
 
 DataModelInclude =
 DataModelLib =
@@ -13,90 +15,67 @@ DataModelLib =
 MyToolsInclude =
 MyToolsLib =
 
+Includes=-I $(ToolFrameworkCore)/include/ -I $(SOURCEDIR)/include/
+ToolLibraries = $(patsubst %, lib/%, $(filter lib%, $(subst /, , $(wildcard UserTools/*/*.so))))
+LIBRARIES=lib/libDataModel.so lib/libMyTools.so $(ToolLibraries)
+DataModelHEADERS:=$(patsubst %.h, include/%.h, $(filter %.h, $(subst /, ,$(wildcard DataModel/*.h))))
+MyToolHEADERS:=$(patsubst %.h, include/%.h, $(filter %.h, $(subst /, ,$(wildcard UserTools/*/*.h) $(wildcard UserTools/*.h))))
+ToolLibs = $(patsubst %.so, %, $(patsubst lib%, -l%,$(filter lib%, $(subst /, , $(wildcard UserTools/*/*.so)))))
+AlreadyCompiled = $(wildcard UserTools/$(filter-out %.so UserTools , $(subst /, ,$(wildcard UserTools/*/*.so)))/*.cpp)
+SOURCEFILES:=$(patsubst %.cpp, %.o,  $(filter-out Dependencies% , $(filter-out $(AlreadyCompiled), $(wildcard */*.cpp) $(wildcard */*/*.cpp))))
+Libs=-L $(SOURCEDIR)/lib/ -lDataModel -L $(ToolFrameworkCore)/lib/  -lToolChain -lMyTools -lDataModelBase -lLogging -lStore -lpthread  $(ToolLibs)
+
+
+#.SECONDARY: $(%.o)
+
+all: $(DataModelHEADERS) $(MyToolHEADERS) $(SOURCEFILES) $(LIBRARIES) main
 
 debug: all
 
-all: lib/libMyTools.so lib/libToolChain.so lib/libStore.so include/Tool.h lib/libDataModel.so lib/libLogging.so main
+main: src/main.o $(LIBRARIES) $(DataModelHEADERS) $(MyToolHEADERS) | $(SOURCEFILES)
+	@echo -e "\e[38;5;11m\n*************** Making " $@ " ****************\e[0m"
+	g++  $(CXXFLAGS) $< -o $@ $(Includes) $(Libs) $(DataModelInclude) $(DataModelLib) $(MyToolsInclude) $(MyToolsLib) 
 
-main: src/main.cpp lib/libStore.so lib/libLogging.so lib/libToolChain.so | lib/libMyTools.so  lib/libDataModel.so 
+include/%.h:
+	@echo -e "\e[38;5;87m\n*************** sym linking headers ****************\e[0m"
+	ln -s  `pwd`/$(filter %$(strip $(patsubst include/%.h, /%.h, $@)), $(wildcard DataModel/*.h) $(wildcard UserTools/*/*.h) $(wildcard UserTools/*.h)) $@
+
+src/%.o :  src/%.cpp   
 	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	g++ $(CXXFLAGS) src/main.cpp -o main -I include -L lib -lStore -lMyTools -lToolChain -lDataModel -lLogging  -lpthread $(DataModelInclude) $(MyToolsInclude) $(MyToolsLib) $(DataModelLib) 
+	g++ $(CXXFLAGS) -c $< -o $@ $(Includes)
 
+UserTools/Factory/Factory.o :  UserTools/Factory/Factory.cpp  $(DataModelHEADERS)
+	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
+	g++ $(CXXFLAGS) -c $< -o $@ $(Includes) $(DataModelInclude) $(ToolsInclude)
 
-lib/libStore.so: $(Dependencies)/ToolFrameworkCore/src/Store/*
-	cd $(Dependencies)/ToolFrameworkCore && $(MAKE) lib/libStore.so
-	@echo -e "\e[38;5;118m\n*************** Copying " $@ "****************\e[0m"
-	cp $(Dependencies)/ToolFrameworkCore/src/Store/*.h include/
-	cp $(Dependencies)/ToolFrameworkCore/lib/libStore.so lib/
+UserTools/%.o :  UserTools/%.cpp  $(DataModelHEADERS) UserTools/%.h
+	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
+	g++ $(CXXFLAGS) -c $< -o $@ $(Includes) $(DataModelInclude) $(ToolsInclude)
 
+DataModel/%.o : DataModel/%.cpp DataModel/%.h  $(DataModelHEADERS)
+	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
+	g++ $(CXXFLAGS) -c $< -o $@ $(Includes) $(DataModelInclude)
 
-include/Tool.h:  $(Dependencies)/ToolFrameworkCore/src/Tool/Tool.h
-	@echo -e "\e[38;5;118m\n*************** Copying " $@ "****************\e[0m"
-	cp $(Dependencies)/ToolFrameworkCore/src/Tool/Tool.h include/
+lib/libDataModel.so: $(patsubst %.cpp, %.o , $(wildcard DataModel/*.cpp)) |  $(DataModelHeaders)
+	@echo -e "\e[38;5;201m\n*************** Making " $@ "****************\e[0m"
+	g++ $(CXXFLAGS) --shared $^ -o $@ $(Includes) $(DataModelInclude)
 
+lib/libMyTools.so: $(patsubst %.cpp, %.o , $(filter-out $(AlreadyCompiled), $(wildcard UserTools/*/*.cpp))) |  $(DataModelHeaders) $(MyToolHeaders)
+	@echo -e "\e[38;5;201m\n*************** Making " $@ "****************\e[0m"
+	g++ $(CXXFLAGS) --shared $^ -o $@ $(Includes) $(DataModelInclude) $(MyToolsInclude)
 
-lib/libToolChain.so: $(Dependencies)/ToolFrameworkCore/src/ToolChain/*  lib/libLogging.so lib/libStore.so | lib/libMyTools.so lib/libDataModel.so
-	@echo -e "\e[38;5;226m\n*************** Making " $@ "****************\e[0m"
-	cp $(Dependencies)/ToolFrameworkCore/src/ToolChain/*.h include/
-	g++ $(CXXFLAGS) -shared $(Dependencies)/ToolFrameworkCore/src/ToolChain/ToolChain.cpp -I include -lpthread -L lib -lStore -lDataModel -lLogging -lMyTools -o lib/libToolChain.so $(DataModelInclude) $(DataModelib) $(MyToolsInclude) $(MyToolsLib)
+lib/%.so:
+	@echo -e "\e[38;5;87m\n*************** sym linking Tool libs ****************\e[0m"
+	ln -s `pwd`/$(filter %$(strip $(patsubst lib/%.so, /%.so ,$@)), $(wildcard UserTools/*/*.so)) $@
 
-
-clean: 
-
+clean:
 	@echo -e "\e[38;5;201m\n*************** Cleaning up ****************\e[0m"
+	rm -f */*/*.o
+	rm -f */*.o
 	rm -f include/*.h
 	rm -f lib/*.so
 	rm -f main
-	rm -f UserTools/*/*.o
-	rm -f DataModel/*.o
-
-
-lib/libDataModel.so: DataModel/* lib/libLogging.so lib/libStore.so  $(patsubst DataModel/%.cpp, DataModel/%.o, $(wildcard DataModel/*.cpp))
-
-	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	g++ $(CXXFLAGS) -shared DataModel/*.o -I include -L lib -lStore -lLogging -o lib/libDataModel.so $(DataModelInclude) $(DataModelLib)
-
-
-lib/libMyTools.so: UserTools/*/* UserTools/* lib/libStore.so include/Tool.h lib/libLogging.so UserTools/Factory/Factory.o | lib/libDataModel.so 
-
-	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	g++ $(CXXFLAGS) -shared UserTools/*/*.o -I include -L lib -lStore -lDataModel -lLogging -o lib/libMyTools.so $(MyToolsInclude) $(DataModelInclude) $(MyToolsLib) $(DataModelLib)
-
-
-lib/libLogging.so:  $(Dependencies)/ToolFrameworkCore/src/Logging/* | lib/libStore.so
-	cd $(Dependencies)/ToolFrameworkCore && $(MAKE) lib/libLogging.so
-	@echo -e "\e[38;5;118m\n*************** Copying " $@ "****************\e[0m"
-	cp $(Dependencies)/ToolFrameworkCore/src/Logging/Logging.h include/
-	cp $(Dependencies)/ToolFrameworkCore/lib/libLogging.so lib/
-
-UserTools/Factory/Factory.o: UserTools/Factory/Factory.cpp lib/libStore.so include/Tool.h lib/libLogging.so lib/libDataModel.so $(patsubst UserTools/%.cpp, UserTools/%.o, $(wildcard UserTools/*/*.cpp)) | include/Tool.h
-	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	cp UserTools/Factory/Factory.h include
-	cp UserTools/Unity.h include
-	-g++ $(CXXFLAGS) -c -o $@ $< -I include -L lib -lStore -lDataModel -lLogging $(MyToolsInclude) $(MyToolsLib) $(DataModelInclude) $(DataModelib)
-
-update:
-	@echo -e "\e[38;5;51m\n*************** Updating ****************\e[0m"
-	cd $(Dependencies)/ToolFrameworkCore; git pull
-	git pull
-
-UserTools/%.o: UserTools/%.cpp lib/libStore.so include/Tool.h lib/libLogging.so lib/libDataModel.so | include/Tool.h
-	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	cp $(shell dirname $<)/*.h include
-	-g++ $(CXXFLAGS) -c -o $@ $< -I include -L lib -lStore -lDataModel -lLogging $(MyToolsInclude) $(MyToolsLib) $(DataModelInclude) $(DataModelib)
-
-
-target: remove $(patsubst %.cpp, %.o, $(wildcard UserTools/$(TOOL)/*.cpp))
-
-remove:
-	echo "removing"
-	-rm UserTools/$(TOOL)/*.o
-
-
-DataModel/%.o: DataModel/%.cpp lib/libLogging.so lib/libStore.so  
-	@echo -e "\e[38;5;214m\n*************** Making " $@ "****************\e[0m"
-	cp $(shell dirname $<)/*.h include
-	-g++ $(CXXFLAGS) -c -o $@ $< -I include -L lib -lStore -lLogging  $(DataModelInclude) $(DataModelLib)
 
 Docs:
 	doxygen Doxyfile
+
