@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['vars_150',['vars',['../classDataModel.html#a4baac5fe364a7a23762d70d2c2216486',1,'DataModel']]],
-  ['verbose_151',['verbose',['../structMsgL.html#a10337c60eff6573f6bf36dd6b6bfd4c6',1,'MsgL']]]
+  ['stores_213',['Stores',['../classToolFramework_1_1DataModelBase.html#ae6dcda92cb7872e42b696c9afaf5f7f5',1,'ToolFramework::DataModelBase']]]
 ];

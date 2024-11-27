@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pointer_144',['pointer',['../classPointerWrapper.html#a4866798d33eed0a9aeaa3bcda53c4a0d',1,'PointerWrapper']]]
+  ['log_200',['Log',['../classToolFramework_1_1DataModelBase.html#ab5c1fd8f36f4959e1e5bd672edb0e1cc',1,'ToolFramework::DataModelBase']]]
 ];
