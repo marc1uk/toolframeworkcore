@@ -204,8 +204,8 @@ namespace ToolFramework{
       stream<<"{";
       bool first=true;
       for (std::map<std::string,std::string>::iterator it=m_variables.begin(); it!=m_variables.end(); ++it){
-	if (!first) stream<<",";
-	stream<<"\""<<it->first<<"\":"<< it->second<<" ";
+	if (!first) stream<<", ";
+	stream<<"\""<<it->first<<"\":"<< it->second;
 	
 	first=false;
       }
@@ -214,6 +214,8 @@ namespace ToolFramework{
       obj=stream.str();
       
     } 
+    
+    friend std::ostream& operator<<(std::ostream &stream, const Store &s);
     
     std::map<std::string, std::string>::iterator begin() { return m_variables.begin(); }
     std::map<std::string, std::string>::iterator end()   { return m_variables.end(); }
@@ -227,6 +229,7 @@ namespace ToolFramework{
     
   };
   
-}
+} // end ToolFramework namespace
+  
 
 #endif
